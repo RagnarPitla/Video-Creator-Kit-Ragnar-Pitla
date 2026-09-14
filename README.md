@@ -200,6 +200,7 @@ Full detail in `docs/verification-gates.md`.
 | `docs/ghosted-ui-and-the-qc-reel.md` | When a film puts real product recordings on screen. How half-erased interface happens, and the half-res QC reel that replaces full renders while iterating |
 | `docs/episode-template-ailabs-explainer.md` | Scripting an `ailabs-explainer` episode. Beat sheet with word budgets from measured chapter proportions |
 | `docs/registry.md` | Before building anything. Every video engine, skill and voice asset, with paths |
+| `docs/kit-internals.md` | The previous agent-facing README. Style specs and project notes kept for reference |
 
 ## Worked examples
 
