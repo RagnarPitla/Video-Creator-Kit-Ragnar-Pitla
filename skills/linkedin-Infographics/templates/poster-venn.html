@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-venn</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* VENN - three overlapping sets and the thing that only exists in the middle.
+     Use when the payload is "you need all three", and name the pairwise
+     overlaps: the two-out-of-three failure modes are the most quotable part of
+     the poster. Circles use multiply blending so the overlaps colour
+     themselves rather than being faked with extra shapes. */
+  .frame { display: flex; flex-direction: column; gap: 10px; }
+  .vz { flex: 1; min-height: 0; position: relative; }
+  /* GEOMETRY IS COMPUTED, NOT EYEBALLED. r = 210, box 690x540.
+     A centre (210,210)  B centre (480,210)  C centre (345,330).
+     Half-height of the A-and-B lens = sqrt(r^2 - 135^2) = 160.9, so the lens runs
+     y = 49..371 and the part of it OUTSIDE C is only y = 49..120. Its width there is
+     2*sqrt(r^2 - (210-y)^2) - 270, i.e. 72px at y=88 and 88px at y=100. A label wider
+     than that crosses the arcs - which is exactly how the previous 104px .lAB broke.
+     Lens labels sit at the pair midpoint pushed away from the third circle.
+     If you move a circle, recompute these; do not nudge them.                       */
+  .vw { position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+        width: 690px; height: 540px; }
+  .cir { position: absolute; width: 420px; height: 420px; border-radius: 50%;
+         mix-blend-mode: multiply; display: flex; align-items: center;
+         justify-content: center; }
+  .cir b { font-size: 20px; font-weight: 900; letter-spacing: -.02em; text-align: center;
+           line-height: 1.1; }
+  .vA { left: 0;    top: 0;    background: var(--a1b); border: 2.5px solid var(--a1); }
+  .vA b { color: var(--a1); transform: translate(-93px, -93px); }
+  .vB { right: 0;   top: 0;    background: var(--a4b); border: 2.5px solid var(--a4); }
+  .vB b { color: var(--a4); transform: translate(93px, -93px); }
+  .vC { left: 135px; bottom: 0; background: var(--a5b); border: 2.5px solid var(--a5); }
+  .vC b { color: var(--a5); transform: translateY(142px); }
+  .lens { position: absolute; z-index: 4; text-align: center; width: 104px;
+          font-size: 10.5px; font-weight: 800; line-height: 1.18; }
+  .lens u { display: block; text-decoration: none; font-size: 12.5px; font-weight: 900; }
+  /* the A-and-B lens is the narrow one; it gets a narrower box and shorter copy */
+  .lAB { left: 310px; top: 88px;  width: 70px;  color: var(--ink-2); }
+  .lAC { left: 182px; top: 325px; width: 104px; color: var(--ink-2); }
+  .lBC { left: 404px; top: 325px; width: 104px; color: var(--ink-2); }
+  .core { position: absolute; left: 275px; top: 227px; width: 140px; z-index: 6;
+          text-align: center; background: var(--paper); border: 2px solid var(--ink);
+          border-radius: var(--r-sm); padding: 6px 5px; line-height: 1.2; }
+  .core b { display: block; font-size: 16px; font-weight: 900; letter-spacing: -.02em; }
+  /* block, not inline: an inline span cannot shrink the line box below the parent
+     strut, so its line-height was ignored and the two lines sat far apart */
+  .core span { display: block; font-size: 10.5px; line-height: 1.2; color: var(--ink-2); }
+  /* 1:1 SVG (viewBox matches width/height exactly) so no axis is distorted.
+     It outlines the all-three region, which is the claim the poster is making, and
+     is the only motion inside the diagram - without it the middle band measured
+     0.0% and the venn was the one static poster in the family.                     */
+  .vsvg { position: absolute; left: 0; top: 0; width: 690px; height: 540px;
+          z-index: 3; pointer-events: none; overflow: visible; }
+  .vsvg .wire { vector-effect: non-scaling-stroke; }
+  .side { position: absolute; width: 196px; z-index: 7; padding: 7px 9px;
+          display: flex; flex-direction: column; gap: 1px; }
+  .side .t { font-size: 12px; font-weight: 900; }
+  .side .d { font-size: 10px; line-height: 1.3; color: var(--ink-2); }
+  .p-tl { left: 0; top: 1%; }  .p-tr { right: 0; top: 1%; }
+  .p-bl { left: 0; bottom: 1%; } .p-br { right: 0; bottom: 1%; }
+  .fails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; flex: none; }
+  .fails .card { padding: 8px 9px; text-align: left; align-items: flex-start; }
+  .fails .ct { font-size: 13px; } .fails .cd { font-size: 10.5px; text-align: left; }
+  .mets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-paper">
+
+  <div class="head">
+    <div class="title">Why Most Agent Projects <span class="k">Stall</span></div>
+    <div class="sub">Three things have to be true at once. <span class="k">Two out of three is a pilot.</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="vz">
+        <div class="vw">
+          <div class="cir vA"><b>Clean<br>data</b></div>
+          <div class="cir vB"><b>Written<br>rules</b></div>
+          <div class="cir vC"><b>A named<br>owner</b></div>
+          <!-- The three vertices of the all-three region are the pairwise circle
+               intersections that fall inside the third circle. Each boundary arc has
+               r = 210 and sweeps clockwise: V1->V2 rides circle C, V2->V3 circle A,
+               V3->V1 circle B. Recompute if a circle moves. -->
+          <svg class="vsvg" viewBox="0 0 690 540">
+            <path class="wire acc dash" fill="none"
+                  d="M286.5 128.3 A210 210 0 0 1 403.5 128.3
+                     A210 210 0 0 1 345 370.9
+                     A210 210 0 0 1 286.5 128.3 Z"/>
+            <circle class="joint tick"    cx="286.5" cy="128.3" r="9"/>
+            <circle class="joint tick p3" cx="403.5" cy="128.3" r="9"/>
+            <circle class="joint tick p5" cx="345"   cy="370.9" r="9"/>
+          </svg>
+          <div class="lens lAB"><u>Accurate</u>no owner</div>
+          <div class="lens lAC"><u>Trusted</u>but erratic</div>
+          <div class="lens lBC"><u>Consistent</u>and wrong</div>
+          <div class="core"><b>Operable</b><span>The only overlap a controller signs</span></div>
+        </div>
+
+        <div class="box side p-tl fam-1">
+          <div class="t">Clean data</div>
+          <div class="d">A freshness SLA and one source of truth. Not "we have a warehouse".</div>
+        </div>
+        <div class="box side p-tr fam-4">
+          <div class="t">Written rules</div>
+          <div class="d">Tolerances and thresholds in rows, versioned, readable by finance.</div>
+        </div>
+        <div class="box side p-bl fam-5">
+          <div class="t">A named owner</div>
+          <div class="d">A person, not a team. They carry the pager and the quarterly review.</div>
+        </div>
+        <div class="box side p-br fam-3">
+          <div class="t">The stall</div>
+          <div class="d">Programmes rarely die of bad models. They die two-out-of-three, quietly.</div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M20 118 H 980"/><path class="wire soft" d="M20 882 H 980"/>
+          <path class="wire acc dash"    d="M20 118 H 980"/>
+          <path class="wire acc dash p5" d="M20 882 H 980"/>
+          <circle class="joint" cx="216" cy="118" r="8"/><circle class="joint" cx="784" cy="118" r="8"/>
+          <circle class="joint" cx="216" cy="882" r="8"/><circle class="joint" cx="784" cy="882" r="8"/>
+          <circle class="joint" cx="500" cy="118" r="7"/><circle class="joint" cx="500" cy="882" r="7"/>
+        </svg>
+      </div>
+
+      <div class="fails">
+        <div class="card fam-1"><div class="ct">Missing rules</div><div class="cd">Right answer, different every quarter. Nobody can defend it in an audit.</div></div>
+        <div class="card fam-4"><div class="ct">Missing data</div><div class="cd">Perfect logic over a stale vendor record. Consistent and confidently wrong.</div></div>
+        <div class="card fam-5"><div class="ct">Missing owner</div><div class="cd">It works, and when it drifts there is nobody whose week gets worse.</div></div>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>3</b><span>conditions, all required</span></div>
+        <div class="met fam-4"><b>2/3</b><span>is still a pilot</span></div>
+        <div class="met fam-5"><b>1</b><span>owner, by name</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>Which circle is missing on your programme? &mdash; <span class="hi">it is usually the third</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

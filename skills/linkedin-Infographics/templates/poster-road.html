@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-road</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* ROAD - a serpentine numbered path. Use for a journey with a real sequence
+     where the steps are uneven in weight and a straight column would imply they
+     are peers. The boustrophedon (left-to-right, then right-to-left) is what
+     buys the horizontal room; the connector elbows are the whole visual, so
+     they get the motion and everything else stays put. */
+  .frame { display: flex; flex-direction: column; gap: 10px; }
+  .road { flex: 1; min-height: 0; position: relative; display: flex;
+          flex-direction: column; gap: 11px; }
+  .lane { display: grid; gap: 11px; flex: 1; min-height: 0; }
+  .l2 { grid-template-columns: 1fr 1fr; }
+  .stop { position: relative; padding: 9px 11px 9px 46px; display: flex;
+          flex-direction: column; gap: 2px; justify-content: center; }
+  .stop .n { position: absolute; left: 9px; top: 9px; width: 28px; height: 28px;
+             border-radius: 8px; background: var(--l); color: #fff; font-size: 14px;
+             font-weight: 900; display: flex; align-items: center; justify-content: center; }
+  .stop .t { font-size: 14px; font-weight: 900; letter-spacing: -.02em; }
+  .stop .d { font-size: 10.5px; line-height: 1.3; color: var(--ink-2); }
+  .stop .w { font-size: 9.5px; font-weight: 800; text-transform: uppercase;
+             letter-spacing: .05em; color: var(--l); margin-top: 1px; }
+  .stop .g { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px; }
+  .stop .g .chip { font-size: 9.5px; padding: 1px 6px; }
+  .warn { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; flex: none; }
+  .warn .card { padding: 8px 10px; text-align: left; align-items: flex-start; }
+  .warn .ct { font-size: 12.5px; } .warn .cd { font-size: 10.5px; text-align: left; }
+  .mets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-warm">
+
+  <div class="head">
+    <div class="title">The First <span class="k">90 Days</span> of an Agent Programme</div>
+    <div class="sub">Six stops, in order. <span class="k">Skipping one costs you two.</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="road">
+        <div class="lane l2">
+          <div class="box stop fam-1">
+            <div class="n">1</div>
+            <div class="t">Pick a job nobody enjoys</div>
+            <div class="d">High volume, low judgement, already documented. If people fight over who does it, that is your candidate.</div>
+            <div class="w">days 1&ndash;5</div>
+            <div class="g"><span class="chip tint">volume &gt; 200/wk</span><span class="chip tint">has a written SOP</span></div>
+          </div>
+          <div class="box stop fam-2">
+            <div class="n">2</div>
+            <div class="t">Write the rules down first</div>
+            <div class="d">Before any model. If the rule cannot survive being written as a row, the agent was never the hard part.</div>
+            <div class="w">days 6&ndash;20</div>
+            <div class="g"><span class="chip tint">policy rows</span><span class="chip tint">named owner</span></div>
+          </div>
+        </div>
+        <div class="lane l2">
+          <div class="box stop fam-4">
+            <div class="n">4</div>
+            <div class="t">Shadow for two weeks</div>
+            <div class="d">It answers, nobody acts. You are buying an agreement number, and it is the cheapest number you will ever buy.</div>
+            <div class="w">days 36&ndash;50</div>
+            <div class="g"><span class="chip tint">agreement &gt; 90%</span><span class="chip tint">no actions taken</span></div>
+          </div>
+          <div class="box stop fam-3">
+            <div class="n">3</div>
+            <div class="t">Build the golden set</div>
+            <div class="d">Fifty real cases with known answers, half of them awkward. This is the artefact that outlives the model.</div>
+            <div class="w">days 21&ndash;35</div>
+            <div class="g"><span class="chip tint">50 cases</span><span class="chip tint">runs on merge</span></div>
+          </div>
+        </div>
+        <div class="lane l2">
+          <div class="box stop fam-5">
+            <div class="n">5</div>
+            <div class="t">Draft, human commits</div>
+            <div class="d">Every rejection is labelled data you did not pay for. Track why, not just how many.</div>
+            <div class="w">days 51&ndash;75</div>
+            <div class="g"><span class="chip tint">reason on reject</span><span class="chip tint">weekly review</span></div>
+          </div>
+          <div class="box stop fam-6">
+            <div class="n">6</div>
+            <div class="t">Open one narrow band</div>
+            <div class="d">Small, reversible, boring cases go alone. Widen by value, never by adding a second job.</div>
+            <div class="w">days 76&ndash;90</div>
+            <div class="g"><span class="chip tint">value ceiling</span><span class="chip tint">reversible only</span></div>
+          </div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M500 25 V 320"/><path class="wire soft" d="M500 355 V 650"/>
+          <path class="wire soft" d="M500 685 V 975"/>
+          <path class="wire soft" d="M978 290 V 385"/><path class="wire soft" d="M22 620 V 715"/>
+          <path class="wire acc dash"    d="M500 25 V 320"/>
+          <path class="wire acc dash p3" d="M978 290 V 385"/>
+          <path class="wire acc dash p5" d="M500 355 V 650"/>
+          <path class="wire acc dash p7" d="M22 620 V 715"/>
+          <path class="wire acc dash p2" d="M500 685 V 975"/>
+          <circle class="joint" cx="500" cy="168" r="8"/><circle class="joint" cx="978" cy="385" r="8"/>
+          <circle class="joint" cx="500" cy="500" r="8"/><circle class="joint" cx="22"  cy="715" r="8"/>
+          <circle class="joint" cx="500" cy="832" r="8"/>
+        </svg>
+      </div>
+
+      <div class="warn">
+        <div class="card fam-3"><div class="ct">The common skip</div><div class="cd">Teams jump from stop 2 to stop 5 because the demo looked ready. Without the golden set there is no way to tell a good week from a lucky one.</div></div>
+        <div class="card fam-6"><div class="ct">The quiet failure</div><div class="cd">Stop 6 widens by scope instead of by value. A second job doubles the surface and halves the attention.</div></div>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>90</b><span>days, six stops</span></div>
+        <div class="met fam-3"><b>50</b><span>cases in the golden set</span></div>
+        <div class="met fam-4"><b>2 wks</b><span>shadowing, minimum</span></div>
+        <div class="met fam-6"><b>1</b><span>job, widened by value</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>Stop three is the one everyone skips &mdash; <span class="hi">and the one that pays for the rest</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

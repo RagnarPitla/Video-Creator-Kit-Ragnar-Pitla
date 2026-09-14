@@ -1,0 +1,69 @@
+<!doctype html>
+<!-- VARIANT: Stack -- numbered cards descending, connectors drawing between them.
+     Motion carries the sequence: card lands, its connector draws, next card lands.
+     Best for: a process, a pipeline, "the N steps to X". -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+  :root { --loop: 6s; }
+  h1 { position: absolute; left: 60px; top: 68px; width: 900px; }
+  .card { position: absolute; left: 60px; width: 960px; height: 148px; }
+  .c1 { top: 300px } .c2 { top: 460px } .c3 { top: 620px }
+  .c4 { top: 780px } .c5 { top: 940px }
+  .card h2 { padding-right: 120px; }
+  .node { position: absolute; right: 26px; top: 34px; }
+  .pills { position: absolute; left: 60px; top: 1120px; width: 700px; }
+</style></head>
+<body><div class="stage">
+
+  <svg class="wires" width="1080" height="1350">
+    <path class="draw-2" style="--len:98" d="M65 396 L65 494" fill="none"
+          stroke="rgba(255,255,255,.42)" stroke-width="4" stroke-dasharray="9 7"/>
+    <path class="draw-3" style="--len:98" d="M65 556 L65 654" fill="none"
+          stroke="rgba(255,255,255,.42)" stroke-width="4" stroke-dasharray="9 7"/>
+    <path class="draw-4" style="--len:98" d="M65 716 L65 814" fill="none"
+          stroke="rgba(255,255,255,.42)" stroke-width="4" stroke-dasharray="9 7"/>
+    <path class="draw-5" style="--len:98" d="M65 876 L65 974" fill="none"
+          stroke="rgba(255,255,255,.42)" stroke-width="4" stroke-dasharray="9 7"/>
+  </svg>
+
+  <h1 class="anim-sweep">Five steps to put an agent inside your ERP</h1>
+
+  <div class="card c1 rise-1">
+    <div class="step-num pop-1">1</div>
+    <h2>Ground it in your data</h2>
+    <p>Point the agent at the tables that already decide the answer.</p>
+    <div class="node pop-1">DB</div>
+  </div>
+  <div class="card c2 rise-2">
+    <div class="step-num pop-2">2</div>
+    <h2>Write the policy down</h2>
+    <p>Rules live in a table the business owns, not in a prompt.</p>
+    <div class="node pop-2">POL</div>
+  </div>
+  <div class="card c3 rise-3">
+    <div class="step-num pop-3">3</div>
+    <h2>Give it real actions</h2>
+    <p>Read is a demo. Write is a product.</p>
+    <div class="node pop-3 glow-3">ACT</div>
+  </div>
+  <div class="card c4 rise-4">
+    <div class="step-num pop-4">4</div>
+    <h2>Gate the blast radius</h2>
+    <p>Anything irreversible waits for a human to approve it.</p>
+    <div class="node pop-4">GATE</div>
+  </div>
+  <div class="card c5 rise-5">
+    <div class="step-num pop-5">5</div>
+    <h2>Keep the receipts</h2>
+    <p>Every decision leaves an audit trail you can replay.</p>
+    <div class="node pop-5">LOG</div>
+  </div>
+
+  <div class="pills rise-6">
+    <span class="pill">Grounded</span><span class="pill">Governed</span>
+    <span class="pill">Auditable</span><span class="pill">Shippable</span>
+  </div>
+
+  <div class="attrib rise-7"><b>Ragnar Pitla</b>Agentic ERP<br>@RagnarPitla</div>
+</div></body></html>

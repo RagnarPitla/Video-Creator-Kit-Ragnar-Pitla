@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- VARIANT: Ambient -- every word is on screen at every instant. Nothing enters,
+     nothing exits. The motion is decoration only: a scan line, breathing node
+     borders, orbiting accent dots, a shimmer across the headline.
+     Best for: the feed. A viewer lands mid-loop and can read the whole thing
+     immediately, which no sequential variant can promise.
+     RULE: text elements carry NO animation class. Motion goes on the chrome. -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+  :root { --loop: 6s; }
+  h1 { position: absolute; left: 60px; top: 68px; width: 900px; }
+  .card { position: absolute; left: 60px; width: 960px; height: 148px; }
+  .c1 { top: 300px } .c2 { top: 460px } .c3 { top: 620px }
+  .c4 { top: 780px } .c5 { top: 940px }
+  .card h2 { padding-right: 120px; }
+  .node { position: absolute; right: 26px; top: 34px; }
+  .pills { position: absolute; left: 60px; top: 1120px; width: 700px; }
+  .rail { position: absolute; left: 65px; top: 334px; width: 3px; height: 672px;
+          background: repeating-linear-gradient(180deg,
+            rgba(255,255,255,.30) 0 8px, transparent 8px 16px); }
+  .halo { position: absolute; width: 520px; height: 520px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(139,92,246,.20), transparent 66%);
+          left: 620px; top: -120px; }
+</style></head>
+<body><div class="stage">
+
+  <div class="halo amb-drift"></div>
+  <div class="scanline amb-scan"></div>
+  <div class="rail"></div>
+
+  <!-- accent dots orbiting the badge column, continuous, no seam -->
+  <div class="dot amb-orbit" style="offset-path:path('M65 340 L65 1006 L65 340')"></div>
+  <div class="dot amb-orbit" style="offset-path:path('M1010 1006 L1010 340 L1010 1006')"></div>
+
+  <h1 class="amb-shimmer">Five steps to put an agent inside your ERP</h1>
+
+  <div class="card c1 pulse-1">
+    <div class="step-num">1</div>
+    <h2>Ground it in your data</h2>
+    <p>Point the agent at the tables that already decide the answer.</p>
+    <div class="node">DB</div>
+  </div>
+  <div class="card c2 pulse-2">
+    <div class="step-num">2</div>
+    <h2>Write the policy down</h2>
+    <p>Rules live in a table the business owns, not in a prompt.</p>
+    <div class="node">POL</div>
+  </div>
+  <div class="card c3 pulse-3">
+    <div class="step-num">3</div>
+    <h2>Give it real actions</h2>
+    <p>Read is a demo. Write is a product.</p>
+    <div class="node">ACT</div>
+  </div>
+  <div class="card c4 pulse-4">
+    <div class="step-num">4</div>
+    <h2>Gate the blast radius</h2>
+    <p>Anything irreversible waits for a human to approve it.</p>
+    <div class="node">GATE</div>
+  </div>
+  <div class="card c5 pulse-5">
+    <div class="step-num">5</div>
+    <h2>Keep the receipts</h2>
+    <p>Every decision leaves an audit trail you can replay.</p>
+    <div class="node">LOG</div>
+  </div>
+
+  <div class="pills">
+    <span class="pill">Grounded</span><span class="pill">Governed</span>
+    <span class="pill">Auditable</span><span class="pill">Shippable</span>
+  </div>
+
+  <div class="attrib"><b>Ragnar Pitla</b>Agentic ERP<br>@RagnarPitla</div>
+</div></body></html>

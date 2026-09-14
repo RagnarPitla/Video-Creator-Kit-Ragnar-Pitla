@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-spine</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* SPINE - a centre process with annotation gutters either side.
+     Use when there is one sequence and the value is the commentary hanging off
+     each step. The gutters are what stop it reading as a plain flowchart. */
+  .frame { display: flex; flex-direction: column; gap: 8px; }
+  .spine { display: grid; grid-template-columns: 236px 1fr 236px; gap: 18px;
+           flex: 1; min-height: 0; position: relative; }
+  .gut { display: flex; flex-direction: column; gap: 7px; }
+  .gut .box { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .note { font-size: 11.5px; line-height: 1.32; color: var(--ink-2); }
+  .note b { display: block; font-size: 12.5px; color: var(--l); margin-bottom: 1px; }
+  .stepcol { display: flex; flex-direction: column; gap: 7px; }
+  .step { flex: 1; }
+  .step .ph { font-size: 15.5px; padding: 5px 8px; }
+  .step .pb { padding: 6px 9px; gap: 5px; justify-content: center; }
+  .step .rd { font-size: 12.5px; }
+  .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tags .chip { font-size: 10.5px; padding: 1px 7px; }
+  .strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; flex: none; }
+  .strip .card { padding: 7px 6px; gap: 1px; }
+  .strip .ct { font-size: 14px; }
+  .strip .cd { font-size: 10.5px; }
+  .mets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 8px; }
+</style>
+</head>
+<body>
+<div class="stage t-paper">
+
+  <div class="head">
+    <div class="title">Stop <span class="k">Guessing</span>. Start <span class="k">Measuring</span>.</div>
+    <div class="sub">What separates a demo agent from one you can <span class="k">put on call</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="spine">
+        <div class="gut">
+          <div class="box fam-1"><div class="note"><b>Where does it start?</b>An agent with no declared entry point picks one for you, and picks differently tomorrow.</div></div>
+          <div class="box fam-4"><div class="note"><b>How far does it reach?</b>One hop or three. Most teams never decide, so the retriever decides.</div></div>
+          <div class="box fam-5"><div class="note"><b>What tells it to stop?</b>With no stopping rule the loop ends when the budget does.</div></div>
+          <div class="box fam-3"><div class="note"><b>Who reads the trace?</b>If only the author can follow it, it is not a trace. It is a log.</div></div>
+          <div class="box fam-6"><div class="note"><b>What happens on failure?</b>Undefined is an answer, and it is the one you get at 2am.</div></div>
+        </div>
+
+        <div class="stepcol">
+          <div class="panel step fam-1 solid">
+            <div class="ph sweep">1 &nbsp;Declare the entry</div>
+            <div class="pb">
+              <div class="rd">Name the one place a request may begin. Everything downstream is reachable from it, or it is dead code.</div>
+              <div class="tags"><span class="chip tint">single door</span><span class="chip tint">typed input</span><span class="chip tint">auth at the edge</span></div>
+            </div>
+          </div>
+          <div class="panel step fam-4 solid">
+            <div class="ph sweep p3">2 &nbsp;Bound the traversal</div>
+            <div class="pb">
+              <div class="rd">Depth, breadth and permitted edges, written down. A bigger context window does not fix an unbounded walk. It makes being wrong more expensive.</div>
+              <div class="tags"><span class="chip tint">max depth</span><span class="chip tint">edge allowlist</span><span class="chip tint">token ceiling</span></div>
+            </div>
+          </div>
+          <div class="panel step fam-5 solid">
+            <div class="ph sweep p5">3 &nbsp;State the stop condition</div>
+            <div class="pb">
+              <div class="rd">Answer found, budget spent, or confidence below floor. Pick one, make it observable, and alert when it changes.</div>
+              <div class="tags"><span class="chip tint">confidence floor</span><span class="chip tint">step cap</span><span class="chip tint">timeout</span></div>
+            </div>
+          </div>
+          <div class="panel step fam-3 solid">
+            <div class="ph sweep p7">4 &nbsp;Emit the trace</div>
+            <div class="pb">
+              <div class="rd">The path taken, not just the answer. A result you cannot replay is a result you cannot defend in a review.</div>
+              <div class="tags"><span class="chip tint">decision log</span><span class="chip tint">tool calls</span><span class="chip tint">inputs hashed</span></div>
+            </div>
+          </div>
+          <div class="panel step fam-6 solid">
+            <div class="ph sweep p2">5 &nbsp;Define the fallback</div>
+            <div class="pb">
+              <div class="rd">What it does when it cannot answer. Silence and a confident guess are both failures; only one of them is visible.</div>
+              <div class="tags"><span class="chip tint">escalate</span><span class="chip tint">abstain</span><span class="chip tint">human handoff</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gut">
+          <div class="box fam-3"><div class="note"><b>Certified path</b>A smaller declared path beats a large accidental one every time.</div></div>
+          <div class="box fam-6"><div class="note"><b>Permissions travel</b>The agent knows what it may do before it acts, not after.</div></div>
+          <div class="box fam-2"><div class="note"><b>Replay is the test</b>If you cannot re-run the decision, you are not debugging. You are guessing.</div></div>
+          <div class="box fam-1"><div class="note"><b>Cost is a signal</b>A step that got expensive usually got wrong first.</div></div>
+          <div class="box fam-4"><div class="note"><b>Abstaining ships</b>"I do not know" is a valid, testable output.</div></div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire dash"    d="M244 100 H 262"/>
+          <path class="wire dash p3" d="M244 300 H 262"/>
+          <path class="wire dash p5" d="M244 500 H 262"/>
+          <path class="wire dash p7" d="M244 700 H 262"/>
+          <path class="wire dash p2" d="M244 900 H 262"/>
+          <path class="wire dash p2" d="M738 100 H 756"/>
+          <path class="wire dash p4" d="M738 300 H 756"/>
+          <path class="wire dash p6" d="M738 500 H 756"/>
+          <path class="wire dash p8" d="M738 700 H 756"/>
+          <path class="wire dash p1" d="M738 900 H 756"/>
+          <circle class="joint" cx="262" cy="100" r="6"/><circle class="joint" cx="262" cy="300" r="6"/>
+          <circle class="joint" cx="262" cy="500" r="6"/><circle class="joint" cx="262" cy="700" r="6"/>
+          <circle class="joint" cx="262" cy="900" r="6"/>
+          <circle class="joint" cx="756" cy="100" r="6"/><circle class="joint" cx="756" cy="300" r="6"/>
+          <circle class="joint" cx="756" cy="500" r="6"/><circle class="joint" cx="756" cy="700" r="6"/>
+          <circle class="joint" cx="756" cy="900" r="6"/>
+        </svg>
+      </div>
+
+      <div class="strip">
+        <div class="card fam-1"><div class="ct">Entry</div><div class="cd">One declared way in</div></div>
+        <div class="card fam-4"><div class="ct">Bounds</div><div class="cd">Depth written down</div></div>
+        <div class="card fam-5"><div class="ct">Stop</div><div class="cd">A rule, not a budget</div></div>
+        <div class="card fam-3"><div class="ct">Trace</div><div class="cd">Replayable by others</div></div>
+        <div class="card fam-6"><div class="ct">Fallback</div><div class="cd">Defined, not implied</div></div>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>1</b><span>declared entry point</span></div>
+        <div class="met fam-4"><b>3</b><span>max hops, enforced</span></div>
+        <div class="met fam-5"><b>0.62</b><span>confidence floor</span></div>
+        <div class="met fam-3"><b>100%</b><span>decisions replayable</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>Building agents you can actually put on call &mdash; <span class="hi">follow for the working notes</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

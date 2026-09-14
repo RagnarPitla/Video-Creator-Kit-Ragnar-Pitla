@@ -1,0 +1,591 @@
+/* base.css - design system for animated LinkedIn infographic GIFs.
+   Every animation below runs on the SAME duration (--loop) and repeats infinitely,
+   so the renderer can scrub all of them to one shared timeline.
+
+   Stagger with the INDEX CLASSES (.rise-1..8, .pop-1..8, .draw-1..8, .flow-1..8,
+   .glow-1..8, .fill-1..8). Never use animation-delay and never override
+   animation-duration on an element. See the note above the primitives below. */
+
+:root {
+  --loop: 6s;
+
+  /* default palette: deep navy + amber. Override in the page for other themes. */
+  --bg-0: #0a0620;
+  --bg-1: #150c33;
+  --card: rgba(255, 255, 255, 0.045);
+  --card-line: rgba(255, 255, 255, 0.10);
+  --ink: #ffffff;
+  --ink-dim: #b9b4d0;
+  --accent: #ff8a3d;
+  --accent-2: #8b5cf6;
+  --pill: rgba(255, 138, 61, 0.16);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 1080px;
+  height: 1350px;
+  overflow: hidden;
+  background: radial-gradient(120% 80% at 50% 0%, var(--bg-1) 0%, var(--bg-0) 62%);
+  color: var(--ink);
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { padding: 64px 60px; height: 100%; display: flex; flex-direction: column;
+        position: relative; }
+
+/* Deterministic canvas. Children are placed at absolute pixel coordinates, so the
+   layout cannot reflow between frames and SVG connector maths stays exact. */
+.stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+.at { position: absolute; }
+
+h1 {
+  font-size: 74px;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  font-weight: 800;
+  margin-bottom: 44px;
+}
+
+.card {
+  position: relative;
+  border: 1px solid var(--card-line);
+  border-radius: 26px;
+  background: var(--card);
+  padding: 30px 34px;
+}
+
+.step-num {
+  position: absolute; left: -26px; top: 34px;
+  width: 62px; height: 62px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 30px; font-weight: 800;
+  background: linear-gradient(140deg, var(--accent-2), var(--accent));
+  color: #fff;
+}
+
+.card h2 { font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1.12; }
+.card p  { font-size: 25px; color: var(--ink-dim); line-height: 1.34; margin-top: 10px; }
+.bullet  { font-size: 23px; color: var(--ink); margin-top: 12px; }
+
+.node {
+  width: 78px; height: 78px; border-radius: 22px;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--card-line);
+  font-size: 30px; font-weight: 700;
+}
+.node-label { font-size: 18px; color: var(--ink-dim); text-align: center; margin-top: 8px; }
+
+.pill {
+  display: inline-block; padding: 9px 18px; border-radius: 999px;
+  background: var(--pill); color: var(--accent);
+  font-size: 21px; font-weight: 600; margin: 8px 8px 0 0;
+}
+
+/* ---------- animation primitives ----------
+
+   ONE SHARED TIMELINE. Every animation runs for var(--loop), repeats forever, and
+   EXITS TOGETHER at 92-100%. Stagger the ENTRANCE by picking an index class
+   (.rise-1..8, .pop-1..8, .draw-1..8, .flow-1..8, .glow-1..8, .fill-1..8),
+   never with animation-delay.
+
+   Why: animation-delay shifts the whole cycle, so delayed elements also exit late and
+   the loop dissolves into random blinking. Index classes shift only the entrance.
+*/
+
+.anim-rise, .anim-pop, .anim-glow, .anim-sweep, .anim-draw, .anim-fill, .anim-flow,
+[class*="rise-"], [class*="pop-"], [class*="draw-"], [class*="flow-"],
+[class*="glow-"], [class*="fill-"] {
+  animation-duration: var(--loop);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+.anim-glow { animation-name: glow1; }
+
+.anim-sweep {
+  animation-name: sweep;
+  background: linear-gradient(100deg, var(--ink) 38%, var(--accent) 50%, var(--ink) 62%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+@keyframes sweep {
+  0%   { background-position: 160% 0; }
+  50%  { background-position: -60% 0; }
+  100% { background-position: -60% 0; }
+}
+
+/* SVG connector that draws itself. Set --len to the path length. */
+.anim-draw { animation-name: draw1; stroke-dasharray: var(--len, 400); }
+
+/* dot travelling a path via offset-path */
+.anim-flow { animation-name: flow1; }
+
+/* progress bar */
+.anim-fill { animation-name: fill1; transform-origin: left center; }
+
+.rise-1 { animation-name: rise1; }
+@keyframes rise1 {
+  0%, 3%   { opacity: 0; transform: translateY(26px); }
+  9%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-1 { animation-name: pop1; }
+@keyframes pop1 {
+  0%, 3%   { opacity: 0; transform: scale(.72); }
+  6.6%  { opacity: 1; transform: scale(1.08); }
+  9%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+.rise-2 { animation-name: rise2; }
+@keyframes rise2 {
+  0%, 9%   { opacity: 0; transform: translateY(26px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-2 { animation-name: pop2; }
+@keyframes pop2 {
+  0%, 9%   { opacity: 0; transform: scale(.72); }
+  12.6%  { opacity: 1; transform: scale(1.08); }
+  15%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+.rise-3 { animation-name: rise3; }
+@keyframes rise3 {
+  0%, 15%   { opacity: 0; transform: translateY(26px); }
+  21%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-3 { animation-name: pop3; }
+@keyframes pop3 {
+  0%, 15%   { opacity: 0; transform: scale(.72); }
+  18.6%  { opacity: 1; transform: scale(1.08); }
+  21%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+.rise-4 { animation-name: rise4; }
+@keyframes rise4 {
+  0%, 21%   { opacity: 0; transform: translateY(26px); }
+  27%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-4 { animation-name: pop4; }
+@keyframes pop4 {
+  0%, 21%   { opacity: 0; transform: scale(.72); }
+  24.6%  { opacity: 1; transform: scale(1.08); }
+  27%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+.rise-5 { animation-name: rise5; }
+@keyframes rise5 {
+  0%, 27%   { opacity: 0; transform: translateY(26px); }
+  33%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-5 { animation-name: pop5; }
+@keyframes pop5 {
+  0%, 27%   { opacity: 0; transform: scale(.72); }
+  30.6%  { opacity: 1; transform: scale(1.08); }
+  33%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+.rise-6 { animation-name: rise6; }
+@keyframes rise6 {
+  0%, 33%   { opacity: 0; transform: translateY(26px); }
+  39%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-6 { animation-name: pop6; }
+@keyframes pop6 {
+  0%, 33%   { opacity: 0; transform: scale(.72); }
+  36.6%  { opacity: 1; transform: scale(1.08); }
+  39%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+.rise-7 { animation-name: rise7; }
+@keyframes rise7 {
+  0%, 39%   { opacity: 0; transform: translateY(26px); }
+  45%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-7 { animation-name: pop7; }
+@keyframes pop7 {
+  0%, 39%   { opacity: 0; transform: scale(.72); }
+  42.6%  { opacity: 1; transform: scale(1.08); }
+  45%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+.rise-8 { animation-name: rise8; }
+@keyframes rise8 {
+  0%, 45%   { opacity: 0; transform: translateY(26px); }
+  51%  { opacity: 1; transform: translateY(0); }
+  92% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.pop-8 { animation-name: pop8; }
+@keyframes pop8 {
+  0%, 45%   { opacity: 0; transform: scale(.72); }
+  48.6%  { opacity: 1; transform: scale(1.08); }
+  51%  { opacity: 1; transform: scale(1); }
+  92% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.9); }
+}
+
+/* un-staggered aliases = index 1 */
+.anim-rise { animation-name: rise1; }
+.anim-pop  { animation-name: pop1; }
+
+/* ---------- indexed variants for connectors, dots, glows and bars ----------
+   Same index convention as .rise-N / .pop-N, so a connector, its travelling dot
+   and its glow all land in step with the card they belong to. Give a connector
+   the index of the card it leads TO. */
+
+.draw-1 { animation-name: draw1; stroke-dasharray: var(--len, 400); }
+@keyframes draw1 {
+  0%, 3% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  13%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-1 { animation-name: flow1; }
+@keyframes flow1 {
+  0%, 13%   { offset-distance: 0%;   opacity: 0; }
+  15%       { offset-distance: 8%;   opacity: 1; }
+  27%      { offset-distance: 100%; opacity: 1; }
+  31%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-1 { animation-name: glow1; }
+@keyframes glow1 {
+  0%, 9% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  50.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-1 { animation-name: fill1; transform-origin: left center; }
+@keyframes fill1 {
+  0%, 3% { transform: scaleX(0); opacity: 1; }
+  19%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+.draw-2 { animation-name: draw2; stroke-dasharray: var(--len, 400); }
+@keyframes draw2 {
+  0%, 9% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  19%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-2 { animation-name: flow2; }
+@keyframes flow2 {
+  0%, 19%   { offset-distance: 0%;   opacity: 0; }
+  21%       { offset-distance: 8%;   opacity: 1; }
+  33%      { offset-distance: 100%; opacity: 1; }
+  37%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-2 { animation-name: glow2; }
+@keyframes glow2 {
+  0%, 15% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  53.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-2 { animation-name: fill2; transform-origin: left center; }
+@keyframes fill2 {
+  0%, 9% { transform: scaleX(0); opacity: 1; }
+  25%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+.draw-3 { animation-name: draw3; stroke-dasharray: var(--len, 400); }
+@keyframes draw3 {
+  0%, 15% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  25%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-3 { animation-name: flow3; }
+@keyframes flow3 {
+  0%, 25%   { offset-distance: 0%;   opacity: 0; }
+  27%       { offset-distance: 8%;   opacity: 1; }
+  39%      { offset-distance: 100%; opacity: 1; }
+  43%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-3 { animation-name: glow3; }
+@keyframes glow3 {
+  0%, 21% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  56.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-3 { animation-name: fill3; transform-origin: left center; }
+@keyframes fill3 {
+  0%, 15% { transform: scaleX(0); opacity: 1; }
+  31%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+.draw-4 { animation-name: draw4; stroke-dasharray: var(--len, 400); }
+@keyframes draw4 {
+  0%, 21% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  31%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-4 { animation-name: flow4; }
+@keyframes flow4 {
+  0%, 31%   { offset-distance: 0%;   opacity: 0; }
+  33%       { offset-distance: 8%;   opacity: 1; }
+  45%      { offset-distance: 100%; opacity: 1; }
+  49%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-4 { animation-name: glow4; }
+@keyframes glow4 {
+  0%, 27% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  59.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-4 { animation-name: fill4; transform-origin: left center; }
+@keyframes fill4 {
+  0%, 21% { transform: scaleX(0); opacity: 1; }
+  37%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+.draw-5 { animation-name: draw5; stroke-dasharray: var(--len, 400); }
+@keyframes draw5 {
+  0%, 27% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  37%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-5 { animation-name: flow5; }
+@keyframes flow5 {
+  0%, 37%   { offset-distance: 0%;   opacity: 0; }
+  39%       { offset-distance: 8%;   opacity: 1; }
+  51%      { offset-distance: 100%; opacity: 1; }
+  55%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-5 { animation-name: glow5; }
+@keyframes glow5 {
+  0%, 33% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  62.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-5 { animation-name: fill5; transform-origin: left center; }
+@keyframes fill5 {
+  0%, 27% { transform: scaleX(0); opacity: 1; }
+  43%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+.draw-6 { animation-name: draw6; stroke-dasharray: var(--len, 400); }
+@keyframes draw6 {
+  0%, 33% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  43%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-6 { animation-name: flow6; }
+@keyframes flow6 {
+  0%, 43%   { offset-distance: 0%;   opacity: 0; }
+  45%       { offset-distance: 8%;   opacity: 1; }
+  57%      { offset-distance: 100%; opacity: 1; }
+  61%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-6 { animation-name: glow6; }
+@keyframes glow6 {
+  0%, 39% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  65.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-6 { animation-name: fill6; transform-origin: left center; }
+@keyframes fill6 {
+  0%, 33% { transform: scaleX(0); opacity: 1; }
+  49%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+.draw-7 { animation-name: draw7; stroke-dasharray: var(--len, 400); }
+@keyframes draw7 {
+  0%, 39% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  49%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-7 { animation-name: flow7; }
+@keyframes flow7 {
+  0%, 49%   { offset-distance: 0%;   opacity: 0; }
+  51%       { offset-distance: 8%;   opacity: 1; }
+  63%      { offset-distance: 100%; opacity: 1; }
+  67%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-7 { animation-name: glow7; }
+@keyframes glow7 {
+  0%, 45% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  68.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-7 { animation-name: fill7; transform-origin: left center; }
+@keyframes fill7 {
+  0%, 39% { transform: scaleX(0); opacity: 1; }
+  55%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+.draw-8 { animation-name: draw8; stroke-dasharray: var(--len, 400); }
+@keyframes draw8 {
+  0%, 45% { stroke-dashoffset: var(--len, 400); opacity: 1; }
+  55%   { stroke-dashoffset: 0; opacity: 1; }
+  92%           { stroke-dashoffset: 0; opacity: 1; }
+  100%          { stroke-dashoffset: 0; opacity: 0; }
+}
+.flow-8 { animation-name: flow8; }
+@keyframes flow8 {
+  0%, 55%   { offset-distance: 0%;   opacity: 0; }
+  57%       { offset-distance: 8%;   opacity: 1; }
+  69%      { offset-distance: 100%; opacity: 1; }
+  73%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.glow-8 { animation-name: glow8; }
+@keyframes glow8 {
+  0%, 51% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  71.5%  { box-shadow: 0 0 34px 4px rgba(255,138,61,.55); }
+  92%, 100%     { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+}
+.fill-8 { animation-name: fill8; transform-origin: left center; }
+@keyframes fill8 {
+  0%, 45% { transform: scaleX(0); opacity: 1; }
+  61%  { transform: scaleX(1); opacity: 1; }
+  92%           { transform: scaleX(1); opacity: 1; }
+  100%          { transform: scaleX(1); opacity: 0; }
+}
+
+/* ---------- ambient primitives (for the Ambient variant) ----------
+
+   Everything above ENTERS and EXITS: good when motion carries a sequence, wrong
+   when you want the copy readable at every instant. These do not enter or exit.
+   Frame 0% and frame 100% are IDENTICAL, so they loop with no seam and can run
+   under text that never moves.
+
+   Rule for this family: leave the text with no animation class at all, and put
+   the motion on the decoration around it. */
+
+.amb-glow, .amb-drift, .amb-shimmer, .amb-scan, .amb-spin, .amb-orbit,
+[class*="pulse-"] {
+  animation-duration: var(--loop);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+.amb-glow { animation-name: ambGlow; }
+@keyframes ambGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,138,61,0); }
+  50%      { box-shadow: 0 0 34px 4px rgba(255,138,61,.5); }
+}
+
+.amb-drift { animation-name: ambDrift; }
+@keyframes ambDrift {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+.amb-shimmer {
+  animation-name: ambShimmer;
+  background: linear-gradient(100deg, var(--ink) 40%, var(--accent) 50%, var(--ink) 60%);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+@keyframes ambShimmer {
+  0%   { background-position: 150% 0; }
+  100% { background-position: -150% 0; }
+}
+
+/* a light bar sweeping down the frame, re-entering from the top */
+.amb-scan { animation-name: ambScan; }
+@keyframes ambScan {
+  0%   { transform: translateY(-120px); opacity: 0; }
+  12%  { opacity: .9; }
+  88%  { opacity: .9; }
+  100% { transform: translateY(1400px); opacity: 0; }
+}
+
+.amb-spin { animation-name: ambSpin; }
+@keyframes ambSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* dot running a closed offset-path forever */
+.amb-orbit { animation-name: ambOrbit; }
+@keyframes ambOrbit {
+  0%   { offset-distance: 0%; }
+  100% { offset-distance: 100%; }
+}
+
+/* staggered breathing. Same index convention as .rise-N, but each one returns to
+   its start state, so nothing blinks and the copy underneath stays put. */
+.pulse-1 { animation-name: pulse1; }
+@keyframes pulse1 {
+  0%, 100% { transform: scale(1);    border-color: var(--card-line); }
+  8%       { transform: scale(1.06); border-color: var(--accent); }
+  22%      { transform: scale(1);    border-color: var(--card-line); }
+}
+.pulse-2 { animation-name: pulse2; }
+@keyframes pulse2 {
+  0%, 100% { transform: scale(1);    border-color: var(--card-line); }
+  22%      { transform: scale(1.06); border-color: var(--accent); }
+  36%      { transform: scale(1);    border-color: var(--card-line); }
+}
+.pulse-3 { animation-name: pulse3; }
+@keyframes pulse3 {
+  0%, 100% { transform: scale(1);    border-color: var(--card-line); }
+  36%      { transform: scale(1.06); border-color: var(--accent); }
+  50%      { transform: scale(1);    border-color: var(--card-line); }
+}
+.pulse-4 { animation-name: pulse4; }
+@keyframes pulse4 {
+  0%, 100% { transform: scale(1);    border-color: var(--card-line); }
+  50%      { transform: scale(1.06); border-color: var(--accent); }
+  64%      { transform: scale(1);    border-color: var(--card-line); }
+}
+.pulse-5 { animation-name: pulse5; }
+@keyframes pulse5 {
+  0%, 100% { transform: scale(1);    border-color: var(--card-line); }
+  64%      { transform: scale(1.06); border-color: var(--accent); }
+  78%      { transform: scale(1);    border-color: var(--card-line); }
+}
+.pulse-6 { animation-name: pulse6; }
+@keyframes pulse6 {
+  0%, 100% { transform: scale(1);    border-color: var(--card-line); }
+  78%      { transform: scale(1.06); border-color: var(--accent); }
+  92%      { transform: scale(1);    border-color: var(--card-line); }
+}
+
+/* small static helpers the templates lean on */
+.wires { position: absolute; inset: 0; pointer-events: none; }
+.dot { position: absolute; width: 13px; height: 13px; border-radius: 50%;
+       background: var(--accent); box-shadow: 0 0 14px 2px rgba(255,138,61,.7); }
+.scanline { position: absolute; left: 0; right: 0; top: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: .9; }
+.attrib { position: absolute; right: 60px; bottom: 46px; text-align: right;
+          font-size: 20px; color: var(--ink-dim); line-height: 1.35; }
+.attrib b { display: block; color: var(--ink); font-size: 23px; font-weight: 700; }

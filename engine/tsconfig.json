@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "lib": ["es2020", "dom"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "baseUrl": ".",
+    // The component library lives at ../shared/brand/ailabs-explainer so it stays
+    // portable, which means its files import `react` and `remotion` from a directory
+    // with no node_modules above it. These mappings point that resolution back at
+    // the engine's own install. @types first, so `react` picks up its declarations
+    // rather than the untyped JS. @remotion/google-fonts needs its own entry because
+    // a `paths` hit bypasses the package's `exports` map and has to name dist/cjs.
+    // The webpack half of the same problem lives in webpack-override.ts.
+    "paths": {
+      "@remotion/google-fonts/*": ["./node_modules/@remotion/google-fonts/dist/cjs/*"],
+      "*": ["./node_modules/@types/*", "./node_modules/*", "*"]
+    }
+  },
+  "include": ["src", "../shared/brand/ailabs-explainer"],
+  "exclude": ["remotion.config.ts", "bundler-override.ts"]
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-columns</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* COLUMNS - a side-by-side comparison of 2-4 approaches.
+     Use when the argument is "these are the options and here is the trade".
+     The shared row labels down the left are what make it a comparison rather
+     than three unrelated lists. Wires run along the shared rows, not down the
+     columns, because the eye compares horizontally. */
+  .frame { display: flex; flex-direction: column; gap: 9px; }
+  .cmp { display: grid; grid-template-columns: 118px repeat(3, 1fr); gap: 9px;
+         flex: 1; min-height: 0; position: relative; }
+  .lab { display: flex; flex-direction: column; gap: 7px; padding-top: 46px; }
+  .lab .lb { flex: 1; display: flex; align-items: center; justify-content: flex-end;
+             text-align: right; font-size: 11px; font-weight: 800; line-height: 1.2;
+             color: var(--ink-3); text-transform: uppercase; letter-spacing: .04em; }
+  .cl { display: flex; flex-direction: column; gap: 7px; }
+  .cap { height: 39px; flex: none; display: flex; flex-direction: column;
+         align-items: center; justify-content: center; border-radius: var(--r-md);
+         color: #fff; gap: 0; background: var(--l); }
+  .cap b { font-size: 15px; letter-spacing: -.01em; }
+  .cap span { font-size: 9.5px; opacity: .82; font-weight: 700; letter-spacing: .05em;
+              text-transform: uppercase; }
+  .cell { flex: 1; display: flex; flex-direction: column; justify-content: center;
+          gap: 3px; padding: 7px 9px; }
+  .cell .v { font-size: 17px; font-weight: 900; letter-spacing: -.02em; }
+  .cell .t { font-size: 11px; line-height: 1.3; color: var(--ink-2); }
+  .verdict { display: grid; grid-template-columns: 118px repeat(3, 1fr); gap: 9px; flex: none; }
+  .verdict .lb { display: flex; align-items: center; justify-content: flex-end;
+                 font-size: 11px; font-weight: 800; color: var(--ink-3);
+                 text-transform: uppercase; letter-spacing: .04em; }
+  .vd { padding: 8px 9px; text-align: center; }
+  .vd b { display: block; font-size: 13px; margin-bottom: 1px; }
+  .vd span { font-size: 10.5px; color: var(--ink-2); line-height: 1.25; }
+  .mets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-ink">
+
+  <div class="head">
+    <div class="title">Three Ways to Ship an <span class="k">Agent</span></div>
+    <div class="sub">Same demo on Monday. <span class="k">Very different Thursday.</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="cmp">
+        <div class="lab">
+          <div class="lb">Time to first demo</div>
+          <div class="lb">Who can change it</div>
+          <div class="lb">Failure mode</div>
+          <div class="lb">Audit trail</div>
+          <div class="lb">Cost at 10x load</div>
+        </div>
+
+        <div class="cl">
+          <div class="cap fam-1"><b>Prompt only</b><span>the weekend build</span></div>
+          <div class="box cell fam-1"><div class="v">2 hours</div><div class="t">One prompt, one model, ship it.</div></div>
+          <div class="box cell fam-1"><div class="v">Anyone</div><div class="t">Which is the problem, not the feature.</div></div>
+          <div class="box cell fam-1"><div class="v">Silent</div><div class="t">Confidently wrong, no signal.</div></div>
+          <div class="box cell fam-1"><div class="v">None</div><div class="t">The reasoning left with the response.</div></div>
+          <div class="box cell fam-1"><div class="v">Linear</div><div class="t">Every call pays full price again.</div></div>
+        </div>
+
+        <div class="cl">
+          <div class="cap fam-4"><b>Orchestrated</b><span>tools + router</span></div>
+          <div class="box cell fam-4"><div class="v">2 weeks</div><div class="t">Router, tools, retries, evals.</div></div>
+          <div class="box cell fam-4"><div class="v">One team</div><div class="t">Changes go through review.</div></div>
+          <div class="box cell fam-4"><div class="v">Loud</div><div class="t">A step fails and says so.</div></div>
+          <div class="box cell fam-4"><div class="v">Partial</div><div class="t">Tool calls logged, decisions not.</div></div>
+          <div class="box cell fam-4"><div class="v">Sub-linear</div><div class="t">Cache and route around the model.</div></div>
+        </div>
+
+        <div class="cl">
+          <div class="cap fam-5"><b>Policy-driven</b><span>rules in data</span></div>
+          <div class="box cell fam-5"><div class="v">3 weeks</div><div class="t">Slowest start, and it stops being the bottleneck.</div></div>
+          <div class="box cell fam-5"><div class="v">The business</div><div class="t">Edit a row, not a prompt.</div></div>
+          <div class="box cell fam-5"><div class="v">Refused</div><div class="t">Out of policy is a first-class answer.</div></div>
+          <div class="box cell fam-5"><div class="v">Complete</div><div class="t">Which rule fired, and why.</div></div>
+          <div class="box cell fam-5"><div class="v">Flat</div><div class="t">Most requests never reach a model.</div></div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M420 40 V 960"/><path class="wire soft" d="M712 40 V 960"/>
+          <path class="wire acc dash"    d="M420 40 V 960"/>
+          <path class="wire acc dash p4" d="M712 40 V 960"/>
+          <circle class="joint" cx="420" cy="195" r="8"/><circle class="joint" cx="712" cy="195" r="8"/>
+          <circle class="joint" cx="420" cy="355" r="8"/><circle class="joint" cx="712" cy="355" r="8"/>
+          <circle class="joint" cx="420" cy="515" r="8"/><circle class="joint" cx="712" cy="515" r="8"/>
+          <circle class="joint" cx="420" cy="675" r="8"/><circle class="joint" cx="712" cy="675" r="8"/>
+          <circle class="joint" cx="420" cy="835" r="8"/><circle class="joint" cx="712" cy="835" r="8"/>
+        </svg>
+      </div>
+
+      <div class="verdict">
+        <div class="lb">Verdict</div>
+        <div class="box vd tint fam-1"><b>Prototype</b><span>Great for proving the idea. Never for proving the system.</span></div>
+        <div class="box vd tint fam-4"><b>Production</b><span>Works, until the rules live in six people's heads.</span></div>
+        <div class="box vd tint fam-5"><b>Operable</b><span>The only one a controller will sign off.</span></div>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>3 wks</b><span>to the version that lasts</span></div>
+        <div class="met fam-4"><b>1 row</b><span>to change a business rule</span></div>
+        <div class="met fam-5"><b>0</b><span>prompts edited in production</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>The third column is the boring one &mdash; <span class="hi">it is also the one still running</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

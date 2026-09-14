@@ -1,0 +1,53 @@
+/* stage: t-ink flow */
+  /* ==== GRADIENT / MODERN FLOW SKIN ====================================
+     Identical content and structure to v1. Only the surface changes: a dark
+     gradient mesh ground, gradient-filled headers, glass panels. The white
+     .lg logo tiles were already correct for this - the colour marks are drawn
+     for a neutral ground, and they read brightest against dark glass. */
+
+  .stage.flow {
+    background:
+      radial-gradient(56% 40% at 12% 4%,  rgba(16,185,129,.34), transparent 66%),
+      radial-gradient(54% 40% at 90% 10%, rgba(139,92,246,.36),  transparent 66%),
+      radial-gradient(58% 42% at 80% 74%, rgba(6,182,212,.30),   transparent 66%),
+      radial-gradient(52% 36% at 10% 92%, rgba(52,211,153,.24),  transparent 66%),
+      #04100f;
+    border-color: #1b2236;
+  }
+
+  /* the control plane is the only element allowed to glow */
+  .flow .plane {
+    background: linear-gradient(118deg, #065f46 0%, #0d9488 44%, #7c3aed 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.16),
+                0 20px 52px -18px rgba(20,184,166,.8);
+  }
+  .flow .plane .cap { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.26); }
+
+  /* glass bodies, gradient heads */
+  .flow .fam { background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.11); }
+  .flow .fam > .fh { color: #fff; }
+  .flow .fam-1 > .fh { background: linear-gradient(135deg,#2563eb,#4f46e5); }
+  .flow .fam-5 > .fh { background: linear-gradient(135deg,#7c3aed,#c026d3); }
+  .flow .fam-3 > .fh { background: linear-gradient(135deg,#047857,#10b981); }
+  .flow .fam-6 > .fh { background: linear-gradient(135deg,#0e7490,#06b6d4); }
+  .flow .it { background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.10); }
+  .flow .src { border-top-color: rgba(255,255,255,.14); }
+
+  .flow .dyn { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.13); }
+  .flow .dyn .dl { background: linear-gradient(160deg,#7e22ce,#c026d3 60%,#e879f9); color:#fff; }
+  .flow .ds { background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.11); }
+  .flow .ds > b { border-bottom-color: rgba(255,255,255,.16); }
+
+  .flow .ext  { background: rgba(255,255,255,.04); }
+  .flow .prot { background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.13); }
+  .flow .zc   { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.11); }
+
+  /* the closing strip carries the same gradient as the plane, so the poster
+     opens and closes on the same note */
+  .flow .cta { background: linear-gradient(100deg,#065f46,#0d9488 50%,#7c3aed); color:#fff; }
+  .flow .cta .hi { color: #ffd24a; }
+  .flow .cta .av { background: #ffd24a; color: #1b1400; }
+
+  /* the pink panel's body copy sat at .92 on a mid-pink gradient; lift it */
+  .flow .dyn .dl > span { opacity: 1; }
+  .flow .dyn .dl .cat { opacity: 1; border-top-color: rgba(255,255,255,.42); }

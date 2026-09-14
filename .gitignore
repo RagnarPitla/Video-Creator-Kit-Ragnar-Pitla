@@ -1,0 +1,44 @@
+# Dependencies - run `npm install` in engine/ or templates/ioae-episode/
+node_modules/
+
+# Remotion build and render output - regenerate, never commit
+**/out/
+**/build/
+**/renders/
+.remotion/
+
+# Rendered media. The kit ships the code that makes these, not the files.
+# A 2GB clone is a kit nobody installs.
+*.mp4
+*.mov
+*.webm
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+
+# Large reference stills and contact sheets
+references/ailabs-unlazy/stills/
+references/unlazy-repo/
+skills/linkedin-Infographics/examples/
+
+# In-flight productions. These are Ragnar's episodes, not kit material.
+# Worked examples that teach the pattern live in docs/ and projects/hack-2026-products/.
+projects/agent-self-verification/
+projects/hack-2026-agentworks/
+projects/jam-studio/episodes/*/audio/
+projects/jam-studio/episodes/*/out/
+
+# Local machine noise
+.DS_Store
+*.log
+.env
+.env.*
+__pycache__/
+*.pyc
+.venv/
+
+# Own git repos - referenced in the README, not vendored here.
+# Embedding them would ship a gitlink that clones to an empty folder.
+projects/jam-studio/

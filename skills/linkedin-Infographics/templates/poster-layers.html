@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-layers</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* LAYERS - a horizontal stack, top to bottom, with a slot rail on each layer.
+     Use for an architecture where each tier sits ON the one below and the
+     interesting content is what plugs into each tier. Reads instantly as a
+     stack, which is why it beats a boxes-and-arrows diagram for a feed where
+     nobody zooms. Motion is one descending pulse down the left seam. */
+  .frame { display: flex; flex-direction: column; gap: 9px; }
+  .stack { flex: 1; min-height: 0; position: relative; display: flex;
+           flex-direction: column; gap: 8px; padding-left: 54px; }
+  .ly { flex: 1; display: grid; grid-template-columns: 214px 1fr; gap: 10px;
+        border-radius: var(--r-md); padding: 9px 11px; background: var(--b);
+        border: 1.5px solid var(--h, var(--edge)); }
+  .lid { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+  .lid .tag { font-size: 9px; font-weight: 900; letter-spacing: .09em;
+              text-transform: uppercase; color: var(--l); }
+  .lid .nm2 { font-size: 16px; font-weight: 900; letter-spacing: -.025em; line-height: 1.05; }
+  .lid .ds { font-size: 10px; line-height: 1.28; color: var(--ink-2); }
+  .slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .slot { background: var(--chip-bg); border: 1.5px solid var(--h, var(--edge));
+          border-radius: var(--r-sm); padding: 5px 7px; display: flex;
+          flex-direction: column; gap: 1px; justify-content: center; }
+  .slot b { font-size: 11px; font-weight: 900; color: var(--ink); letter-spacing: -.01em; }
+  .slot span { font-size: 9px; line-height: 1.2; color: var(--ink-3); }
+  .note2 { display: flex; align-items: center; gap: 10px; flex: none;
+           padding: 9px 12px; border-radius: var(--r-md); }
+  .note2 b { font-size: 11.5px; font-weight: 900; text-transform: uppercase;
+             letter-spacing: .05em; color: var(--l); white-space: nowrap; }
+  .note2 span { font-size: 12px; line-height: 1.3; }
+  .mets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-ink">
+
+  <div class="head">
+    <div class="title">The <span class="k">Agentic ERP</span> Stack</div>
+    <div class="sub">Five tiers. <span class="k">The model is the thinnest one.</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="stack">
+        <div class="ly fam-1">
+          <div class="lid"><div class="tag">Layer 5</div><div class="nm2">Experience</div>
+            <div class="ds">Where the human meets it. If they have to learn a new place to go, they will not go.</div></div>
+          <div class="slots">
+            <div class="slot fam-1"><b>In the ERP</b><span>Not a side chat window</span></div>
+            <div class="slot fam-1"><b>In Teams</b><span>Where approvals already live</span></div>
+            <div class="slot fam-1"><b>In email</b><span>For the people who never left</span></div>
+            <div class="slot fam-1"><b>Scheduled</b><span>No human present at all</span></div>
+          </div>
+        </div>
+        <div class="ly fam-4">
+          <div class="lid"><div class="tag">Layer 4</div><div class="nm2">Orchestration</div>
+            <div class="ds">Routing, retries and handoff. One parent, several narrow children, no giant agent.</div></div>
+          <div class="slots">
+            <div class="slot fam-4"><b>Router</b><span>Description-based, not keyword</span></div>
+            <div class="slot fam-4"><b>Child agents</b><span>One job each, testable alone</span></div>
+            <div class="slot fam-4"><b>Handoff</b><span>Escalates with the reason attached</span></div>
+            <div class="slot fam-4"><b>Retry</b><span>Bounded, and it says it retried</span></div>
+          </div>
+        </div>
+        <div class="ly fam-5">
+          <div class="lid"><div class="tag">Layer 3</div><div class="nm2">Policy</div>
+            <div class="ds">The rules, in rows, owned by the business. This is the layer that makes the rest auditable.</div></div>
+          <div class="slots">
+            <div class="slot fam-5"><b>Tolerances</b><span>Versioned, with an author</span></div>
+            <div class="slot fam-5"><b>Authority</b><span>Who may commit what, and up to what</span></div>
+            <div class="slot fam-5"><b>Refusal rules</b><span>When to abstain instead of guess</span></div>
+            <div class="slot fam-5"><b>Audit</b><span>Which rule fired on every answer</span></div>
+          </div>
+        </div>
+        <div class="ly fam-3">
+          <div class="lid"><div class="tag">Layer 2</div><div class="nm2">Access</div>
+            <div class="ds">Typed tools over the ERP. Read is generous, write is narrow and logged both ways.</div></div>
+          <div class="slots">
+            <div class="slot fam-3"><b>MCP tools</b><span>Typed in, typed out</span></div>
+            <div class="slot fam-3"><b>Read scope</b><span>Broad, cheap, cached</span></div>
+            <div class="slot fam-3"><b>Write scope</b><span>Narrow, approved, reversible</span></div>
+            <div class="slot fam-3"><b>Identity</b><span>Acts as someone, not as root</span></div>
+          </div>
+        </div>
+        <div class="ly fam-6">
+          <div class="lid"><div class="tag">Layer 1</div><div class="nm2">Ground truth</div>
+            <div class="ds">The records themselves, with a freshness guarantee. Everything above inherits this layer's mistakes.</div></div>
+          <div class="slots">
+            <div class="slot fam-6"><b>Master data</b><span>One source, dated</span></div>
+            <div class="slot fam-6"><b>Transactions</b><span>The ledger, not a copy of it</span></div>
+            <div class="slot fam-6"><b>Documents</b><span>Chunked with their metadata</span></div>
+            <div class="slot fam-6"><b>Freshness SLA</b><span>A number, not a hope</span></div>
+          </div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M20 25 V 975"/>
+          <path class="wire acc dash" d="M20 25 V 975"/>
+          <path class="wire thin dash"    d="M20 110 H 52"/>
+          <path class="wire thin dash p3" d="M20 305 H 52"/>
+          <path class="wire thin dash p5" d="M20 500 H 52"/>
+          <path class="wire thin dash p7" d="M20 695 H 52"/>
+          <path class="wire thin dash p2" d="M20 890 H 52"/>
+          <circle class="joint" cx="20" cy="110" r="7"/><circle class="joint" cx="20" cy="305" r="7"/>
+          <circle class="joint" cx="20" cy="500" r="7"/><circle class="joint" cx="20" cy="695" r="7"/>
+          <circle class="joint" cx="20" cy="890" r="7"/>
+          <circle class="spark" r="9" style="offset-path: path('M20 25 V 975')"/>
+        </svg>
+      </div>
+
+      <div class="box note2 tint fam-5">
+        <b>Read it upward</b>
+        <span>Nobody buys layer one, and every failure in layers two to five is really a layer one problem wearing a costume.</span>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>5</b><span>tiers, bottom up</span></div>
+        <div class="met fam-4"><b>1</b><span>parent, N narrow children</span></div>
+        <div class="met fam-5"><b>0</b><span>business rules in prompts</span></div>
+        <div class="met fam-6"><b>1</b><span>freshness number that matters</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>The model is not on this diagram &mdash; <span class="hi">that is the point</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

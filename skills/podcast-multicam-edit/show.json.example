@@ -1,0 +1,24 @@
+{
+  "_comment": "Copy next to the footage as show.json. Every script reads this.",
+
+  "brand": "IN OUR AI ERA",
+  "title": "RUNNING AI ON YOUR OWN MACHINE (SCOUT LOCAL)",
+  "footer_left": "F1 HELP  F2 MODELS  F3 GGUF  F10 QUIT",
+  "footer_right": "SCOUT LOCAL",
+  "bar_color": "#0b3a8f",
+
+  "_hosts": "Order matters. hosts[0] is SOLO_A and the left tile; hosts[1] is SOLO_B and the right tile. key is used in filenames and in speech.json.",
+  "hosts": [
+    { "key": "rag",  "name": "RAGNAR", "file": "Ragnar-1.mp4",           "color": "#F5A623" },
+    { "key": "tina", "name": "TINA",   "file": "Tina van Heerden-1.mp4", "color": "#FF6BD6" }
+  ],
+
+  "screen": "Ragnar's screen-1.mp4",
+
+  "_anim": "Optional animated title/section cards. anim_crop strips the animation's own chrome so it does not fight the frame chrome - MEASURE it, do not copy this value.",
+  "anim": "anim.mp4",
+  "anim_crop": "1920:926:0:82",
+
+  "_duration": "Episode length in seconds. analyze.py prints it.",
+  "duration": 1808.1
+}

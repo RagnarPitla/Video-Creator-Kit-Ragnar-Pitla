@@ -1,0 +1,25 @@
+{
+  "outputDir": "~/Documents/YouTube Notes",
+  "provider": "auto",
+  "model": "",
+  "summaryStyle": "ragnar",
+  "language": "en",
+  "includeTimestamps": true,
+  "includeTranscript": true,
+  "concurrency": 2,
+  "maxRetries": 3,
+  "whisperFallback": false,
+  "whisperModel": "base",
+  "providerOrder": ["anthropic-api", "claude", "copilot", "codex", "extractive"],
+  "summaryPromptOverride": "",
+  "_comments": {
+    "outputDir": "Where notes are written. ~ expands to your home dir. Notes are grouped into per-channel folders.",
+    "provider": "auto | anthropic-api | claude | copilot | codex | extractive. 'auto' picks the first available from providerOrder.",
+    "model": "Optional model override passed to the provider CLI/API. Empty = provider default.",
+    "summaryStyle": "ragnar | executive | detailed | bullets | study. Controls the note template + voice.",
+    "includeTranscript": "Append the full cleaned transcript at the bottom of each note.",
+    "concurrency": "How many videos to process in parallel. Keep low (1-3) to avoid YouTube rate limits.",
+    "whisperFallback": "If true and a video has no captions, download audio and transcribe with Whisper (requires openai-whisper installed).",
+    "extractive": "Pure-JS no-LLM fallback summary so you always get a usable note even with no CLI/API."
+  }
+}

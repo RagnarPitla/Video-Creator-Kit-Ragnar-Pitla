@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-quad</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* QUAD - a numbered card grid. The workhorse. Use when the payload is a list
+     of N peers with no ordering dependency between them. The big ghost number
+     is what stops six equal cards reading as wallpaper; it gives the eye a
+     path. Wires trace that path corner to corner so the loop reinforces the
+     reading order rather than fighting it. */
+  .frame { display: flex; flex-direction: column; gap: 9px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr;
+          gap: 9px; flex: 1; min-height: 0; position: relative; }
+  .qc { position: relative; overflow: hidden; padding: 11px 12px 10px;
+        display: flex; flex-direction: column; gap: 5px; }
+  .ghost { position: absolute; right: -6px; bottom: -34px; font-size: 152px; color: var(--l);
+           font-weight: 900; line-height: 1; opacity: .1; letter-spacing: -.06em; }
+  .qh { display: flex; align-items: center; gap: 7px; }
+  .qh .ic { background: var(--l); }
+  .qw { font-size: 10.5px; line-height: 1.3; font-style: italic; color: var(--ink-3);
+        border-left: 2.5px solid var(--l); padding-left: 7px; position: relative; }
+  .qs { margin-top: auto; display: flex; align-items: baseline; gap: 6px; position: relative;
+        border-top: 1.5px dashed var(--dash); padding-top: 5px; margin-top: 5px; }
+  .qs b { font-size: 19px; font-weight: 900; letter-spacing: -.03em; color: var(--l); }
+  .qs span { font-size: 10.5px; line-height: 1.2; color: var(--ink-3); }
+  .qt { font-size: 15.5px; font-weight: 900; letter-spacing: -.02em; line-height: 1.1; }
+  .qd { font-size: 11.5px; line-height: 1.34; color: var(--ink-2); position: relative; }
+  .qf { display: flex; gap: 4px; flex-wrap: wrap; position: relative; }
+  .qf .chip { font-size: 10px; padding: 1px 6px; }
+  .bar { display: flex; align-items: center; gap: 9px; flex: none;
+         padding: 9px 12px; border-radius: var(--r-md); }
+  .bar .bl { font-size: 12px; font-weight: 800; text-transform: uppercase;
+             letter-spacing: .05em; color: var(--ink-3); white-space: nowrap; }
+  .bar .bt { font-size: 13px; line-height: 1.3; }
+  .mets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-warm">
+
+  <div class="head">
+    <div class="title">Six Things That Break <span class="k">Agents in ERP</span></div>
+    <div class="sub">None of them are the model. <span class="k">All of them are the plumbing.</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="grid">
+        <div class="box qc fam-1">
+          <div class="ghost">1</div>
+          <div class="qh"><span class="ic sm">&#9679;</span><div class="qt">Stale master data</div></div>
+          <div class="qd">The agent is right about a vendor record that stopped being true in March. Nobody notices until the payment run.</div>
+          <div class="qw">&ldquo;Why did it pay the old bank details?&rdquo;</div>
+          <div class="qs"><b>73%</b><span>of pilots hit this first</span></div>
+          <div class="qf"><span class="chip tint">freshness SLA</span><span class="chip tint">source of truth</span></div>
+        </div>
+        <div class="box qc fam-2">
+          <div class="ghost">2</div>
+          <div class="qh"><span class="ic sm">&#9679;</span><div class="qt">No write boundary</div></div>
+          <div class="qd">Read access gets approved quickly. Write access gets approved by the same meeting, and now a draft can post a journal.</div>
+          <div class="qw">&ldquo;Who approved the agent to post that?&rdquo;</div>
+          <div class="qs"><b>1 in 4</b><span>write scopes are too broad</span></div>
+          <div class="qf"><span class="chip tint">read by default</span><span class="chip tint">write on approval</span></div>
+        </div>
+        <div class="box qc fam-3">
+          <div class="ghost">3</div>
+          <div class="qh"><span class="ic sm">&#9679;</span><div class="qt">Rules live in prompts</div></div>
+          <div class="qd">A three-way match tolerance sits in a paragraph of English. Finance cannot change it and cannot audit it.</div>
+          <div class="qw">&ldquo;Where is the 2% tolerance written down?&rdquo;</div>
+          <div class="qs"><b>6 wks</b><span>average time to find it</span></div>
+          <div class="qf"><span class="chip tint">policy table</span><span class="chip tint">versioned</span></div>
+        </div>
+        <div class="box qc fam-4">
+          <div class="ghost">4</div>
+          <div class="qh"><span class="ic sm">&#9679;</span><div class="qt">One giant agent</div></div>
+          <div class="qd">Twelve responsibilities, one instruction file. Every change risks the other eleven, so eventually nobody changes it.</div>
+          <div class="qw">&ldquo;We are scared to touch the instructions.&rdquo;</div>
+          <div class="qs"><b>12</b><span>responsibilities, one file</span></div>
+          <div class="qf"><span class="chip tint">one job each</span><span class="chip tint">routed parent</span></div>
+        </div>
+        <div class="box qc fam-5">
+          <div class="ghost">5</div>
+          <div class="qh"><span class="ic sm">&#9679;</span><div class="qt">Success is a vibe</div></div>
+          <div class="qd">"It seems better" is the entire eval suite. There is no number to regress against, so there is no way to say it got worse.</div>
+          <div class="qw">&ldquo;It feels better than last month, I think.&rdquo;</div>
+          <div class="qs"><b>0</b><span>numbers to regress against</span></div>
+          <div class="qf"><span class="chip tint">golden set</span><span class="chip tint">run on merge</span></div>
+        </div>
+        <div class="box qc fam-6">
+          <div class="ghost">6</div>
+          <div class="qh"><span class="ic sm">&#9679;</span><div class="qt">No human in the loop</div></div>
+          <div class="qd">Full autonomy on day one. The first wrong answer costs more than the whole project saved, and trust does not come back.</div>
+          <div class="qw">&ldquo;It was right 99 times. The 100th cost us.&rdquo;</div>
+          <div class="qs"><b>2 wks</b><span>to earn the first threshold</span></div>
+          <div class="qf"><span class="chip tint">approve first</span><span class="chip tint">earn autonomy</span></div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M332 30 V 970"/><path class="wire soft" d="M668 30 V 970"/>
+          <path class="wire soft" d="M20 500 H 980"/>
+          <path class="wire acc dash"    d="M332 30 V 970"/>
+          <path class="wire acc dash p4" d="M668 30 V 970"/>
+          <path class="wire acc dash p6" d="M20 500 H 980"/>
+          <circle class="joint" cx="332" cy="500" r="9"/><circle class="joint" cx="668" cy="500" r="9"/>
+          <circle class="joint" cx="332" cy="250" r="7"/><circle class="joint" cx="668" cy="250" r="7"/>
+          <circle class="joint" cx="332" cy="750" r="7"/><circle class="joint" cx="668" cy="750" r="7"/>
+        </svg>
+      </div>
+
+      <div class="box bar tint fam-3">
+        <span class="bl">The pattern</span>
+        <span class="bt">Every one of these is a decision someone declined to write down. The model did not fail; the specification never existed.</span>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>6</b><span>failure modes, all preventable</span></div>
+        <div class="met fam-3"><b>0</b><span>caused by model quality</span></div>
+        <div class="met fam-4"><b>1</b><span>job per agent</span></div>
+        <div class="met fam-6"><b>2</b><span>weeks to earn autonomy</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>Which of the six is biting you right now? &mdash; <span class="hi">I write about fixing them</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

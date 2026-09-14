@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-arcs</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* ARCS - concentric bands, innermost first. Use for a maturity model or a
+     containment story, where each layer strictly encloses the one inside it.
+     The nesting IS the argument: you cannot have the outer ring without the
+     inner one. If your layers are independent, this shape lies - use quad. */
+  .frame { display: flex; flex-direction: column; gap: 10px; }
+  .rings { flex: 1; min-height: 0; position: relative; display: flex;
+           align-items: center; justify-content: center; }
+  .ring { position: absolute; border-radius: 50%; display: flex;
+          align-items: flex-start; justify-content: center; }
+  .ring .rl { margin-top: 9px; font-size: 11px; font-weight: 900;
+              text-transform: uppercase; letter-spacing: .07em; }
+  .r1 { width: 176px; height: 176px; background: var(--a1); z-index: 5; align-items: center; }
+  .r1 .rl { margin: 0; color: #fff; font-size: 14px; letter-spacing: .03em; }
+  .r2 { width: 300px; height: 300px; background: var(--a2b); border: 2px solid var(--a2); z-index: 4; }
+  .r2 .rl { color: var(--a2); }
+  .r3 { width: 424px; height: 424px; background: var(--a4b); border: 2px solid var(--a4); z-index: 3; }
+  .r3 .rl { color: var(--a4); }
+  .r4 { width: 548px; height: 548px; background: var(--a5b); border: 2px solid var(--a5); z-index: 2; }
+  .r4 .rl { color: var(--a5); }
+  .r5 { width: 672px; height: 672px; background: var(--a3b); border: 2px dashed var(--a3); z-index: 1; }
+  .r5 .rl { color: var(--a3); }
+  .cal { position: absolute; width: 202px; z-index: 6; padding: 7px 9px;
+         display: flex; flex-direction: column; gap: 1px; }
+  .cal .ct2 { font-size: 12px; font-weight: 900; letter-spacing: -.01em; }
+  .cal .cd2 { font-size: 10px; line-height: 1.28; color: var(--ink-2); }
+  .c1 { left: 0; top: 4%; }  .c2 { right: 0; top: 4%; }
+  .c3 { left: 0; top: 39%; } .c4 { right: 0; top: 39%; }
+  .c5 { left: 0; bottom: 4%; } .c6 { right: 0; bottom: 4%; }
+  .lad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; flex: none; }
+  .lad .card { padding: 7px 5px; gap: 1px; }
+  .lad .ct { font-size: 12.5px; } .lad .cd { font-size: 9.5px; }
+  .mets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-slate">
+
+  <div class="head">
+    <div class="title">You Cannot Skip a <span class="k">Ring</span></div>
+    <div class="sub">Agent autonomy is nested, not a dial. <span class="k">Each layer needs the one inside it.</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="rings">
+        <div class="ring r5"><span class="rl">5 &nbsp;Acts unattended</span></div>
+        <div class="ring r4"><span class="rl">4 &nbsp;Decides</span></div>
+        <div class="ring r3"><span class="rl">3 &nbsp;Recommends</span></div>
+        <div class="ring r2"><span class="rl">2 &nbsp;Explains</span></div>
+        <div class="ring r1"><span class="rl">1 &nbsp;Reads</span></div>
+
+        <div class="box cal c1 fam-1">
+          <div class="ct2">Reads</div>
+          <div class="cd2">Grounded in real data with a freshness guarantee. Everything above is decoration without this.</div>
+        </div>
+        <div class="box cal c2 fam-2">
+          <div class="ct2">Explains</div>
+          <div class="cd2">Cites the record and the rule. A confident summary with no source is a liability, not a feature.</div>
+        </div>
+        <div class="box cal c3 fam-4">
+          <div class="ct2">Recommends</div>
+          <div class="cd2">Proposes an action a human commits. Every rejection is free labelled data.</div>
+        </div>
+        <div class="box cal c4 fam-5">
+          <div class="ct2">Decides</div>
+          <div class="cd2">Commits inside a declared band. Outside it, the agent escalates rather than stretches.</div>
+        </div>
+        <div class="box cal c5 fam-3">
+          <div class="ct2">Acts unattended</div>
+          <div class="cd2">Runs to a schedule with a pager and an owner. The rarest ring, and the one everyone demos first.</div>
+        </div>
+        <div class="box cal c6 fam-6">
+          <div class="ct2">The skip</div>
+          <div class="cd2">Most failed programmes jumped from ring 1 to ring 4 because the demo looked ready.</div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M214 70 V 930"/><path class="wire soft" d="M786 70 V 930"/>
+          <path class="wire acc dash"    d="M214 70 V 930"/>
+          <path class="wire acc dash p4" d="M786 70 V 930"/>
+          <circle class="joint" cx="214" cy="88"  r="8"/><circle class="joint" cx="786" cy="88"  r="8"/>
+          <circle class="joint" cx="214" cy="468" r="9"/><circle class="joint" cx="786" cy="468" r="9"/>
+          <circle class="joint" cx="214" cy="912" r="8"/><circle class="joint" cx="786" cy="912" r="8"/>
+        </svg>
+      </div>
+
+      <div class="lad">
+        <div class="card fam-1"><div class="ct">Ring 1</div><div class="cd">Data you trust</div></div>
+        <div class="card fam-2"><div class="ct">Ring 2</div><div class="cd">Answers you can check</div></div>
+        <div class="card fam-4"><div class="ct">Ring 3</div><div class="cd">Drafts a human commits</div></div>
+        <div class="card fam-5"><div class="ct">Ring 4</div><div class="cd">A band, not a blank cheque</div></div>
+        <div class="card fam-3"><div class="ct">Ring 5</div><div class="cd">A pager and an owner</div></div>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>5</b><span>rings, strictly nested</span></div>
+        <div class="met fam-4"><b>0</b><span>you may skip</span></div>
+        <div class="met fam-5"><b>1</b><span>band per decision type</span></div>
+        <div class="met fam-3"><b>2am</b><span>when ring 5 gets tested</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>Everyone demos ring five &mdash; <span class="hi">the money is in finishing ring two</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

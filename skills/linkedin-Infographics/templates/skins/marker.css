@@ -1,0 +1,133 @@
+/* stage: t-marker marker */
+  /* ==== MARKER SKIN ===================================================
+     Heavy white marker on pure black. Ported from a reference flowchart
+     poster: no fills anywhere, every box a rounded outline, every connector
+     a thick white dash, rounded display type, and the only colour on the
+     page coming from the product marks.
+
+     It is the inverse of the spark skin rather than a variation on it.
+     Spark whispers - hairlines at 1.5px on white. Marker shouts - 2.5px
+     strokes on black and connectors half again as heavy as the base.
+
+     Two loop traps were hit building this, both silent:
+
+     1. `wire-travel` runs stroke-dashoffset 0 -> -120, so the dash period
+        (dash + gap) MUST divide 120 or the pattern jumps at the loop point.
+        18 + 12 = 30, and 120/30 = 4. A chunkier-looking 16 + 12 = 28 does
+        not divide and would tear once every six seconds.
+     2. `xrun` animates background-position by exactly one gradient period.
+        Change the gradient and you must change the keyframe with it, which
+        is why both are redefined here together. */
+
+  .stage.t-marker {
+    --paper: #000000;  --paper-2: #000000; --edge: #ffffff; --dash: #6b6b6b;
+    --ink: #ffffff;    --ink-2: #d4d4d4;   --ink-3: #a3a3a3;
+    --brand: #ffffff;  --spark: #ffffff;   --wire: #ffffff; --wire-2: #ffffff;
+    --bar-bg: #ffffff; --bar-fg: #2b2b2b;  --bar-hi: #000000;
+    --chip-bg: #000000;
+    --a1: #ffffff; --a1h: #ffffff; --a1b: #000000;
+    --a2: #ffffff; --a2h: #ffffff; --a2b: #000000;
+    --a3: #ffffff; --a3h: #ffffff; --a3b: #000000;
+    --a4: #ffffff; --a4h: #ffffff; --a4b: #000000;
+    --a5: #ffffff; --a5h: #ffffff; --a5b: #000000;
+    --a6: #ffffff; --a6h: #ffffff; --a6b: #000000;
+  }
+
+  /* --brand has to stay white or `.title .k` paints the emphasised words of
+     the headline black on black and they vanish silently - "The Microsoft
+     Agent Ecosystem" rendered as "The     Ecosystem" on the first pass.
+     Setting it white is safe here only because the two elements that fill
+     with it, `.plane` and `--bar-bg`, are both given explicit values below
+     and in the theme block. Check that again before reusing this pattern. */
+
+  /* The byline avatar is background:var(--a1h) on color:var(--a1). Flattening
+     the accent triples to a single white makes it white-on-white. */
+  .marker .by .av { background: #fff; color: #000; }
+
+  /* MEASURED, not assumed: `ui-rounded`, "SF Pro Rounded", "SF Compact
+     Rounded" and ".SF NS Rounded" all render at exactly the fallback width in
+     this Chrome, i.e. none of them resolve. Only "Arial Rounded MT Bold"
+     (ships with macOS) and Quicksand do. Re-measure before trusting a font
+     name here: compare its rendered width against a deliberately bogus font
+     name, NOT against system-ui -- the default fallback is a serif, so a
+     non-resolving name still differs from system-ui and reads as a hit.
+
+     Rounded is scoped to display and label chrome only. "Arial Rounded MT
+     Bold" carries a single weight, so applying it at the root collapses the
+     400/500/700/800 hierarchy the dense item lists rely on. */
+  .marker .title,
+  .marker .plane,
+  .marker .fam > .fh,
+  .marker .fsp,
+  .marker .dyn .dl,
+  .marker .xc, .marker .zc,
+  .marker .cta,
+  .marker .by .av { font-family: "Arial Rounded MT Bold", Quicksand,
+                                 ui-rounded, system-ui, sans-serif; }
+
+  /* every box is an outline. Nothing is filled except the closing bar. */
+  .marker .plane { background: #000; color: #fff; border: 3px solid #fff; }
+  .marker .plane .cap { background: #000; border: 2px solid #fff; }
+  .marker .plane .cap span { opacity: 1; color: #d4d4d4; }
+  .marker .plane .pl-sep { background: #fff; opacity: .45; }
+  .marker .plane .pl-id i { opacity: 1; color: #a3a3a3; }
+
+  .marker .fam { border: 2.5px solid #fff; background: #000; }
+  .marker .fam > .fh { background: #000; color: #fff; border-bottom: 2.5px solid #fff; }
+  .marker .fam > .fh span { opacity: 1; color: #a3a3a3; }
+  .marker .fsp { background: #fff; opacity: .5; }
+  .marker .it { background: #000; border: 2px solid #fff; }
+  .marker .it i { color: #a3a3a3; }
+  .marker .it.k { border-left: 5px solid #fff; }
+  .marker .src { color: #a3a3a3; border-top: 2px dashed #6b6b6b; }
+
+  .marker .dyn { border: 3px solid #fff; background: #000; }
+  .marker .dyn .dl { background: #000; color: #fff; border-right: 2.5px solid #fff; }
+  .marker .dyn .dl > span { opacity: 1; color: #d4d4d4; }
+  .marker .dyn .dl .cat { opacity: 1; color: #a3a3a3; border-top: 2px solid #fff; }
+  .marker .ds { background: #000; border: 2px solid #fff; }
+  .marker .ds > b { color: #fff; border-bottom: 2px dashed #6b6b6b; }
+  .marker .ds .li { color: #fff; }
+  .marker .ds .li::before { background: #fff; }
+  .marker .ds .li i, .marker .ds .nt { color: #a3a3a3; }
+  .marker .ext { background: #000; border: 2.5px dashed #fff; }
+  .marker .xc { background: #000; border: 2px solid #fff; }
+  .marker .xc span { color: #a3a3a3; }
+  .marker .prot { background: #000; border: 2.5px solid #fff; }
+  .marker .zc { background: #000; border: 2px solid #fff; }
+
+  /* the connectors are the whole signature of this style, so they carry the
+     weight increase: 5 -> 7.5 on the buses, 3.2 -> 5.5 on the drops. */
+  .marker .wire { stroke: #fff; stroke-width: 7.5; }
+  .marker .wire.thin { stroke: #fff; stroke-width: 5.5; }
+  .marker .wire.soft { stroke: #fff; stroke-width: 5.5; opacity: .3; }
+  .marker .wire.dash { stroke-dasharray: 18 12; }
+  .marker .joint { fill: #fff; }
+
+  .marker .dot { width: 13px; height: 13px; background: #fff; }
+  /* The rail is bottom:0 in a box with overflow:hidden, and the dots are
+     bottom:-4px so they sit half-clipped on the edge. At the base's low
+     accent contrast that reads as a running track under the content. In
+     white on a white border it does not: the rail dashes and the box border
+     merge into a crenellated double line and the half-clipped dots read as
+     printing blobs. Verified by crop, not by eye at full size. So in this
+     skin the rail is inset clear of the border and dropped to grey, and the
+     dots ride its centre line instead of the box edge. */
+  .marker .ext .dot, .marker .prot .dot { bottom: 9px; background: #fff; }
+  .marker .xrail, .marker .zrail {
+    left: 16px; right: 16px; bottom: 12px; height: 5px; border-radius: 3px;
+    background: repeating-linear-gradient(90deg,#7a7a7a 0 16px,transparent 16px 32px); }
+  @keyframes xrun { to { background-position: 32px 0; } }
+
+  /* one inversion, at the end, so the eye has somewhere to stop */
+  .marker .cta { background: #fff; color: #000; }
+
+  /* marks sit straight on the black - every one of the 17 is mid-to-light
+     coloured, so none of them disappears. The white ring already reads on
+     black, so it keeps the default pulse. */
+  .marker .lg { background: none; padding: 0; border-radius: 0; }
+  .marker .plane .lg-xl { width: 42px; height: 42px; }
+  .marker .dyn .dl .lg-xl { width: 38px; height: 38px; }
+  .marker .fam > .fh .lg { width: 28px; height: 28px; }
+  .marker .dyn .ds > b .lg { width: 15px; height: 15px; }
+  .marker .prot .zc > b .lg { width: 16px; height: 16px; }

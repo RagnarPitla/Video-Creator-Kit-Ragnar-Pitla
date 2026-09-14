@@ -1,0 +1,77 @@
+/* stage: t-paper flow day */
+  /* ==== GRADIENT / MODERN FLOW SKIN ====================================
+     Identical content and structure to v1. Only the surface changes: a dark
+     gradient mesh ground, gradient-filled headers, glass panels. The white
+     .lg logo tiles were already correct for this - the colour marks are drawn
+     for a neutral ground, and they read brightest against dark glass. */
+
+  .stage.flow {
+    background:
+      radial-gradient(58% 42% at 10% 3%,  rgba(109,101,255,.42), transparent 66%),
+      radial-gradient(52% 38% at 93% 13%, rgba(6,182,212,.30),   transparent 66%),
+      radial-gradient(58% 40% at 84% 68%, rgba(219,39,119,.26),  transparent 66%),
+      radial-gradient(50% 34% at 12% 90%, rgba(37,99,235,.28),   transparent 66%),
+      #060811;
+    border-color: #1b2236;
+  }
+
+  /* the control plane is the only element allowed to glow */
+  .flow .plane {
+    background: linear-gradient(118deg, #4c1d95 0%, #1d4ed8 46%, #0891b2 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.16),
+                0 20px 52px -18px rgba(59,130,246,.8);
+  }
+  .flow .plane .cap { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.26); }
+
+  /* glass bodies, gradient heads */
+  .flow .fam { background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.11); }
+  .flow .fam > .fh { color: #fff; }
+  .flow .fam-1 > .fh { background: linear-gradient(135deg,#2563eb,#4f46e5); }
+  .flow .fam-5 > .fh { background: linear-gradient(135deg,#7c3aed,#c026d3); }
+  .flow .fam-3 > .fh { background: linear-gradient(135deg,#047857,#10b981); }
+  .flow .fam-6 > .fh { background: linear-gradient(135deg,#0e7490,#06b6d4); }
+  .flow .it { background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.10); }
+  .flow .src { border-top-color: rgba(255,255,255,.14); }
+
+  .flow .dyn { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.13); }
+  .flow .dyn .dl { background: linear-gradient(160deg,#9d174d,#db2777 60%,#e0568f); color:#fff; }
+  .flow .ds { background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.11); }
+  .flow .ds > b { border-bottom-color: rgba(255,255,255,.16); }
+
+  .flow .ext  { background: rgba(255,255,255,.04); }
+  .flow .prot { background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.13); }
+  .flow .zc   { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.11); }
+
+  /* the closing strip carries the same gradient as the plane, so the poster
+     opens and closes on the same note */
+  .flow .cta { background: linear-gradient(100deg,#4c1d95,#1d4ed8 52%,#0891b2); color:#fff; }
+  .flow .cta .hi { color: #ffd24a; }
+  .flow .cta .av { background: #ffd24a; color: #1b1400; }
+
+  /* the pink panel's body copy sat at .92 on a mid-pink gradient; lift it */
+  .flow .dyn .dl > span { opacity: 1; }
+  .flow .dyn .dl .cat { opacity: 1; border-top-color: rgba(255,255,255,.42); }
+
+  /* ==== DAYLIGHT ======================================================
+     The flow language on a light ground, for feeds and decks where a dark
+     poster fights everything around it. Gradient heads and the glowing
+     plane are kept; the glass panels invert to near-white on a pastel
+     mesh so the dense type keeps its ~19:1 contrast. */
+  .stage.day {
+    background:
+      radial-gradient(56% 40% at 8% 2%,   rgba(99,102,241,.16), transparent 66%),
+      radial-gradient(52% 38% at 94% 12%, rgba(6,182,212,.14),  transparent 66%),
+      radial-gradient(56% 40% at 86% 70%, rgba(219,39,119,.12), transparent 66%),
+      radial-gradient(50% 34% at 10% 92%, rgba(37,99,235,.13),  transparent 66%),
+      #ffffff;
+    border-color: #e6e9f2;
+  }
+  .day .fam  { background: rgba(255,255,255,.86); border-color: rgba(20,30,70,.10); }
+  .day .it   { background: rgba(255,255,255,.92); border-color: rgba(20,30,70,.09); }
+  .day .src  { border-top-color: rgba(20,30,70,.14); }
+  .day .dyn  { background: rgba(255,255,255,.82); border-color: rgba(20,30,70,.12); }
+  .day .ds   { background: rgba(255,255,255,.92); border-color: rgba(20,30,70,.10); }
+  .day .ds > b { border-bottom-color: rgba(20,30,70,.14); }
+  .day .ext  { background: rgba(255,255,255,.78); }
+  .day .prot { background: rgba(255,255,255,.84); border-color: rgba(20,30,70,.12); }
+  .day .zc   { background: rgba(255,255,255,.92); border-color: rgba(20,30,70,.10); }

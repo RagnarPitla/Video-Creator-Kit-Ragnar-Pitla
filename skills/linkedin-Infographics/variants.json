@@ -1,0 +1,32 @@
+{
+  "stack": {
+    "name": "Stack",
+    "blurb": "Numbered cards descending, a dashed connector drawing between each one. Motion carries the sequence: card lands, connector draws, next card lands.",
+    "best": "a process or pipeline. \"The five steps to X\". The default when the content is genuinely ordered."
+  },
+  "ambient": {
+    "name": "Ambient",
+    "blurb": "Every word is on screen at every instant. Nothing enters, nothing exits. The motion is decoration only: a scan line, breathing card borders, orbiting accent dots, a shimmer across the headline.",
+    "best": "the feed. A viewer landing mid-loop reads the whole thing immediately, which no sequential variant can promise. Use it when the copy matters more than the choreography."
+  },
+  "flow": {
+    "name": "Flow",
+    "blurb": "Stages stepping down and across, each connector drawing and then sending a dot along it. Reads faster than a straight stack and holds fewer steps.",
+    "best": "input to transform to output. Three or four stages, not six."
+  },
+  "hub": {
+    "name": "Hub",
+    "blurb": "One centre, five satellites, spokes drawing outward in sequence with a dot running each one.",
+    "best": "architecture and \"one X, many Y\". Not for a sequence: a hub says the satellites are peers."
+  },
+  "versus": {
+    "name": "Versus",
+    "blurb": "Dim left column, accent right column, rows revealing in pairs, the centre rule drawing itself top to bottom.",
+    "best": "old way against new way. The comparison does the arguing, so the copy can stay blunt."
+  },
+  "layers": {
+    "name": "Layers",
+    "blurb": "Horizontal bands stacking bottom-up, each with a fill bar, on a solid base block.",
+    "best": "a stack diagram or maturity ladder, where the order means \"sits on top of\" rather than \"happens after\"."
+  }
+}

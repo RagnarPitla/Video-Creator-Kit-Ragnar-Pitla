@@ -1,0 +1,21 @@
+{
+  "name": "hack-2026-products",
+  "version": "1.0.0",
+  "description": "Per-product vision films and hero stills for the six Hack-2026 submissions.",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "studio": "remotion studio",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.513",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.513"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<!-- VARIANT: Versus -- dim left column, accent right column, rows revealing in
+     pairs, the centre rule drawing itself top to bottom.
+     Best for: "old way / new way". The comparison does the arguing, so the copy
+     can be blunt: no verbs of persuasion, just the two states side by side. -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+  :root { --loop: 6s; }
+  h1 { position: absolute; left: 60px; top: 68px; width: 940px; font-size: 70px; }
+  .col-head { position: absolute; top: 300px; font-size: 30px; font-weight: 800;
+              letter-spacing: .10em; text-transform: uppercase; }
+  .lh { left: 60px;  color: var(--ink-dim); }
+  .rh { left: 592px; color: var(--accent); }
+  .row { position: absolute; width: 428px; border-radius: 20px; padding: 22px 24px;
+         min-height: 128px; }
+  .l { left: 60px;  background: rgba(255,255,255,.030);
+       border: 1px solid rgba(255,255,255,.07); }
+  .r { left: 592px; background: rgba(255,138,61,.10);
+       border: 1px solid rgba(255,138,61,.30); }
+  .row h3 { font-size: 29px; font-weight: 800; line-height: 1.14; }
+  .l h3 { color: var(--ink-dim); }
+  .r h3 { color: var(--accent); }
+  .row p { font-size: 22px; color: var(--ink-dim); margin-top: 9px; line-height: 1.32; }
+  .r p { color: var(--ink); }
+  .y1 { top: 372px } .y2 { top: 524px } .y3 { top: 676px } .y4 { top: 828px }
+  .verdict { position: absolute; left: 60px; top: 1000px; width: 960px;
+             text-align: center; font-size: 32px; font-weight: 800; }
+  .pills { position: absolute; left: 60px; top: 1078px; width: 960px; text-align: center; }
+</style></head>
+<body><div class="stage">
+
+  <svg class="wires" width="1080" height="1350">
+    <path class="draw-1" style="--len:620" d="M540 350 L540 970" fill="none"
+          stroke="rgba(255,255,255,.22)" stroke-width="2" stroke-dasharray="7 9"/>
+  </svg>
+
+  <h1 class="anim-sweep">Two ways to run an exception</h1>
+
+  <div class="col-head lh rise-1">Today</div>
+  <div class="col-head rh rise-1">With an agent</div>
+
+  <div class="row l y1 rise-2"><h3>Someone notices</h3>
+    <p>Hours after it broke, if the right person opened the right screen.</p></div>
+  <div class="row r y1 rise-2"><h3>It notices</h3>
+    <p>The moment the record changes, every time, no screen involved.</p></div>
+
+  <div class="row l y2 rise-3"><h3>Ask three people</h3>
+    <p>Stock, credit, and the customer promise all live in different heads.</p></div>
+  <div class="row r y2 rise-3"><h3>Reads all three</h3>
+    <p>One pass across the tables that already hold the answer.</p></div>
+
+  <div class="row l y3 rise-4"><h3>Judgement call</h3>
+    <p>Consistent only if the same person handles it twice.</p></div>
+  <div class="row r y3 rise-4"><h3>Written policy</h3>
+    <p>The rule sits in a table the business owns and can change.</p></div>
+
+  <div class="row l y4 rise-5"><h3>No trail</h3>
+    <p>Why it went that way is in a thread nobody can find.</p></div>
+  <div class="row r y4 rise-5"><h3>Replayable</h3>
+    <p>Inputs, rule, decision, approver. All of it kept.</p></div>
+
+  <div class="verdict rise-6">Same people. Same data. <span style="color:var(--accent)">Different clock.</span></div>
+
+  <div class="pills rise-7">
+    <span class="pill">Minutes not hours</span><span class="pill">Same answer twice</span>
+    <span class="pill">Auditable</span>
+  </div>
+
+  <div class="attrib rise-8"><b>Ragnar Pitla</b>Agentic ERP<br>@RagnarPitla</div>
+</div></body></html>

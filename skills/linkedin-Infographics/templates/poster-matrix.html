@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-matrix</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* MATRIX - a category rail down the left, a dense catalogue to the right.
+     The highest information density in the family and the format that survives
+     being screenshotted and zoomed. Use when the honest answer is "there are a
+     lot of these and they group". Do not animate the cells; the rail carries
+     the motion so 60+ tiles can sit still and be read. */
+  .frame { display: flex; flex-direction: column; gap: 9px; }
+  .mx2 { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 7px;
+         position: relative; padding-left: 26px; }
+  .band { display: grid; grid-template-columns: 152px 1fr; gap: 9px; flex: 1; min-height: 0; }
+  .bl { border-radius: var(--r-md); padding: 9px 10px; color: #fff; background: var(--l);
+        display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+  .bl b { font-size: 15px; font-weight: 900; letter-spacing: -.02em; line-height: 1.08; }
+  .bl span { font-size: 9.5px; opacity: .86; line-height: 1.25; }
+  .bl i { font-style: normal; font-size: 9px; font-weight: 800; letter-spacing: .06em;
+          text-transform: uppercase; opacity: .72; margin-top: 2px; }
+  .cells { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  .tile { border: 1.5px solid var(--h, var(--edge)); background: var(--chip-bg);
+          border-radius: var(--r-sm); padding: 6px 7px; display: flex;
+          flex-direction: column; gap: 1px; justify-content: center; }
+  .tile b { font-size: 11.5px; font-weight: 900; letter-spacing: -.01em; color: var(--ink); }
+  .tile span { font-size: 9.5px; line-height: 1.22; color: var(--ink-3); }
+  .legend { display: flex; align-items: center; gap: 14px; flex: none;
+            padding: 8px 12px; border-radius: var(--r-md); }
+  .legend .lg { display: flex; align-items: center; gap: 5px; font-size: 10.5px;
+                font-weight: 800; color: var(--ink-2); }
+  .legend .sw { width: 12px; height: 12px; border-radius: 3px; }
+  .mets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-paper">
+
+  <div class="head">
+    <div class="title">Every Agent You Can Actually <span class="k">Ship in ERP</span></div>
+    <div class="sub">Twenty jobs, grouped by who signs off. <span class="k">Start at the top row.</span></div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="mx2">
+        <div class="band">
+          <div class="bl fam-1"><b>Read only</b><span>Ships in weeks, nobody has to approve anything</span><i>risk &nbsp;low</i></div>
+          <div class="cells">
+            <div class="tile fam-1"><b>Vendor lookup</b><span>Terms, holds and history in one answer</span></div>
+            <div class="tile fam-1"><b>Invoice status</b><span>Where it is and who is sitting on it</span></div>
+            <div class="tile fam-1"><b>Stock position</b><span>On hand, on order, committed</span></div>
+            <div class="tile fam-1"><b>Policy recall</b><span>Cites the clause, not a summary</span></div>
+          </div>
+        </div>
+        <div class="band">
+          <div class="bl fam-4"><b>Explain</b><span>Reads plus reasoning, still nothing written</span><i>risk &nbsp;low</i></div>
+          <div class="cells">
+            <div class="tile fam-4"><b>Variance story</b><span>Why this month moved, with the rows</span></div>
+            <div class="tile fam-4"><b>Match failure</b><span>Which of the three legs disagrees</span></div>
+            <div class="tile fam-4"><b>Ageing triage</b><span>Ranked by recoverable, not by size</span></div>
+            <div class="tile fam-4"><b>Cost driver</b><span>The line that actually moved the total</span></div>
+          </div>
+        </div>
+        <div class="band">
+          <div class="bl fam-5"><b>Draft</b><span>Prepares a document a human commits</span><i>risk &nbsp;medium</i></div>
+          <div class="cells">
+            <div class="tile fam-5"><b>PO from demand</b><span>Quantities defensible against forecast</span></div>
+            <div class="tile fam-5"><b>Credit note</b><span>Reason code chosen, not typed</span></div>
+            <div class="tile fam-5"><b>Dunning letter</b><span>Tone matched to the relationship</span></div>
+            <div class="tile fam-5"><b>Journal draft</b><span>Posted only after review</span></div>
+          </div>
+        </div>
+        <div class="band">
+          <div class="bl fam-3"><b>Decide</b><span>Commits inside a written band</span><i>risk &nbsp;high</i></div>
+          <div class="cells">
+            <div class="tile fam-3"><b>Auto-match</b><span>Inside tolerance, logged either way</span></div>
+            <div class="tile fam-3"><b>Release hold</b><span>Only where the rule is unambiguous</span></div>
+            <div class="tile fam-3"><b>Reorder</b><span>Below a value ceiling, reversible</span></div>
+            <div class="tile fam-3"><b>Route approval</b><span>To a human, with the reason attached</span></div>
+          </div>
+        </div>
+        <div class="band">
+          <div class="bl fam-6"><b>Unattended</b><span>Runs to a schedule, has a pager</span><i>risk &nbsp;highest</i></div>
+          <div class="cells">
+            <div class="tile fam-6"><b>Close checklist</b><span>Runs nightly, raises what it cannot do</span></div>
+            <div class="tile fam-6"><b>Recon sweep</b><span>Flags breaks before the controller asks</span></div>
+            <div class="tile fam-6"><b>Master data QA</b><span>Finds the record that went stale</span></div>
+            <div class="tile fam-6"><b>Anomaly watch</b><span>Alerts on the pattern, not the row</span></div>
+          </div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M12 40 V 960"/>
+          <path class="wire acc dash" d="M12 40 V 960"/>
+          <path class="wire thin dash"    d="M12 110 H 30"/>
+          <path class="wire thin dash p3" d="M12 305 H 30"/>
+          <path class="wire thin dash p5" d="M12 500 H 30"/>
+          <path class="wire thin dash p7" d="M12 695 H 30"/>
+          <path class="wire thin dash p2" d="M12 890 H 30"/>
+          <circle class="spark" r="9" style="offset-path: path('M12 40 V 960')"/>
+        </svg>
+      </div>
+
+      <div class="box legend tint fam-1">
+        <span class="lg"><span class="sw" style="background:var(--a1)"></span>Nothing to approve</span>
+        <span class="lg"><span class="sw" style="background:var(--a4)"></span>Reasoning shown</span>
+        <span class="lg"><span class="sw" style="background:var(--a5)"></span>Human commits</span>
+        <span class="lg"><span class="sw" style="background:var(--a3)"></span>Band, then commit</span>
+        <span class="lg"><span class="sw" style="background:var(--a6)"></span>Pager and owner</span>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>20</b><span>jobs worth building</span></div>
+        <div class="met fam-4"><b>8</b><span>need no approval at all</span></div>
+        <div class="met fam-5"><b>4</b><span>where teams start, wrongly</span></div>
+        <div class="met fam-6"><b>1</b><span>row you should start on</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>Most teams open at row four &mdash; <span class="hi">row one pays for the programme</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "ailabs-explainer-engine",
+  "version": "1.0.0",
+  "description": "Remotion render engine for the ailabs-explainer style library",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "render": "remotion render StyleProof out/style-proof.mp4 --muted",
+    "typecheck": "tsc --noEmit",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.513",
+    "@remotion/google-fonts": "4.0.513",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.513"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "typescript": "5.9.3"
+  }
+}

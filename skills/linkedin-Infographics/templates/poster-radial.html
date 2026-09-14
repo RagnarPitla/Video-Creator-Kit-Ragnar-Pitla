@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-radial</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* RADIAL - one hub, N satellites. Use when everything on the poster is a
+     relationship to a single centre, and the satellites do NOT relate to each
+     other. The moment they do, this becomes a lie and you want the matrix.
+     Spokes carry the motion; the hub stays still so the eye has an anchor. */
+  .frame { display: flex; flex-direction: column; gap: 10px; }
+  .orb { flex: 1; min-height: 0; position: relative; }
+  .hub { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+         width: 216px; height: 216px; border-radius: 50%; z-index: 3;
+         display: flex; flex-direction: column; align-items: center;
+         justify-content: center; text-align: center; gap: 2px; color: #fff;
+         background: var(--l); box-shadow: 0 0 0 9px var(--paper), 0 0 0 11px var(--edge); }
+  .hub b { font-size: 25px; font-weight: 900; letter-spacing: -.03em; line-height: 1.05; }
+  .hub span { font-size: 11px; opacity: .88; line-height: 1.25; padding: 0 22px; }
+  .sat { position: absolute; width: 232px; z-index: 2; padding: 8px 10px;
+         display: flex; flex-direction: column; gap: 2px; }
+  .sat .st { font-size: 13.5px; font-weight: 900; letter-spacing: -.02em;
+             display: flex; align-items: center; gap: 6px; }
+  .sat .st .ic { background: var(--l); }
+  .sat .sd { font-size: 10.5px; line-height: 1.3; color: var(--ink-2); }
+  .sat .sm { font-size: 9.5px; font-weight: 800; text-transform: uppercase;
+             letter-spacing: .05em; color: var(--l); }
+  .s1 { left: 0;    top: 2%; }
+  .s2 { right: 0;   top: 2%; }
+  .s3 { left: 0;    top: 37%; }
+  .s4 { right: 0;   top: 37%; }
+  .s5 { left: 0;    bottom: 2%; }
+  .s6 { right: 0;   bottom: 2%; }
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; flex: none; }
+  .strip .card { padding: 8px 7px; }
+  .mets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-signal">
+
+  <div class="head">
+    <div class="title">The <span class="k">Policy Table</span> Is the Product</div>
+    <div class="sub">Six things stop being prompt engineering the moment rules live in data</div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="orb">
+        <div class="hub fam-1"><b>Policy<br>Table</b><span>One row per rule, versioned, owned by the business</span></div>
+
+        <div class="box sat s1 fam-2">
+          <div class="st"><span class="ic sm">&#9679;</span>Change control</div>
+          <div class="sd">A rule change is a row edit with an author and a date, not a prompt rewrite nobody reviewed.</div>
+          <div class="sm">who changed it, and when</div>
+        </div>
+        <div class="box sat s2 fam-3">
+          <div class="st"><span class="ic sm">&#9679;</span>Explainability</div>
+          <div class="sd">The answer cites the rule that produced it. "The model decided" stops being an acceptable sentence.</div>
+          <div class="sm">rule id on every output</div>
+        </div>
+        <div class="box sat s3 fam-4">
+          <div class="st"><span class="ic sm">&#9679;</span>Testability</div>
+          <div class="sd">Rules are rows, so a regression suite is a query. You can prove today matches last quarter.</div>
+          <div class="sm">golden set runs on merge</div>
+        </div>
+        <div class="box sat s4 fam-5">
+          <div class="st"><span class="ic sm">&#9679;</span>Ownership</div>
+          <div class="sd">Finance owns tolerances. Procurement owns vendor limits. Neither files a ticket to change them.</div>
+          <div class="sm">no engineer in the loop</div>
+        </div>
+        <div class="box sat s5 fam-6">
+          <div class="st"><span class="ic sm">&#9679;</span>Refusal</div>
+          <div class="sd">No matching rule is a real answer. The agent abstains instead of inventing a plausible tolerance.</div>
+          <div class="sm">abstain beats guessing</div>
+        </div>
+        <div class="box sat s6 fam-1">
+          <div class="st"><span class="ic sm">&#9679;</span>Cost</div>
+          <div class="sd">Most requests resolve against a row and never reach a model. The bill stops tracking volume.</div>
+          <div class="sm">flat at 10x load</div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M232 118 C 340 210, 380 380, 398 462"/>
+          <path class="wire soft" d="M768 118 C 660 210, 620 380, 602 462"/>
+          <path class="wire soft" d="M232 468 H 392"/>
+          <path class="wire soft" d="M768 468 H 608"/>
+          <path class="wire soft" d="M232 882 C 340 790, 380 620, 398 538"/>
+          <path class="wire soft" d="M768 882 C 660 790, 620 620, 602 538"/>
+          <path class="wire acc dash"    d="M232 118 C 340 210, 380 380, 398 462"/>
+          <path class="wire acc dash p3" d="M768 118 C 660 210, 620 380, 602 462"/>
+          <path class="wire acc dash p5" d="M232 468 H 392"/>
+          <path class="wire acc dash p7" d="M768 468 H 608"/>
+          <path class="wire acc dash p2" d="M232 882 C 340 790, 380 620, 398 538"/>
+          <path class="wire acc dash p4" d="M768 882 C 660 790, 620 620, 602 538"/>
+          <circle class="joint" cx="232" cy="118" r="6"/><circle class="joint" cx="768" cy="118" r="6"/>
+          <circle class="joint" cx="232" cy="468" r="6"/><circle class="joint" cx="768" cy="468" r="6"/>
+          <circle class="joint" cx="232" cy="882" r="6"/><circle class="joint" cx="768" cy="882" r="6"/>
+        </svg>
+      </div>
+
+      <div class="strip">
+        <div class="card fam-2"><div class="ct">Row</div><div class="cd">The unit of change</div></div>
+        <div class="card fam-4"><div class="ct">Query</div><div class="cd">The unit of test</div></div>
+        <div class="card fam-5"><div class="ct">Owner</div><div class="cd">The unit of trust</div></div>
+        <div class="card fam-6"><div class="ct">Refusal</div><div class="cd">The unit of safety</div></div>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>1</b><span>place rules live</span></div>
+        <div class="met fam-4"><b>0</b><span>prompts hold business logic</span></div>
+        <div class="met fam-5"><b>100%</b><span>answers cite a rule</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>If your rules live in a prompt, you do not have a policy &mdash; <span class="hi">you have a habit</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

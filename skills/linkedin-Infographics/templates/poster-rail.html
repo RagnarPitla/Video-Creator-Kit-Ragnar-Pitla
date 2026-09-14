@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>poster-rail</title>
+<link rel="stylesheet" href="../assets/poster.css">
+<style>
+  /* RAIL - a vertical icon rail with a continuous spine behind it.
+     Use for an ordered list where the order genuinely matters and each item
+     needs a sentence, not a phrase. The unbroken vertical line is the whole
+     device: it says "these are stages of one thing", which a stack of cards
+     never says. The travelling dot rides that line - the single clearest
+     motion idiom in the reference set, and the cheapest in pixels moved. */
+  .frame { display: flex; flex-direction: column; gap: 9px; }
+  .rail { flex: 1; min-height: 0; position: relative; display: flex;
+          flex-direction: column; gap: 7px; padding-left: 62px; }
+  .rw { flex: 1; display: grid; grid-template-columns: 1fr 190px; gap: 9px; }
+  .rmain { display: flex; flex-direction: column; justify-content: center;
+           gap: 3px; padding: 8px 11px; position: relative; }
+  .rw .rt { font-size: 15.5px; font-weight: 900; letter-spacing: -.02em; }
+  .rw .rd { font-size: 11.5px; line-height: 1.33; color: var(--ink-2); }
+  .rw .rm { font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: .05em; color: var(--ink-3); }
+  .side { display: flex; flex-direction: column; justify-content: center;
+          gap: 2px; padding: 8px 10px; text-align: right; }
+  .side b { font-size: 22px; color: var(--l); font-weight: 900; letter-spacing: -.03em; line-height: 1; }
+  .side span { font-size: 10px; line-height: 1.25; color: var(--ink-2); }
+  .pip { position: absolute; left: -62px; top: 50%; transform: translateY(-50%);
+         width: 38px; height: 38px; border-radius: 50%; display: flex;
+         align-items: center; justify-content: center; color: #fff;
+         font-size: 16px; font-weight: 900; z-index: 3; background: var(--l);
+         box-shadow: 0 0 0 5px var(--paper); }
+  .foot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; flex: none; }
+  .foot .card { padding: 8px 10px; }
+  .mets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; flex: none;
+          border-top: 1.5px dashed var(--dash); padding-top: 9px; }
+</style>
+</head>
+<body>
+<div class="stage t-mono">
+
+  <div class="head">
+    <div class="title caps">From Pilot to <span class="k">On Call</span></div>
+    <div class="sub">The five gates an agent passes before it touches a real ledger</div>
+    <div class="by">
+      <div class="av">RP</div>
+      <div><div class="nm">Ragnar Pitla</div><div class="hd">@ragnarpitla</div></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="frame">
+
+      <div class="rail">
+        <div class="rw">
+          <div class="box rmain fam-1">
+            <div class="pip">1</div>
+            <div class="rt">Shadow the humans</div>
+            <div class="rd">It answers, nobody acts on it. You are measuring agreement, not saving time. Anything less than two weeks here is a guess.</div>
+            <div class="rm">exit when &nbsp;&#183;&nbsp; agreement &gt; 90% for 10 days</div>
+          </div>
+          <div class="box side tint fam-1"><b>0%</b><span>of decisions executed</span></div>
+        </div>
+        <div class="rw">
+          <div class="box rmain fam-4">
+            <div class="pip">2</div>
+            <div class="rt">Draft, human posts</div>
+            <div class="rd">The agent prepares, a person commits. Every rejection is labelled training data you did not have to buy.</div>
+            <div class="rm">exit when &nbsp;&#183;&nbsp; rejection rate stable and explained</div>
+          </div>
+          <div class="box side tint fam-4"><b>100%</b><span>reviewed before commit</span></div>
+        </div>
+        <div class="rw">
+          <div class="box rmain fam-5">
+            <div class="pip">3</div>
+            <div class="rt">Auto below a threshold</div>
+            <div class="rd">Small, reversible, high-confidence cases go through alone. Pick the boring band first, not the interesting one.</div>
+            <div class="rm">exit when &nbsp;&#183;&nbsp; zero escapes over a full close</div>
+          </div>
+          <div class="box side tint fam-5"><b>&lt; 5k</b><span>value auto-posted</span></div>
+        </div>
+        <div class="rw">
+          <div class="box rmain fam-3">
+            <div class="pip">4</div>
+            <div class="rt">Auto with exceptions</div>
+            <div class="rd">The default flips. The agent handles the run and raises what it cannot defend, which is a different skill from answering.</div>
+            <div class="rm">exit when &nbsp;&#183;&nbsp; exception queue clears same day</div>
+          </div>
+          <div class="box side tint fam-3"><b>82%</b><span>straight through</span></div>
+        </div>
+        <div class="rw">
+          <div class="box rmain fam-6">
+            <div class="pip">5</div>
+            <div class="rt">On call</div>
+            <div class="rd">It has a pager, an owner and an SLO. If nobody is woken when it degrades, it was never in production.</div>
+            <div class="rm">stay here &nbsp;&#183;&nbsp; review the SLO every quarter</div>
+          </div>
+          <div class="box side tint fam-6"><b>99.5%</b><span>availability target</span></div>
+        </div>
+
+        <svg class="wirelayer" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+          <path class="wire soft" d="M22 60 V 940"/>
+          <path class="wire acc dash" d="M22 60 V 940"/>
+          <path class="wire thin dash"    d="M40 100 H 64"/>
+          <path class="wire thin dash p3" d="M40 300 H 64"/>
+          <path class="wire thin dash p5" d="M40 500 H 64"/>
+          <path class="wire thin dash p7" d="M40 700 H 64"/>
+          <path class="wire thin dash p2" d="M40 900 H 64"/>
+          <circle class="spark" r="9" style="offset-path: path('M22 60 V 940')"/>
+        </svg>
+      </div>
+
+      <div class="foot">
+        <div class="card fam-1"><div class="ct">Never skip 1</div><div class="cd">Agreement you did not measure is trust you did not earn.</div></div>
+        <div class="card fam-5"><div class="ct">Threshold, not scope</div><div class="cd">Widen by value, not by adding new tasks.</div></div>
+        <div class="card fam-6"><div class="ct">An owner, by name</div><div class="cd">"The AI team" is not an owner.</div></div>
+      </div>
+
+      <div class="mets">
+        <div class="met fam-1"><b>5</b><span>gates, in order</span></div>
+        <div class="met fam-4"><b>10 wks</b><span>typical pilot to on call</span></div>
+        <div class="met fam-6"><b>1</b><span>named human owner</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta">
+    <span>Most teams try to start at gate four &mdash; <span class="hi">that is the whole problem</span></span>
+    <span class="av">RP</span><span class="hd">@ragnarpitla</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+Official Microsoft architecture icon sets used for the marks in this folder.
+All six are public and carry: "Microsoft permits the use of these icons in
+architectural diagrams, training materials, or documentation."
+Recorded 2026-09-03. Re-download and check sha256 to re-verify.
+
+azure            921594ccd1bf3d9c0a1bd7b6d924e050551a59342f2b353bb74bdcf761c35141
+dynamics         f5f4d96aaa637b71e47136cc74e9a4a69b8a81f7e43c1c5756f00b5cea9ffe02
+entra            4e07536706a2d092e6524e5417e2c861333fdbdb41c36f78d44dfa07ccc5eedc
+fabric           fc22e71b0545ed15e22c53f16bf4fb06ffe72daabd3c90a947a6e481c9675e6b
+m365             522c4d43cf98a00380b0836f9ec6e06d81fb99758b258c49b6e5f385c05c547a
+powerplatform    d5abafebbce553690caf7b42dd14b8335bf2c0dfc09f46bd9ac8041187da2c3a
+
+azure           https://arch-center.azureedge.net/icons/Azure_Public_Service_Icons_V24.zip
+dynamics        https://download.microsoft.com/download/498606aa-6d27-4f13-aa5c-1401078c153b/Dynamics-365-icons-scalable.zip
+powerplatform   https://download.microsoft.com/download/498606aa-6d27-4f13-aa5c-1401078c153b/Power-Platform-icons-scalable.zip
+fabric          https://github.com/microsoft/fabric-samples/raw/main/docs-samples/Icons.zip
+entra           https://download.microsoft.com/download/3/1/a/31a56038-856a-4489-88e4-ee5a1c4352be/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023.zip
+m365            https://go.microsoft.com/fwlink/?linkid=869455   (no product marks, unused)

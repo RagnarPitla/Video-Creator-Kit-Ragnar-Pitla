@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- VARIANT: Layers -- horizontal bands stacking bottom-up, each with a fill bar.
+     The bottom band rises first, so the picture builds like a foundation.
+     Best for: a stack diagram (model / harness / policy / audit), a maturity
+     ladder, anything where the order means "sits on top of", not "happens after". -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+  :root { --loop: 6s; }
+  h1 { position: absolute; left: 60px; top: 68px; width: 940px; font-size: 70px; }
+  .band { position: absolute; left: 60px; width: 960px; height: 122px;
+          border-radius: 22px; padding: 20px 28px;
+          border: 1px solid var(--card-line); background: var(--card); }
+  .band h3 { font-size: 33px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+  .band p { font-size: 22px; color: var(--ink-dim); margin-top: 8px; }
+  .band .k { position: absolute; right: 28px; top: 24px;
+             font-size: 22px; letter-spacing: .16em; text-transform: uppercase;
+             color: var(--ink-dim); }
+  .bar { position: absolute; left: 28px; right: 28px; bottom: 14px; height: 4px;
+         border-radius: 3px; background: var(--accent); opacity: .55; }
+  .b5 { top: 318px } .b4 { top: 454px } .b3 { top: 590px }
+  .b2 { top: 726px } .b1 { top: 862px }
+  .base { position: absolute; left: 60px; top: 998px; width: 960px; height: 76px;
+          border-radius: 22px; display: grid; place-items: center;
+          background: linear-gradient(100deg, var(--accent-2), var(--accent));
+          font-size: 27px; font-weight: 800; letter-spacing: .04em; }
+  .pills { position: absolute; left: 60px; top: 1104px; width: 700px; }
+</style></head>
+<body><div class="stage">
+
+  <h1 class="anim-sweep">What an agent actually stands on</h1>
+
+  <div class="band b5 rise-6"><span class="k">Top</span>
+    <h3>Audit</h3><p>Every decision replayable, with the inputs it saw.</p>
+    <div class="bar fill-6"></div></div>
+
+  <div class="band b4 rise-5"><span class="k">Then</span>
+    <h3>Approval</h3><p>Irreversible actions wait for a named human.</p>
+    <div class="bar fill-5"></div></div>
+
+  <div class="band b3 rise-4"><span class="k">Then</span>
+    <h3>Policy</h3><p>Rules in a table the business owns, not in a prompt.</p>
+    <div class="bar fill-4"></div></div>
+
+  <div class="band b2 rise-3"><span class="k">Then</span>
+    <h3>Actions</h3><p>Typed operations against the real system of record.</p>
+    <div class="bar fill-3"></div></div>
+
+  <div class="band b1 rise-2"><span class="k">First</span>
+    <h3>Grounding</h3><p>The tables that already decide the answer.</p>
+    <div class="bar fill-2"></div></div>
+
+  <div class="base rise-1">YOUR SYSTEM OF RECORD</div>
+
+  <div class="pills rise-7">
+    <span class="pill">Bottom up</span><span class="pill">No layer skipped</span>
+    <span class="pill">Model last</span>
+  </div>
+
+  <div class="attrib rise-8"><b>Ragnar Pitla</b>Agentic ERP<br>@RagnarPitla</div>
+</div></body></html>

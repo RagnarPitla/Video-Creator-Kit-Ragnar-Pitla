@@ -1,0 +1,43 @@
+Claude skills just fixed the biggest problem with AI agents: laziness. This claude skills tutorial covers what are claude skills, how to use claude skills, and the agent skills workflow behind Unlazy - plus the one change we made to stop it taking hours.
+
+Try DataForSEO at https://l.dataforseo.com/4vLcSvE and get $5 in free credits to start building with real SEO data.
+
+Unlazy repo: https://github.com/Leonxlnx/unlazy
+
+Community with All Resources: https://ailabspro.io/?v=c47uqR7XB_c
+
+The Roundup, our daily newsletter covering the AI stories that matter. Join now: https://www.theroundup.so/
+
+Every agent gets lazy. It tells you a task is done when it isn't, or it quietly shrinks the job, builds the four easy parts, skips the hard one, and never mentions it in the summary. This happens on every model, including Opus and GPT 5.6, it's just easier to catch on the smaller ones. The reason is context: the agent resends every previous message with your new prompt, so as the pile grows there's more competing for its attention and less focus on each part of the task.
+
+Unlazy is one of the best claude skills built for exactly that, from GitHub's number one trending author, the same person behind Taste, one of the most popular claude design skills out right now. This one has nothing to do with design. It doesn't tell you the agent is done, it proves it.
+
+In this video we go through what these skills claude and Codex both read from actually do, how the Unlazy workflow is built, and how to use skills in claude without waiting hours for a result.
+
+What we cover:
+
+- Why agents get lazy, and the two ways it shows up
+- Why the older fixes fall short: the Ralph loop's text marker, Claude's goal command judging the conversation instead of the work, and our own loops where the agent still graded itself
+- The tree: the skill splits your task, then splits those tasks again, and hands each end task to its own subagent
+- The depth number you pass with the prompt, why tasks under ten minutes of real work mean your number is too high, and solo mode (3 and under) vs orchestrated mode (4 and up)
+- The gates file: every gate is a checkbox with an outcome, the command that proves it, the exact words that command has to return, and an evidence line
+- Why a ticked box with "pending" still under it counts as worse than an empty box
+- Installing it: the command from the repo, picking your agent, project vs global scope, and why the .agents and .claude folders aren't two copies of the same thing
+- A tour of the skill file, templates, hook and reference files, useful if you're looking into how to create claude skills of your own
+- The problem: our first run went three to four hours and produced a login page, because the skill hands out one task, waits, then hands out the next
+- Our fix: the prompt we used to edit the skill so it uses parallel agents. Ten agents at once, roughly two hours, full app with every feature working
+
+If you've been searching for claude code skills, skills claude code, or how to use claude skills on a real build instead of a toy demo, this is the run. The version of the skill we used here came out of multiple rounds of testing and refining, and it's in AI Labs Pro, our community, along with everything else we build.
+
+We're a software company, and this is AI Labs, where we show you how to optimize a business with AI using proven methods from our own team. Subscribe for more on claude ai, claude code, claude cowork, chatgpt and the ai news that actually changes how you build.
+
+0:00 Intro
+0:48 What Unlazy is
+1:47 Why agents get lazy
+4:26 Sponsor
+5:26 The tree
+9:08 Install
+10:27 The fix
+
+Hashtags: 
+#ai #claude #claudecode #chatgpt #claudeai #claudecowork #ainews #claudeskills

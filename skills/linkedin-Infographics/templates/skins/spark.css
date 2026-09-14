@@ -1,0 +1,70 @@
+/* stage: t-spark spark */
+  /* ==== AGENT SPARK SKIN ==============================================
+     Ports the design system from ragnarpitla.github.io/Agent-Spark: the
+     shadcn neutral scale, hairline borders, mono kickers, diamond nodes.
+     That system's own rule is "monochrome is the point... the moment a
+     landing page reaches for a gradient it stops looking like an
+     engineering tool", and it reserves colour for real product data only.
+     So every structural element here is neutral and the ONLY colour on the
+     poster comes from the official product marks. They are real data, not
+     decoration, which is why they are also drawn larger than anywhere else. */
+
+  .stage.t-spark {
+    --paper: #ffffff;  --paper-2: #fafafa; --edge: #e5e5e5; --dash: #d4d4d4;
+    --ink: #0a0a0a;    --ink-2: #525252;   --ink-3: #737373;
+    --brand: #171717;  --spark: #0a0a0a;   --wire: #0a0a0a; --wire-2: #d4d4d4;
+    --bar-bg: #0a0a0a; --bar-fg: #d4d4d4;  --bar-hi: #ffffff;
+    --chip-bg: #ffffff;
+    --a1: #171717; --a1h: #e5e5e5; --a1b: #ffffff;
+    --a2: #171717; --a2h: #e5e5e5; --a2b: #ffffff;
+    --a3: #171717; --a3h: #e5e5e5; --a3b: #ffffff;
+    --a4: #171717; --a4h: #e5e5e5; --a4b: #ffffff;
+    --a5: #171717; --a5h: #e5e5e5; --a5b: #ffffff;
+    --a6: #171717; --a6h: #e5e5e5; --a6b: #ffffff;
+  }
+
+  /* no fills anywhere. Emphasis is border weight, exactly as Agent Spark
+     draws its one important box at stroke-width 3 and the rest at 2. */
+  .spark .plane { background: #fff; color: #0a0a0a; border: 2.5px solid #0a0a0a; }
+  .spark .plane .cap { background: #fff; border: 1.5px solid #e5e5e5; }
+  .spark .plane .cap span { opacity: 1; color: #737373; }
+  .spark .plane .pl-sep { background: #e5e5e5; }
+  .spark .plane .pl-id i { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+                           opacity: 1; color: #737373; letter-spacing: .1em; }
+
+  .spark .fam { border: 1.5px solid #e5e5e5; background: #fff; }
+  .spark .fam > .fh { background: #fff; color: #0a0a0a; border-bottom: 1.5px solid #e5e5e5; }
+  .spark .fam > .fh span { opacity: 1; color: #737373; }
+  .spark .it { background: #fff; border: 1.5px solid #e5e5e5; }
+  .spark .it.k { border-left: 2.5px solid #0a0a0a; }
+
+  .spark .dyn { border: 2.5px solid #0a0a0a; background: #fff; }
+  .spark .dyn .dl { background: #fff; color: #0a0a0a; border-right: 1.5px solid #e5e5e5; }
+  .spark .dyn .dl > span { opacity: 1; color: #737373; }
+  .spark .dyn .dl .cat { opacity: 1; color: #737373; border-top: 1.5px solid #e5e5e5; }
+  .spark .ds { background: #fff; border: 1.5px solid #e5e5e5; }
+  .spark .ds > b { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+                   font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; }
+  .spark .ext { background: #fff; border: 1.5px dashed #d4d4d4; }
+  .spark .prot { background: #fff; border: 1.5px solid #e5e5e5; }
+  .spark .zc { background: #fff; border: 1.5px solid #e5e5e5; }
+
+  /* Agent Spark draws every node as a diamond rather than a circle, and says
+     so in its own alt text. The travelling dots follow. */
+  .spark .dot { width: 9px; height: 9px; border-radius: 1px;
+                transform: rotate(45deg); background: #0a0a0a; }
+  .spark .ext .dot, .spark .prot .dot { bottom: 1px; background: #0a0a0a; }
+  .spark .xrail { background: repeating-linear-gradient(90deg,#d4d4d4 0 11px,transparent 11px 22px); }
+
+  /* the marks are the only colour, so give them room */
+  .spark .lg { background: none; padding: 0; border-radius: 0; }
+  .spark .plane .lg-xl { width: 44px; height: 44px; }
+  .spark .dyn .dl .lg-xl { width: 40px; height: 40px; }
+  .spark .fam > .fh .lg { width: 30px; height: 30px; }
+  .spark .dyn .ds > b .lg { width: 16px; height: 16px; }
+  .spark .prot .zc > b .lg { width: 17px; height: 17px; }
+  /* the ring pulse was white, which is invisible on a white ground */
+  .spark .lg.ring { animation: sparkring var(--loop) ease-in-out infinite; }
+  @keyframes sparkring { 0%   { box-shadow: 0 0 0 0 rgba(10,10,10,0); }
+                         30%  { box-shadow: 0 0 0 5px rgba(10,10,10,.16); }
+                         60%,100% { box-shadow: 0 0 0 5px rgba(10,10,10,0); } }

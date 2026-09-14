@@ -1,0 +1,66 @@
+<!doctype html>
+<!-- VARIANT: Flow -- four stages stepping down and across, each connector drawing
+     and then sending a dot along it. Reads faster than a straight stack and holds
+     fewer steps. Best for: input -> transform -> output. -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+  :root { --loop: 6s; }
+  h1 { position: absolute; left: 60px; top: 68px; width: 900px; }
+  .card { position: absolute; width: 620px; height: 156px; }
+  .s1 { left: 60px;  top: 320px }
+  .s2 { left: 220px; top: 530px }
+  .s3 { left: 380px; top: 740px }
+  .s4 { left: 60px;  top: 950px; width: 960px }
+  .card h2, .card p { padding-right: 118px; }
+  .node { position: absolute; right: 24px; top: 38px; }
+  .tag { position: absolute; font-size: 22px; letter-spacing: .16em;
+         color: var(--ink-dim); text-transform: uppercase; }
+</style></head>
+<body><div class="stage">
+
+  <svg class="wires" width="1080" height="1350">
+    <path id="f1" class="draw-2" style="--len:230"
+          d="M370 476 C 370 520, 530 500, 530 530" fill="none"
+          stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-dasharray="9 9"/>
+    <path id="f2" class="draw-3" style="--len:230"
+          d="M530 686 C 530 730, 690 710, 690 740" fill="none"
+          stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-dasharray="9 9"/>
+    <path id="f3" class="draw-4" style="--len:300"
+          d="M690 896 C 690 940, 540 920, 540 950" fill="none"
+          stroke="rgba(255,138,61,.55)" stroke-width="3" stroke-dasharray="9 9"/>
+  </svg>
+
+  <div class="dot flow-2" style="offset-path:path('M370 476 C 370 520, 530 500, 530 530')"></div>
+  <div class="dot flow-3" style="offset-path:path('M530 686 C 530 730, 690 710, 690 740')"></div>
+  <div class="dot flow-4" style="offset-path:path('M690 896 C 690 940, 540 920, 540 950')"></div>
+
+  <h1 class="anim-sweep">A signal becomes a booked order</h1>
+
+  <div class="card s1 rise-1">
+    <div class="tag rise-1" style="top:-34px; left:2px">Input</div>
+    <h2>Signal arrives</h2>
+    <p>An email, a form, a sensor. Unstructured and untrusted.</p>
+    <div class="node pop-1">IN</div>
+  </div>
+  <div class="card s2 rise-2">
+    <div class="tag rise-2" style="top:-34px; left:2px">Extract</div>
+    <h2>Turn it into fields</h2>
+    <p>Customer, item, quantity, date. Typed, not guessed.</p>
+    <div class="node pop-2">EXT</div>
+  </div>
+  <div class="card s3 rise-3">
+    <div class="tag rise-3" style="top:-34px; left:2px">Decide</div>
+    <h2>Check it against policy</h2>
+    <p>Credit, stock, margin. The rules the business already runs.</p>
+    <div class="node pop-3 glow-3">POL</div>
+  </div>
+  <div class="card s4 rise-4">
+    <div class="tag rise-4" style="top:-34px; left:2px">Output</div>
+    <h2>Write it into the ERP</h2>
+    <p>A real order, with the reasoning attached to it.</p>
+    <div class="node pop-4">ERP</div>
+  </div>
+
+  <div class="attrib rise-5"><b>Ragnar Pitla</b>Agentic ERP<br>@RagnarPitla</div>
+</div></body></html>

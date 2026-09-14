@@ -1,0 +1,166 @@
+/* stage: t-paper msft */
+  /* ==== MSFT — Microsoft marketing house style ==========================
+     Ported from a Microsoft product-announcement graphic. Its grammar:
+
+       - a cool off-white ground, faintly washed blue and lavender, never
+         pure #fff, so white cards read as raised objects rather than as
+         holes in the page
+       - white cards, hairline #e5eaf5 borders, generous radii, and a very
+         soft shadow instead of a heavy one
+       - near-black headline type, mid blue-grey body copy, low contrast
+         everywhere except the headline
+       - short blue-to-violet gradient rules as the accent, used instead of
+         coloured fills
+       - thin solid blue elbow connectors ending in small filled dots
+       - EXACTLY ONE inverted near-black card carrying a soft rainbow glow
+
+     That last one is the signature. In the reference it is the GitHub
+     Copilot card; here it is `.plane`, because the control plane is this
+     poster's hero and inverting it says so without adding a word.
+
+     FONT. "Segoe UI", "Segoe UI Variable" and Selawik were all MEASURED on
+     this machine against a deliberately bogus font name and none of them
+     resolves — they are Windows faces. Open Sans does resolve and is the
+     closest humanist stand-in. The stack keeps the Segoe names first so the
+     poster renders correctly when built on Windows, and lands on Open Sans
+     here. Do not "simplify" the stack to whatever looks right locally.
+
+     RAIL. `.xrail`/`.zrail` are `bottom: 0` inside `overflow: hidden` boxes
+     with their dots at `bottom: -4px`, half-clipped on the border. That is
+     fine at low contrast and a collision at high contrast, so as in `marker`
+     the rail is inset clear of the border. `xrun` shifts by exactly one
+     gradient period, so redefining the gradient means redefining `xrun`.
+
+     DASH. `wire-travel` runs stroke-dashoffset 0 -> -120, so the dash period
+     must divide 120. `26 4` = 30 and 120/30 = 4, and a 4px gap in a 30px
+     period reads as a solid line with a tick running along it — the
+     reference's clean connector, still animated. */
+
+  /* STAGE CLASS. The directive above puts `t-paper msft` on the stage, so
+     `t-paper` supplies the full variable set and this block only overrides.
+     It is deliberately `.stage.msft` and NOT `.stage.t-msft`: a theme block
+     selecting a class the stage does not carry is dead CSS, and nothing
+     catches it. `checkvars.mjs` passes, because `t-paper` still resolves
+     every property — the poster simply renders in the wrong palette. The
+     first cut of this skin did exactly that and shipped amber and crimson
+     accents from `t-paper`. Same specificity as `.stage.t-paper` (0,2,0),
+     appended later, so it wins. */
+  .stage.msft {
+    --paper: #ffffff;  --paper-2: #f7f9fd; --edge: #e5eaf5; --dash: #c3d0ee;
+    --ink: #12172b;    --ink-2: #4d5875;   --ink-3: #7a869e;
+    --brand: #0f6cbd;  --spark: #0f6cbd;   --wire: #3b6fe0; --wire-2: #8b5cf6;
+    --bar-bg: #14161f; --bar-fg: #c9cfe0;  --bar-hi: #ffffff;
+    --chip-bg: #f7f9fd;
+    --a1: #0f6cbd; --a1h: #cfe0f5; --a1b: #f5f9ff;
+    --a2: #6b3fa0; --a2h: #ddd2ef; --a2b: #faf7ff;
+    --a3: #0f7b6c; --a3h: #c9e7e1; --a3b: #f4fbf9;
+    --a4: #7c4dcc; --a4h: #ded1f6; --a4b: #f9f6ff;
+    --a5: #2b5fd9; --a5h: #d2ddf8; --a5b: #f6f9ff;
+    --a6: #1a7fb5; --a6h: #cbe5f2; --a6b: #f4fbfe;
+
+    background:
+      radial-gradient(72% 44% at 80% 2%,  rgba(120,132,255,.11), transparent 70%),
+      radial-gradient(58% 38% at 4% 34%,  rgba(96,150,255,.08),  transparent 70%),
+      radial-gradient(64% 40% at 96% 74%, rgba(168,120,255,.09), transparent 70%),
+      linear-gradient(180deg, #f8faff 0%, #eef1fb 100%);
+    border-color: #e3e8f5;
+  }
+
+  .msft { font-family: "Segoe UI Variable", "Segoe UI", Selawik, "Open Sans",
+                       Inter, system-ui, -apple-system, sans-serif; }
+
+  /* the one inverted card. Everything else on the poster is white. */
+  .msft .plane {
+    background: linear-gradient(150deg, #1b1e2b 0%, #14161f 62%, #191324 100%);
+    border: none;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.07),
+                0 14px 44px -12px rgba(74,86,226,.55),
+                0 0 32px -6px rgba(190,110,236,.34);
+  }
+  .msft .plane .cap { background: rgba(255,255,255,.07);
+                      border: 1px solid rgba(255,255,255,.16); }
+  .msft .plane .cap span { color: #b6bdd2; opacity: 1; }
+  .msft .plane .pl-sep { background: rgba(255,255,255,.22); }
+  .msft .plane .pl-id i { color: #9aa3bd; opacity: 1; letter-spacing: .1em; }
+
+  /* white cards, hairline borders, soft lift */
+  .msft .fam, .msft .dyn, .msft .ext, .msft .prot {
+    background: #ffffff; border: 1.5px solid #e5eaf5;
+    box-shadow: 0 2px 10px rgba(24,39,90,.05); }
+  /* the reference draws no dashed containers */
+  .msft .ext { border-style: solid; }
+
+  /* headers are plain dark type on white. The family's colour survives only
+     in the spine and the keyed item's left border, which is how the
+     reference carries product identity: through the logo, not through fill. */
+  .msft .fam > .fh { background: #ffffff; color: #12172b;
+                     border-bottom: 1px solid #eef1f8; }
+  .msft .fam > .fh span { color: #5a6480; opacity: 1; }
+  /* the signature accent: a short blue-to-violet gradient rule */
+  .msft .fsp { background: linear-gradient(180deg, var(--l, #3b6fe0), #8b5cf6); }
+
+  .msft .it  { background: #f7f9fd; border-color: #e6ecf8; }
+  .msft .it i { color: #6b7793; }
+  .msft .src { border-top-color: #e9edf7; color: #8590a8; }
+
+  .msft .dyn .dl { background: #ffffff; color: #12172b;
+                   border-right: 1px solid #eef1f8; }
+  .msft .dyn .dl > span { color: #4d5875; opacity: 1; }
+  .msft .dyn .dl .cat { color: #4d5875; opacity: 1;
+                        border-top: 2px solid transparent;
+                        border-image: linear-gradient(90deg,#3b6fe0,#8b5cf6) 1; }
+  .msft .dyn .dl .cat b { color: #12172b; }
+  .msft .ds { background: #f7f9fd; border-color: #e6ecf8; }
+  .msft .ds > b { color: #12172b; border-bottom-color: #e2e8f5; }
+  .msft .ds .nt { color: #8590a8; }
+  .msft .xc, .msft .zc { background: #ffffff; border-color: #e5eaf5; }
+
+  /* thin solid blue elbows with small filled dots, per the reference */
+  .msft .wire { stroke: #3b6fe0; stroke-width: 2.6; }
+  .msft .wire.thin { stroke: #3b6fe0; stroke-width: 2.2; }
+  .msft .wire.soft { stroke: #8b5cf6; stroke-width: 2.2; opacity: .3; }
+  /* Dash budget. `26 4` was the first cut: a 4px gap in a 30px period is the
+     cleanest possible connector and it scored the whole poster at 0.60%
+     moving, the second-lowest in the set. `20 10` keeps the same 30px period
+     (so it still divides the 120 the dashoffset travels) and roughly doubles
+     the amount of edge that changes per frame, at a line that still reads as
+     a connector rather than as a dotted rule. */
+  .msft .wire.dash { stroke-dasharray: 20 10; }
+  .msft .joint { fill: #3b6fe0; }
+
+  .msft .dot { width: 11px; height: 11px; background: #3b6fe0;
+               box-shadow: 0 0 0 3px rgba(59,111,224,.16); }
+  .msft .ext .dot, .msft .prot .dot { bottom: 8px; background: #3b6fe0; }
+  .msft .xrail, .msft .zrail {
+    left: 16px; right: 16px; bottom: 11px; height: 4px; border-radius: 2px;
+    background: repeating-linear-gradient(90deg,#8aa8ec 0 14px,transparent 14px 28px); }
+  @keyframes xrun { to { background-position: 28px 0; } }
+
+  /* The reference's hero glows. Breathing it is the only large-area motion
+     on an otherwise still poster, and it is the one element with enough
+     amplitude for it to register: a dark card on a light ground, so the
+     glow's edge swings several dozen grey levels rather than a handful.
+     3s divides the 6s loop, so it seams. */
+  .msft .plane { animation: msft-glow 3s ease-in-out infinite; }
+  @keyframes msft-glow {
+    0%, 100% { box-shadow: inset 0 0 0 1px rgba(255,255,255,.07),
+                           0 14px 44px -12px rgba(74,86,226,.50),
+                           0 0 26px -8px rgba(190,110,236,.26); }
+    50%      { box-shadow: inset 0 0 0 1px rgba(255,255,255,.10),
+                           0 18px 56px -12px rgba(74,86,226,.78),
+                           0 0 46px -4px rgba(190,110,236,.52); }
+  }
+
+  /* logo tiles read as the reference's icon chips: white, hairline, lifted */
+  .msft .lg { background: #ffffff; border: 1px solid #e9edf7;
+              box-shadow: 0 1px 4px rgba(24,39,90,.06); }
+  .msft .plane .lg { background: #ffffff; border-color: transparent; }
+
+  .msft .by .av { background: #0f6cbd; color: #ffffff; }
+  /* the closing strip is the plane's twin, so the poster opens and closes
+     on the same inverted note */
+  .msft .cta { background: linear-gradient(100deg,#14161f,#1b1e2b 60%,#191324);
+               color: #c9cfe0;
+               box-shadow: 0 10px 30px -12px rgba(74,86,226,.45); }
+  .msft .cta .hi { color: #ffffff; }
+  .msft .cta .av { background: #ffffff; color: #14161f; }

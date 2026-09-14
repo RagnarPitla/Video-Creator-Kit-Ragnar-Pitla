@@ -1,0 +1,29 @@
+{
+  "name": "mia-video-template",
+  "version": "1.0.0",
+  "description": "Mia Video Template - clean, classy animated text over a bright glass-atrium AI environment.",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "remotion studio",
+    "studio": "remotion studio",
+    "render": "remotion render MiaVideo out/mia-video.mp4",
+    "still": "remotion still MiaVideo out/frame.png",
+    "upgrade": "remotion upgrade",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.513",
+    "@remotion/fonts": "4.0.513",
+    "@remotion/google-fonts": "4.0.513",
+    "@remotion/transitions": "4.0.513",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.513",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.0",
+    "typescript": "5.8.2"
+  }
+}

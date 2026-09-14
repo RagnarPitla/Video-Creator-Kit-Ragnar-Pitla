@@ -1,0 +1,67 @@
+<!doctype html>
+<!-- VARIANT: Hub -- one centre, five satellites, spokes drawing outward in sequence.
+     Best for: architecture and "one X, many Y". Do not use it for a sequence;
+     a hub says the satellites are peers, which a numbered process does not. -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../assets/base.css">
+<style>
+  :root { --loop: 6s; }
+  h1 { position: absolute; left: 60px; top: 68px; width: 940px; font-size: 68px; }
+  .hub { position: absolute; left: 450px; top: 610px; width: 180px; height: 180px;
+         border-radius: 44px; display: grid; place-items: center; text-align: center;
+         background: linear-gradient(140deg, var(--accent-2), var(--accent));
+         font-size: 26px; font-weight: 800; line-height: 1.15; padding: 0 14px; }
+  .sat { position: absolute; width: 78px; height: 78px; }
+  .lbl { position: absolute; width: 240px; text-align: center;
+         font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .lbl small { display: block; font-size: 22px; font-weight: 500;
+               color: var(--ink-dim); margin-top: 5px; }
+  .pills { position: absolute; left: 60px; top: 1170px; width: 700px; }
+</style></head>
+<body><div class="stage">
+
+  <svg class="wires" width="1080" height="1350">
+    <path class="draw-2" style="--len:180" d="M540 605 L540 425" fill="none"
+          stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-dasharray="8 8"/>
+    <path class="draw-3" style="--len:180" d="M630 671 L802 615" fill="none"
+          stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-dasharray="8 8"/>
+    <path class="draw-4" style="--len:183" d="M596 773 L702 922" fill="none"
+          stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-dasharray="8 8"/>
+    <path class="draw-5" style="--len:183" d="M484 773 L378 922" fill="none"
+          stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-dasharray="8 8"/>
+    <path class="draw-6" style="--len:181" d="M450 671 L278 615" fill="none"
+          stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-dasharray="8 8"/>
+  </svg>
+
+  <div class="dot flow-2" style="offset-path:path('M540 605 L540 425')"></div>
+  <div class="dot flow-3" style="offset-path:path('M630 671 L802 615')"></div>
+  <div class="dot flow-4" style="offset-path:path('M596 773 L702 922')"></div>
+  <div class="dot flow-5" style="offset-path:path('M484 773 L378 922')"></div>
+  <div class="dot flow-6" style="offset-path:path('M450 671 L278 615')"></div>
+
+  <h1 class="anim-sweep">One policy layer. Every surface the agent touches.</h1>
+
+  <div class="hub pop-1 anim-glow">Policy<br>layer</div>
+
+  <div class="node sat pop-2" style="left:501px; top:341px">ERP</div>
+  <div class="lbl rise-2" style="left:420px; top:243px">Finance<small>Orders, credit, close</small></div>
+
+  <div class="node sat pop-3" style="left:805px; top:562px">CRM</div>
+  <div class="lbl rise-3" style="left:724px; top:653px">Sales<small>Quotes and pricing</small></div>
+
+  <div class="node sat pop-4" style="left:689px; top:920px">SVC</div>
+  <div class="lbl rise-4" style="left:608px; top:1011px">Field service<small>Dispatch and parts</small></div>
+
+  <div class="node sat pop-5" style="left:313px; top:920px">SCM</div>
+  <div class="lbl rise-5" style="left:232px; top:1011px">Supply<small>Stock and lead time</small></div>
+
+  <div class="node sat pop-6" style="left:197px; top:562px">HR</div>
+  <div class="lbl rise-6" style="left:116px; top:653px">People<small>Approvals and roles</small></div>
+
+  <div class="pills rise-7">
+    <span class="pill">One rule set</span><span class="pill">Every surface</span>
+    <span class="pill">Change it once</span>
+  </div>
+
+  <div class="attrib rise-8"><b>Ragnar Pitla</b>Agentic ERP<br>@RagnarPitla</div>
+</div></body></html>
