@@ -10,7 +10,7 @@ description: |
   find and cut the flubs, dead air and repeated answers in a recorded episode, or when re-cutting
   an already-approved edit into a V2 without re-rendering the whole thing. Covers speaker
   detection from isolated mics, the layout set, the edit decision list, and the verification
-  gate. Not for building the animated title sequence (use in-our-ai-era-video), and not for
+  gate. Not for building an animated title sequence, and not for
   scripting or publishing an episode (use ragnar-video-studio).
 ---
 

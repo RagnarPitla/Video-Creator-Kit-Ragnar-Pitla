@@ -15,40 +15,19 @@ file: fix it rather than working around it.
 | Path | Style | Stack |
 |---|---|---|
 | `~/Desktop/rbuild-ai/Prod-Tools/ig-video-animations` | **ink-board** - vertical hand-drawn concept explainers on an accumulating board. Spec: `shared/brand/ink-board/STYLE.md` | Remotion + TypeScript, Python cue pipeline |
-| `Video-Agent-Kit/projects/jam-studio` | **ink-board**, same brief. Cream paper, roaming camera, one board that is never erased | Remotion + TypeScript, Python cue pipeline |
 | `~/Desktop/Mia-video/mia-remotion` | Microsoft-house product films cut to existing narration | Remotion |
 | `~/Desktop/rbuild-ai/Y2b-Animation-Video-Agent` | YouTube animation work, plus extracted reference frames | mixed |
 | `~/Desktop/rbuild-ai/video-studio` | Voice-first studio. Holds the rated TTS comparison | see below |
 | `~/Desktop/Scout-local/edit` | Multi-camera podcast edit: per-host recordings plus a screen capture, cut to one episode | Python + ffmpeg |
 | `Video-Agent-Kit/engine` | The kit's own Remotion sources for the `ailabs-explainer` style | Remotion |
 
-`~/Desktop/rbuild-ai/Prod-Tools/jam-studio` is referenced in older notes and is
-**not on disk**. The jam-studio work that does exist is `projects/jam-studio/`
-inside this kit. Do not follow the Prod-Tools path.
+### ink-board lives outside this kit
 
-### Two engines build ink-board. Pick one, do not write a third
-
-`ig-video-animations` and `projects/jam-studio` were built in parallel by two
-agents who could not see each other. They converged on the same architecture -
-narration is the clock, every mark hangs off a cue phrase from the transcript,
-never a timestamp - and even on the same filenames (`jam`, `pipeline/narrate.py`).
-Neither is a fork of the other. Ragnar has not yet chosen between them.
-
-Measured, 2026-08-30:
-
-| | `ig-video-animations` | `projects/jam-studio` |
-|---|---|---|
-| Finished episodes | 1 (Palantir, 146.7s) plus a pipeline test | 6 (63.2 to 96.8s), all verified |
-| Length | over the 3-minute target | all inside it |
-| Script forms | one | three compilers: versus, narrative, listicle |
-| Orientations | vertical | vertical and 1920x1080, same frame count |
-| Skills | 2 | 4 |
-| Topic backlog | none | 43, with duplicate detection |
-
-`jam-studio` covers more ground; the Palantir film is the longer and more
-ambitious single piece. Until Ragnar picks, add episodes to `jam-studio` and
-leave `ig-video-animations` alone - it is the reference the `ink-board-director`
-agent still points at.
+`ig-video-animations` is the reference the `ink-board-director` agent points at.
+It is not vendored here. Its architecture is the one worth copying if you build
+another: narration is the clock, and every mark hangs off a cue phrase from the
+transcript rather than a timestamp, so re-recording the voice moves the drawing
+with it.
 
 ## Skills
 
@@ -60,13 +39,10 @@ are links, but they are not the original.
 | Skill in the kit | Use it for |
 |---|---|
 | `skills/mia-video` | Mia product video work; also the `d365` style spec |
-| `skills/in-our-ai-era-video` | "In Our AI Era" animated explainers |
-| `skills/in-our-ai-era-visuals` | "In Our AI Era" stills and social cards |
 | `skills/podcast-multicam-edit` | speaker-driven shot selection, EDLs, revision passes |
 | `skills/ragnar-video-studio` | Ragnar Video Studio pipeline |
 | `skills/ragnar-youtube-engine` | YouTube channel workflow |
 | `skills/video-prompt` | prompting generative video models |
-| `skills/youtube-script` | script drafting for YouTube |
 
 Do not add a second real copy under a skills directory. That happened once
 with `mia-video` and produced two directories that could drift apart in
@@ -79,7 +55,7 @@ The `remotion-*` family (`remotion-create`, `captions`, `render`, `studio`,
 `best-practices`, `remotion-video-builder`) are upstream-maintained vendor
 skills, not ours. They stay in the skills directories so they can be updated
 from upstream without a merge against the kit. Same for the `lovart` image
-family and `youtube-notes`, which are used well beyond video.
+family, which is used well beyond video.
 
 ## Voice
 

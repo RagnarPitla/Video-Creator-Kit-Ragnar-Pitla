@@ -1,4 +1,4 @@
-# Dependencies - run `npm install` in engine/ or templates/ioae-episode/
+# Dependencies - run `npm install` in engine/
 node_modules/
 
 # Remotion build and render output - regenerate, never commit
@@ -27,8 +27,6 @@ skills/linkedin-Infographics/examples/
 # Worked examples that teach the pattern live in docs/ and projects/hack-2026-products/.
 projects/agent-self-verification/
 projects/hack-2026-agentworks/
-projects/jam-studio/episodes/*/audio/
-projects/jam-studio/episodes/*/out/
 
 # Local machine noise
 .DS_Store
@@ -41,4 +39,3 @@ __pycache__/
 
 # Own git repos - referenced in the README, not vendored here.
 # Embedding them would ship a gitlink that clones to an empty folder.
-projects/jam-studio/

@@ -16,12 +16,12 @@ cd engine && npm install
 Then, in Copilot CLI:
 
 ```
-make a 60 second vertical explainer about why agents report work complete when it isn't
+make a 90 second vision film cut to the narration I recorded
 ```
 
-The `jam-director` agent picks that up, researches the topic, writes narration in
-Ragnar's voice, boards the scenes, synthesises the voice, renders vertical, probes
-the stills, and hands back an mp4 with evidence it is correct.
+The `film-director` agent picks that up, reads the narration, plans the shot map,
+writes the scenes, probes stills before committing to a render, gates the output,
+and hands back the shot list for review.
 
 ## Requirements
 
@@ -33,9 +33,36 @@ the stills, and hands back an mp4 with evidence it is correct.
 | Python 3 | `shared/lib/verify/*.py` offset measurement | `python3 -V` |
 | ElevenLabs key (optional) | Synthesised narration. Without it, record your own | see `skills/elevenlabs-voice/` |
 
-`install.sh` is idempotent and refuses to overwrite an agent or skill you already
-have under the same name. `./install.sh --dry-run` shows the plan. `--uninstall`
-removes only the links it created.
+### macOS and Linux
+
+```bash
+./install.sh              # link agents and skills into ~/.copilot/
+./install.sh --dry-run    # show the plan, change nothing
+./install.sh --uninstall  # remove only the links it created
+```
+
+### Windows
+
+```powershell
+.\install.ps1 -Check      # verify the toolchain first, changes nothing
+.\install.ps1 -WithDeps   # install ffmpeg and Node LTS via winget, then link
+.\install.ps1 -Uninstall  # remove only what it installed
+```
+
+`-WithDeps` installs `Gyan.FFmpeg` and `OpenJS.NodeJS.LTS`, then refreshes PATH
+inside the running shell. Without that refresh, ffmpeg installs correctly and
+the very next command still reports it as missing.
+
+One Windows difference worth knowing before you hit it. Skills are folders and
+link as junctions, which need no privilege, so they always track `git pull`.
+Agents are single `.md` files, and a file symlink needs Developer Mode or an
+elevated shell. Without it they are **copied**, which works but means a later
+`git pull` will not update them until you re-run the script. The summary tells
+you which you got. Turn on Developer Mode under Settings > System > For
+developers to get links.
+
+Both installers are idempotent and refuse to overwrite an agent or skill you
+already have under the same name.
 
 ## How skills make the animation
 
@@ -47,22 +74,22 @@ software, and the skills are what stop each build starting from zero.
   topic
     |
     v
- [research]   jam-research / video-researcher
+ [research]   video-researcher
     |         measured claims with sources, contradictions flagged
     v
- [script]     jam-narration / video-scriptwriter / ryt-script / youtube-script
+ [script]     video-scriptwriter / ryt-script
     |         narration in a known voice, word budgets per beat
     v
  [voice]      elevenlabs-voice
     |         vo.wav, plus a word-level transcript
     v
- [board]      jam-visuals / in-our-ai-era-visuals / video-prompt
+ [board]      video-prompt / video-animator
     |         storyboard.json: one scene per beat, from a fixed scene vocabulary
     v
  [animate]    video-animator + shared/brand/<style>/theme.ts
     |         Remotion 4 React components. Deterministic: frame N is always frame N
     v
- [render]     jam-render / remotion-render / engine/
+ [render]     remotion-render / engine/
     |         mp4 at a known frame count
     v
  [verify]     shared/lib/verify/ + shared/lib/video-gates/
@@ -79,7 +106,7 @@ exports a theme object and a `useTheme()` hook. Components read the hook and nev
 raw hex. Asking for "the DOS look" resolves to a specific palette, type stack, scanline
 treatment and reveal timing, identically every run.
 
-**Scenes come from a fixed vocabulary.** `jam-visuals` boards against a closed set of
+**Scenes come from a fixed vocabulary.** The board is written against a closed set of
 scene types rather than inventing a new visual idea per beat. That is why episodes in
 a series look like each other.
 
@@ -98,18 +125,15 @@ An agent reading the skill does not rediscover them on your video.
 | Agent | Use it for |
 |---|---|
 | `film-director` | Microsoft-house-style vision films and sizzle reels cut to existing narration |
-| `jam-director` | Vertical AI explainers under three minutes, narrated, no presenter, for Instagram and LinkedIn |
 | `explainer-director` | Long-form tool explainers: mechanism-first teardowns of a repo, skill or tool |
 | `ink-board-director` | Vertical hand-drawn concept explainers, one tall board the camera roams |
 | `infographic-director` | Dense animated infographics, 1080x1350 looping GIFs, plus the post to publish them with |
-| `IOAE-Video-Agent` | The weekly "In Our AI Era" episode, raw recordings to finished cut with DOS chrome |
 | `podcast-editor` | Multi-camera podcast edits from separate per-host recordings |
 | `video-producer` | End-to-end pipeline control and stage gates across the other agents |
 | `video-researcher` | Source-grounded research packs and claim ledgers |
 | `video-scriptwriter` | Narration in Ragnar's voice, written from a verified claim ledger |
 | `video-animator` | Remotion 4 implementation from an approved storyboard |
 | `video-publisher` | Packaging verified renders for YouTube, LinkedIn, X and Shorts |
-| `youtube-notes-agent` | Batch YouTube links into structured Markdown notes, filed by channel |
 
 Agents call each other. `video-producer` is the one to ask when you do not know
 which of the others you want.
@@ -119,27 +143,33 @@ which of the others you want.
 | Skill | What it holds |
 |---|---|
 | `ragnar-video-studio` | Studio entry point. Routes "make a video" to the right pipeline |
-| `jam-research` | Topic research for Jam Studio episodes |
-| `jam-narration` | Jam Studio narration script, calibrated word budgets |
-| `jam-visuals` | Narration to `storyboard.json` using the fixed scene vocabulary |
-| `jam-render` | Script and board to a verified vertical mp4: align, build, render, probe |
-| `in-our-ai-era-video` | Episode videos in the 90s DOS house style |
-| `in-our-ai-era-visuals` | Lovart.ai prompts in the "In Our AI Era" brand |
-| `ioae-video-agent` | Weekly IOAE episode production |
 | `mia-video` | Microsoft-house explainer: white studio, Segoe UI, glass cards |
 | `podcast-multicam-edit` | Per-person recordings to one multi-camera cut |
 | `linkedin-Infographics` | Concept to animated LinkedIn-ready infographic GIF |
 | `video-prompt` | Video prompts in plain language and JSON, for Kling / Veo / Lovart |
-| `youtube-script` | Scripts in Ragnar's natural speaking voice |
 | `ryt-script` | Ragnar-Nate hybrid style: three numbered shifts, real examples |
 | `ragnar-youtube-engine` | Weekly channel planning, 4-5 ideas from current AI news |
-| `youtube-notes` | YouTube links to structured notes via yt-dlp transcripts |
 | `voice-dna` | Extract a writing voice from samples so drafts sound like the author |
 | `elevenlabs-voice` | Narration with a confirmed saved voice |
 | `remotion-best-practices` | Router into the Remotion skills |
 | `remotion-create` | Start a new Remotion video |
 | `remotion-render` | Export a Remotion video |
 | `remotion-captions` | Transcribe, display and animate captions |
+| `remotion-docs` | Search the official Remotion documentation |
+| `remotion-studio` | Drive the Remotion Studio preview |
+| `remotion-render` | Export a Remotion video |
+| `remotion-upgrade` | Move a project across Remotion major versions |
+| `remotion-video-builder` | Assemble a composition from an existing board |
+| `remotion-multimedia` | Audio, video embedding and synchronisation inside a composition |
+| `remotion-interactivity` | Player embedding and interactive compositions |
+| `remotion-markup` | Text, layout and typography inside Remotion |
+| `remotion-maps` | Animated maps and geographic motion |
+| `remotion-saas` | Server-side rendering and Lambda |
+| `rbuild-video-editor` | Deterministic script-driven editing engine |
+| `video-editing` | General ffmpeg editing operations |
+| `videodb` | Indexing and searching video by content |
+| `mia-Html` | Microsoft-style HTML reports and architecture documents |
+| `gemini-voice` | Narration through Gemini voices |
 
 `elevenlabs-voice` and the `remotion-*` skills are vendored copies of general skills
 that also exist outside this kit. The rest are maintained here.
@@ -149,7 +179,6 @@ that also exist outside this kit. The rest are maintained here.
 | Style | Look | Spec |
 |---|---|---|
 | `ailabs-explainer` | Near-black canvas, greyed skeleton UI, one terracotta accent, long continuous holds, screen recordings punched in hard | `references/ailabs-unlazy/TEARDOWN.md` |
-| `in-our-ai-era` | DOS-on-paper and black CRT, pixel type, scanlines, typewriter reveals | `shared/brand/in-our-ai-era/BRAND.md` |
 | `d365` | White studio space, Segoe UI, glass cards on layered shadows, threads of light | `skills/mia-video/SKILL.md` |
 | `ink-board` | Cream paper, ink boiled on fours, marker colour, a camera roaming one tall board never erased. Vertical | `shared/brand/ink-board/STYLE.md` |
 | `editorial-type` | Same palette, no handwriting. Anton and Inter, full-bleed cards, hard cuts on the narration | `shared/brand/editorial-type/STYLE.md` |
@@ -210,7 +239,6 @@ Read these before inventing a new approach. Each one solved something.
 |---|---|
 | `projects/agent-self-verification/` | `ailabs-explainer` episode, 4:40, on why agents report work complete when it is not. Every element pins to a cue id in `board/timing.json` rather than a timestamp, so re-recording the narration re-times the film with no board edits. `board/check_map.py` gates the frame map against the measured audio before anything renders |
 | `projects/project-mia/` | Vision film. 153.6s, 4608 frames, seventeen versions, cut frame-exactly to existing narration. Scene source and transcript only - narration audio, screen recordings and 2.3GB of renders stay out of the repo |
-| `projects/jam-studio/` | Vertical explainers about AI, under three minutes, six episodes at 63-97s. Length and topic selection calibrated against 195 mined jam.with.ai videos in `references/jam-with-ai/FINDINGS.md`. Any episode also cuts to 1920x1080 from the same board with `--orientation horizontal`, at an identical frame count. Has its own git repo, so it is referenced here rather than vendored |
 | `projects/hack-2026-products/` | Small, readable, good first read for how a project is laid out |
 
 ## What is not in the repo
@@ -222,7 +250,6 @@ after cloning.
 
 Two productions live in their own repos and are referenced, not vendored:
 `ig-video-animations` (the `ink-board` engine) and `agent-sprawl-reel`. So does
-`projects/jam-studio`, for the same reason.
 
 ## Conventions
 

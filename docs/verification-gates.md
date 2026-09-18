@@ -189,3 +189,65 @@ high" threshold.
 
 The reel says nothing about audio, duration or drift against narration. Those
 still need the full render and the gates above.
+
+## "It looks like the same video" is measurable
+
+A cut was re-animated, signed off as more animated, and the reaction was "I
+think we did the same video". Nobody could settle it because the only instrument
+was opinion.
+
+`engine/scripts/version-difference.mjs` gives you two numbers. Which one you
+want depends on the question, and they disagree.
+
+**Difference from another version.** `node version-difference.mjs new.mp4
+old.mp4` reports the mean per-pixel difference, 0-255.
+
+**Movement inside one file.** `node version-difference.mjs --self a.mp4 b.mp4`
+reports frame-to-frame change within each file.
+
+Use the second one for "is it more animated". A version can score well on the
+first by sitting at a constant camera offset, which differs enormously from its
+predecessor while still looking like the same video very slightly zoomed.
+Temporal activity cannot be faked that way: it only rises if the picture
+actually changes from frame to frame.
+
+Measured on four cuts of the same film:
+
+| cut | movement (mean) | typical frame (median) | frames under 1 |
+|---|---|---|---|
+| V22 | 0.74 | 0.18 | 80% |
+| V23 | 0.73 | 0.18 | 80% |
+| V25 "more animated" | 0.93 | 0.49 | 75% |
+| V26 transitions | 1.08 | 0.63 | 69% |
+
+Read the median, not the mean. The mean is dragged around by a handful of hard
+cuts that score near 59 in every version, including the ones nobody called
+animated. The median says the typical frame in V26 moves 3.5 times as much as in
+V23, which is the real improvement, and that 69% of frames are still effectively
+static, which is the real remaining limit.
+
+### Do not pick the frames yourself
+
+The first V26 measurement sampled 10 hand-chosen frames and reported 2.4x. The
+whole-film number was 1.1x. Six of those 10 frames were entrances and wipes,
+which is precisely where the new work had been done, so the sample was selected
+to contain the change.
+
+If you must sample, choose frames by a rule that is blind to your edit - every
+Nth frame, or frames chosen before the work started. Otherwise measure the whole
+file, which for a two-minute render takes a couple of minutes and removes the
+question.
+
+### Controls
+
+Both run automatically and the gate exits non-zero if either fails.
+
+- The reference against itself must read **0**. If it does not, the two files
+  are misaligned and every other number is noise.
+- The candidate against the reference must read **non-zero**. Without this, a
+  harness handed the same path twice reports a clean 0, and that reads as
+  agreement rather than as a broken measurement.
+
+Pass `--baseline` the version that was already rejected as too similar. It is
+the only threshold grounded in a real judgement rather than a guess, and the
+gate warns when you beat it by less than 1.5x.

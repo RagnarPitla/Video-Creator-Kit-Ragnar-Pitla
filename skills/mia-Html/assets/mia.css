@@ -1,0 +1,129 @@
+:root{
+  --bg:#ffffff; --panel:#f7f8fa; --ink:#1b1b1f; --dim:#5c5f66; --line:#e3e5e8;
+  --ms-blue:#0078D4; --ms-blue-soft:#eaf3fb; --ms-blue-ink:#004578;
+  --trust:#0078D4; --trust-fill:#e5f1fb;
+  --untrust:#D83B01; --untrust-fill:#fdeee7;
+  --cust:#107C10; --cust-fill:#e9f5e9;
+  --gate:#8661C5; --gate-fill:#f0eafa;
+  --high:#A4262C; --high-fill:#fdecec;
+  --med:#8A6100;  --med-fill:#fff8e6;
+  --svg-plane:#f4f5f7; --svg-planeline:#c9ccd1; --arrow:#6b6e76;
+  --shadow:0 1px 3px rgba(0,0,0,.07),0 6px 18px rgba(0,0,0,.05);
+}
+html[data-theme="dark"]{
+  --bg:#16181c; --panel:#1e2126; --ink:#e8eaed; --dim:#a3a8b0; --line:#33373d;
+  --ms-blue:#4CA5EE; --ms-blue-soft:#14293c; --ms-blue-ink:#cfe4f8;
+  --trust:#4CA5EE; --trust-fill:#15293b;
+  --untrust:#F0815A; --untrust-fill:#381d12;
+  --cust:#6BB700; --cust-fill:#1a2a12;
+  --gate:#B4A0E5; --gate-fill:#241d38;
+  --high:#F1707B; --high-fill:#3a1519;
+  --med:#E3B341;  --med-fill:#332a12;
+  --svg-plane:#1e2126; --svg-planeline:#454a52; --arrow:#8b9098;
+  --shadow:0 1px 3px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.65 "Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:34px 26px 90px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .name{font-size:13.5px;font-weight:600;letter-spacing:.2px;color:var(--dim)}
+.toggle{
+  display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  background:var(--panel);color:var(--ink);border:1px solid var(--line);
+  border-radius:20px;padding:7px 14px;font-size:13px;font-weight:600;
+  font-family:inherit;transition:border-color .15s;
+}
+.toggle:hover{border-color:var(--ms-blue)}
+header h1{font-size:31px;line-height:1.22;margin:0 0 10px;letter-spacing:-.5px;font-weight:650}
+.lede{font-size:17.5px;color:var(--dim);margin:0;max-width:76ch}
+.meta{color:var(--dim);font-size:12.5px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+
+h2{font-size:22px;margin:56px 0 6px;letter-spacing:-.25px;font-weight:650;padding-top:15px;border-top:1px solid var(--line)}
+h2 .n{color:var(--ms-blue);font-weight:700;margin-right:11px}
+h3{font-size:16px;margin:28px 0 6px;font-weight:650}
+p{margin:13px 0}
+ul{margin:12px 0;padding-left:22px} li{margin:6px 0}
+strong{font-weight:650}
+code{font-family:"Cascadia Code",Consolas,"SF Mono",Menlo,monospace;font-size:.87em;
+  background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+  /* Test names and scope URLs have no natural break opportunity, so they push the
+     page sideways on a phone. Break them mid-token rather than mid-layout. */
+  overflow-wrap:anywhere}
+td code,th code{background:transparent;border:none;padding:0}
+/* A bare <pre> keeps white-space:pre and no overflow rule, so one long code line
+   widens the whole document and fails the 375/768 overflow checks. */
+pre{background:var(--panel);border:1px solid var(--line);border-radius:6px;
+  padding:11px 13px;margin:14px 0;overflow-x:auto}
+pre code{background:transparent;border:none;padding:0;display:block;
+  white-space:pre-wrap;overflow-wrap:anywhere}
+
+figure{margin:26px 0 10px}
+figure svg{display:block;width:100%;height:auto;background:var(--bg);
+  border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+figcaption{color:var(--dim);font-size:13px;margin-top:11px;text-align:center}
+
+table{border-collapse:collapse;width:100%;margin:20px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--panel);font-weight:650}
+tbody tr:hover{background:var(--panel)}
+
+/* status pills */
+.pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.4px;
+  padding:2px 8px;border-radius:11px;white-space:nowrap;vertical-align:1px}
+.p-now{background:var(--cust-fill);color:var(--cust);border:1px solid var(--cust)}
+.p-target{background:var(--ms-blue-soft);color:var(--ms-blue-ink);border:1px solid var(--ms-blue)}
+html[data-theme="dark"] .p-target{color:var(--ms-blue)}
+.p-poc{background:var(--med-fill);color:var(--med);border:1px solid var(--med)}
+.p-gap{background:var(--high-fill);color:var(--high);border:1px solid var(--high)}
+h2 .pill{margin-left:10px;vertical-align:4px}
+
+.fid{font-family:"Cascadia Code",Consolas,monospace;font-weight:650;white-space:nowrap}
+.sev-h{color:var(--high);font-weight:650}
+.sev-m{color:var(--med);font-weight:650}
+.sev-l{color:var(--cust);font-weight:650}
+
+.note{border-left:3px solid var(--ms-blue);background:var(--ms-blue-soft);
+  padding:14px 18px;margin:22px 0;border-radius:0 8px 8px 0}
+.note>b{color:var(--ms-blue-ink);display:block;margin-bottom:4px}
+html[data-theme="dark"] .note>b{color:var(--ms-blue)}
+.note p{margin:6px 0 0} .note p:first-of-type{margin-top:0}
+.note.warn{border-left-color:var(--high);background:var(--high-fill)} .note.warn>b{color:var(--high)}
+.note.tm{border-left-color:var(--gate);background:var(--gate-fill)} .note.tm>b{color:var(--gate)}
+html[data-theme="dark"] .note.tm>b{color:var(--gate)}
+
+.toc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 24px;margin:28px 0 0}
+.toc ol{margin:0;padding-left:20px;columns:2;column-gap:36px;font-size:14.5px}
+.toc a{color:var(--ms-blue);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+/* SVG theming */
+.s-plane{fill:var(--svg-plane);stroke:var(--svg-planeline)}
+.s-trust{fill:var(--trust-fill);stroke:var(--trust)}
+.s-untrust{fill:var(--untrust-fill);stroke:var(--untrust)}
+.s-cust{fill:var(--cust-fill);stroke:var(--cust)}
+.s-gate{fill:var(--gate-fill);stroke:var(--gate)}
+.s-panel{fill:var(--panel);stroke:var(--line)}
+.t{fill:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+.td{fill:var(--dim);font-family:"Segoe UI",Arial,sans-serif}
+/* SVG text paints with fill, not color, so .sev-* alone is invisible here.
+   Must come after .t/.td and outrank them on specificity. See LM-035 in .ragnar/SAP-Agent/memory/landmines.md. */
+svg text.sev-h{fill:var(--high)}
+svg text.sev-m{fill:var(--med)}
+svg text.sev-l{fill:var(--cust)}
+.tm-x{fill:var(--dim);font-family:"Cascadia Code",Consolas,monospace}
+.lbl{font-size:13.5px;font-weight:650}
+.sm{font-size:11.5px} .xs{font-size:10.5px}
+.bnd{font-size:10.5px;font-weight:700;fill:var(--gate)}
+.arw{stroke:var(--arrow);fill:none;stroke-width:1.7}
+.arwd{stroke:var(--arrow);fill:none;stroke-width:1.7;stroke-dasharray:5 4}
+.life{stroke:var(--svg-planeline);stroke-width:1;stroke-dasharray:3 4}
+@media print{.toggle{display:none} body{background:#fff}}
+/* A wide table floors at its min-content width, so below roughly 760px it stops
+   shrinking and pushes the whole page sideways instead. Let it scroll inside its
+   own box. This is the one overflow that survives every other guard. */
+@media(max-width:760px){.toc ol{columns:1} table{display:block;overflow-x:auto}}

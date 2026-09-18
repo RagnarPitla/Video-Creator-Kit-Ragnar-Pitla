@@ -216,3 +216,66 @@ A tool that changes things is trivially "verified" by giving it something to
 change. Only the case where it must decline tells you it can tell the
 difference - and it exercises a different input, which is where the format
 assumption was hiding.
+
+## An arrival curve makes travel disappear
+
+A wipe was written to cross the frame over 26 frames and read on screen as a
+3-frame flicker. The transition was there, measured as present, and invisible.
+
+The cause was the easing curve, not the duration. `EASE.out` is
+`bezier(0.16, 1, 0.3, 1)`, which is chosen so arrivals decelerate hard. Applied
+to travel it front-loads everything:
+
+| local frame | `EASE.out` reveal | `EASE.drift` reveal |
+|---|---|---|
+| 1 | 13% | -25% |
+| 4 | 83% | -12% |
+| 7 | 110% | 26% |
+| 11 | 122% | 82% |
+| 15 | 125% | 112% |
+
+By frame 7 the `out` curve has already pushed the wipe edge past the far side of
+the frame. The remaining 19 frames render nothing.
+
+Arrival curves are right for something that lands: a card settling, a title
+arriving. For anything that has to cross the picture, use a near-linear curve
+with soft ends. The same mistake had already been made once in the same session
+on a 14-frame entrance that was over by frame 5, so it is easy to repeat.
+
+## A camera that ramps from identity does nothing for the first seconds
+
+A push from scale 1.000 to 1.115 sounds like an 11% move. Measured 36 frames
+into a 393 frame scene it is at 1.010, and that frame came out **closer** to the
+version being replaced than the rejected version had been: 2.13 against 8.26.
+
+Any ramp that starts at the identity transform is at the identity transform
+early in every scene, which is exactly where a long narration line sits. If the
+camera is there to make a version look different, start it already displaced -
+1.035 to 1.095 rather than 1.000 to 1.140 - so no frame of the scene shares the
+old framing.
+
+Cap the top end against composition, not against taste. At 1.140 the margin
+beside a content card fell from 168px to 60px, which crowds the frame without
+clipping it. 1.095 kept 97px and cost almost nothing in measured difference.
+
+## Hard cuts are the animation you have not used yet
+
+Asked to make a film more animated, two rounds went into layering motion on top
+of the picture. Both measured as barely different from the version being
+replaced.
+
+Reading the composition rather than watching it found the real gap: every scene
+and sub-shot was an adjacent `Sequence` with a hard cut between them, about 32
+of them in two and a half minutes, and not one was a transition. The film had 32
+opportunities to move and had taken none of them.
+
+Before adding a motion layer, count your cuts. A transition is structural - for
+part of its length the frame is genuinely not showing the scene - so it cannot
+be mistaken for the picture settling, which is what a scale-and-fade is always
+at risk of.
+
+One constraint shapes the design: a cross dissolve needs two scenes on screen at
+once, which means extending a `Sequence` past its window, which for a clip means
+asking for frames the footage does not have. A masked wipe happens entirely
+inside the incoming scene's own window, so the timing table is untouched and no
+clip is asked for anything extra.

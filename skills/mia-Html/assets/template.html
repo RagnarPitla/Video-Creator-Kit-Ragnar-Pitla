@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+/* Paste assets/mia.css here verbatim. Keep it inline: these pages are shared as
+   single files over Teams and email, and a linked stylesheet does not survive that. */
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- Topbar: Microsoft mark + theme toggle. Keep both. -->
+<div class="topbar">
+  <div class="brand">
+    <svg width="21" height="21" viewBox="0 0 21 21" aria-label="Microsoft">
+      <rect x="0" y="0" width="10" height="10" fill="#F25022"/>
+      <rect x="11" y="0" width="10" height="10" fill="#7FBA00"/>
+      <rect x="0" y="11" width="10" height="10" fill="#00A4EF"/>
+      <rect x="11" y="11" width="10" height="10" fill="#FFB900"/>
+    </svg>
+    <span class="name">Microsoft | {{PRODUCT}}</span>
+  </div>
+  <button class="toggle" id="themeBtn" type="button" aria-label="Switch theme">
+    <span id="themeIcon">&#9789;</span><span id="themeTxt">Dark</span>
+  </button>
+</div>
+
+<header>
+  <h1>{{H1}}</h1>
+  <p class="lede">{{Lede: one paragraph saying what this is and why it exists. State the point, not the topic.}}</p>
+  <p class="meta">{{AUDIENCE}} &middot; {{TEAM}} &middot; Read from {{SOURCE}}, {{YYYY-MM-DD}}</p>
+</header>
+
+<!-- Status legend. Include on any page where some claims are built and some are not. -->
+<div class="note">
+  <b>How to read the status labels</b>
+  <p><span class="pill p-now">RUNNING</span> deployed and exercised.
+  <span class="pill p-poc">POC ONLY</span> deliberate shortcut with a known reversal.
+  <span class="pill p-target">DESIGNED</span> agreed but not built.
+  <span class="pill p-gap">GAP</span> the doc and the code disagree.</p>
+</div>
+
+<div class="toc">
+<ol>
+  <li><a href="#s1">{{SECTION_1}}</a></li>
+  <li><a href="#s2">{{SECTION_2}}</a></li>
+</ol>
+</div>
+
+<h2 id="s1"><span class="n">1</span>{{SECTION_1}} <span class="pill p-now">RUNNING</span></h2>
+
+<p>{{Lead sentence stating the point of this section.}}</p>
+
+<figure>
+<svg viewBox="0 0 1120 400" role="img" aria-label="{{Describe the diagram for screen readers}}">
+  <defs>
+    <marker id="a1" markerWidth="9" markerHeight="9" refX="7.5" refY="3.2" orient="auto">
+      <path d="M0,0 L7.5,3.2 L0,6.4 z" fill="var(--arrow)"/></marker>
+  </defs>
+
+  <!-- Plane: dashed container for a tenant or an ownership boundary -->
+  <rect class="s-plane" x="20" y="56" width="640" height="300" rx="13"
+        stroke-width="1.6" stroke-dasharray="6 5"/>
+
+  <!-- Microsoft mark inside a plane, when that plane is ours -->
+  <g transform="translate(40,70)">
+    <rect x="0" y="0" width="8.5" height="8.5" fill="#F25022"/>
+    <rect x="9.5" y="0" width="8.5" height="8.5" fill="#7FBA00"/>
+    <rect x="0" y="9.5" width="8.5" height="8.5" fill="#00A4EF"/>
+    <rect x="9.5" y="9.5" width="8.5" height="8.5" fill="#FFB900"/>
+  </g>
+  <text class="t lbl" x="68" y="84">Microsoft infrastructure tenant</text>
+  <text class="td sm" x="68" y="101">{{SUBTITLE}}</text>
+
+  <!-- Node classes: s-trust s-untrust s-cust s-gate s-panel -->
+  <rect class="s-trust" x="44" y="126" width="250" height="142" rx="10" stroke-width="1.8"/>
+  <text class="t lbl" x="169" y="154" text-anchor="middle">{{NODE}}</text>
+  <text class="td xs" x="169" y="174" text-anchor="middle">{{ROLE}}</text>
+  <text class="td sm" x="169" y="198" text-anchor="middle">{{detail}}</text>
+
+  <path class="arw" d="M294,197 L380,197" marker-end="url(#a1)"/>
+  <text class="bnd" x="337" y="188" text-anchor="middle">b1</text>
+</svg>
+<figcaption>{{Caption: add something the diagram does not already say.}}</figcaption>
+</figure>
+
+<!-- Relevance callout: why this section matters to the reader's actual job -->
+<div class="note tm">
+  <b>Threat model relevance</b>
+  <p>{{What this section means for the reader's job.}} <span class="fid">T-01</span></p>
+</div>
+
+<!-- Contradiction callout: use whenever the doc and the code disagree -->
+<div class="note warn">
+  <b>{{What is wrong}} <span class="pill p-gap">GAP</span></b>
+  <p>{{The claim, then the evidence, then the consequence.}}</p>
+</div>
+
+<h2 id="s2"><span class="n">2</span>{{SECTION_2}} <span class="pill p-gap">GAP</span></h2>
+
+<table>
+  <tr><th style="width:9%">ID</th><th style="width:7%">Bnd</th><th style="width:16%">STRIDE</th><th>What it is</th></tr>
+  <tr><td class="fid sev-h">T-01</td><td>b2</td><td>Spoofing</td><td>{{FINDING}}</td></tr>
+</table>
+
+</div>
+
+<script>
+/* Paste assets/theme.js here verbatim. */
+</script>
+</body>
+</html>
