@@ -216,7 +216,6 @@ Full detail in `docs/verification-gates.md`.
 | `shared/lib/` | Cross-style tooling, mostly verification gates |
 | `engine/` | Remotion project rendering the `ailabs-explainer` library. `StyleProof` is the style regression reel |
 | `references/` | Measured teardowns of reference videos |
-| `templates/` | Episode starters |
 | `docs/` | Cross-cutting docs that apply to every style |
 | `projects/` | Productions |
 
