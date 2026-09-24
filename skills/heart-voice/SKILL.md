@@ -53,8 +53,8 @@ generation; do not send the script to a hosted synthesizer.
 
 Heart stays the default. If the user names a different speaker or a language other
 than English, set `HEART_VOICE` to one of the 54 Kokoro presets; the voice name
-carries its own language, so nothing else changes. `heart-voice voices` lists them,
-and `~/Desktop/kokoro-voice-demos/` holds a one-line audition of every one.
+carries its own language, so nothing else changes. `heart-voice voices` lists them.
+Setup caches only `af_heart`, so the first run of any other preset downloads it.
 
 This is not permission to switch voices on your own. A different preset needs an
 explicit request, same as any other narrator change.
