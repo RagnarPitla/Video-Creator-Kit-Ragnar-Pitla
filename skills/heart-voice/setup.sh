@@ -35,7 +35,17 @@ HUB="${HF_HUB_CACHE:-${HF_HOME:-$HOME/.cache/huggingface}/hub}"
 MODEL="$HUB/models--hexgrad--Kokoro-82M"
 SNAP="$MODEL/snapshots/$REVISION"
 
-sha () { shasum -a 256 "$1" | cut -d' ' -f1; }
+# coreutils ships sha256sum and is on every Linux; macOS ships shasum and not
+# sha256sum. Checking for both keeps a minimal container from failing here with
+# "shasum: command not found" on an install that would otherwise have worked.
+if command -v sha256sum >/dev/null 2>&1; then
+  sha () { sha256sum "$1" | cut -d' ' -f1; }
+elif command -v shasum >/dev/null 2>&1; then
+  sha () { shasum -a 256 "$1" | cut -d' ' -f1; }
+else
+  echo "setup: needs sha256sum or shasum to verify downloads" >&2
+  exit 1
+fi
 
 # Install a file into the blob store under its own hash and link it into the
 # snapshot, which is the layout huggingface_hub expects to find offline.

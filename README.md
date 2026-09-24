@@ -65,6 +65,11 @@ developers to get links.
 Both installers are idempotent and refuse to overwrite an agent or skill you
 already have under the same name.
 
+The narration voice is the one piece that is not native Windows. `heart-voice`
+builds a POSIX virtualenv and needs bash plus Python 3.11 or 3.12, so run
+`bash skills/heart-voice/setup.sh` under WSL. Everything else on this page,
+including the whole render and gate path, runs in PowerShell.
+
 ## How skills make the animation
 
 This is the part that surprises people. No agent writes animation from
