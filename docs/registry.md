@@ -61,8 +61,15 @@ family, which is used well beyond video.
 
 Start here rather than picking a TTS at random.
 
+**Default: Kokoro `af_heart`, via `skills/heart-voice/`.** Local, free, no API key,
+and the voice preset is committed at a pinned SHA256 so a checkout cannot silently
+substitute a different one. Install with `bash skills/heart-voice/setup.sh`; it
+downloads the 327 MB weights and verifies them. Anything below is an alternative
+that needs an explicit request.
+
 | Path | What |
 |---|---|
+| `skills/heart-voice/` | **Default.** Kokoro `af_heart`, offline. 54 presets available via `HEART_VOICE` |
 | `~/Desktop/rbuild-ai/video-studio/voice-samples/` | ~20 rendered samples across **kokoro, aura2, grok, flux, voxtral, sesame**, with `results.json` holding the ratings |
 | `~/Desktop/rbuild-ai/voice-lab` | chatterbox TTS |
 | `~/Desktop/rbuild-ai/vibevoice` | VibeVoice |

@@ -1,0 +1,14 @@
+# Kokoro narration assets are verified by SHA256 in skills/heart-voice/setup.sh.
+# Line-ending translation changes their bytes, the hash check then refuses to
+# install, and the failure reads as a corrupt download rather than a checkout
+# artefact. These paths must never be normalised.
+skills/heart-voice/voice/af_heart.pt   binary
+skills/heart-voice/voice/config.json   -text
+
+# Executed by bash. CRLF here makes the shell fail on the shebang line.
+*.sh                                   text eol=lf
+skills/heart-voice/scripts/heart-voice text eol=lf
+
+# Narration audio and model presets.
+*.wav                                  binary
+*.pt                                   binary

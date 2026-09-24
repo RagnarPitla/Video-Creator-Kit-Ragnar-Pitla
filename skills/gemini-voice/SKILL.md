@@ -1,6 +1,6 @@
 ---
 name: gemini-voice
-description: Synthesise speech with the Gemini TTS API using Ragnar's own key, from any directory. Use when a video, reel or demo needs a narration track, when a script needs auditioning in several voices before committing, when a local TTS model is too slow or unavailable, or when a narration file needs per-beat timings to cut visuals against. Also use when Gemini TTS has already returned audio and it needs checking, because it truncates silently and returns valid audio of a shorter script.
+description: Synthesise speech with the Gemini TTS API using Ragnar's own key, from any directory. Use when the user explicitly asks for Gemini, when a script needs auditioning in several voices before committing, or when the local Heart voice is unavailable and the user has accepted a hosted substitute. Also use when Gemini TTS has already returned audio and it needs checking, because it truncates silently and returns valid audio of a shorter script. Do not use for default narration; heart-voice is the default narrator.
 verified_on: 2026-09-04
 provenance: "Building the narration for the agent-sprawl reel, where the first Gemini take returned 11 words of a 26-word paragraph, reported no error, and would have shipped."
 ---

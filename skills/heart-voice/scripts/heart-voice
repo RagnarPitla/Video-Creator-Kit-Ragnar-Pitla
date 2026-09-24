@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+# heart-voice: local narration with Kokoro af_heart. No API key, no network at
+# synthesis time, no per-word cost.
+#
+#   heart-voice doctor                     check or build the environment
+#   heart-voice say "text" out.wav         one line
+#   heart-voice script in.json outdir/     a whole narration
+#   heart-voice voices                     all 54 voices, 9 languages
+#
+# Pick a different voice with HEART_VOICE=bm_george (see `heart-voice voices`).
+#
+# The script form takes {"segments":[{"id":"s1","text":"..."}]} and writes
+# <outdir>/<id>-v001.wav plus a manifest carrying the measured duration of
+# each file, because a cut built from estimated durations drifts from its
+# voice and a cut built from measured ones cannot.
+set -euo pipefail
+
+ROOT="${HEART_VOICE_HOME:-$HOME/.local/share/heart-voice}"
+VENV="$ROOT/venv"
+PY="$VENV/bin/python"
+VOICE="${HEART_VOICE:-af_heart}"
+
+# $0 is usually the ~/.local/bin symlink, so dirname alone finds the wrong
+# directory and _kokoro.py never imports. Resolve the link first.
+SELF="$0"
+while [ -L "$SELF" ]; do
+  link="$(readlink "$SELF")"
+  case "$link" in /*) SELF="$link" ;; *) SELF="$(dirname "$SELF")/$link" ;; esac
+done
+export PYTHONPATH="$(cd "$(dirname "$SELF")" && pwd)${PYTHONPATH:+:$PYTHONPATH}"
+
+# Kokoro depends on spacy, whose blis wheel does not build on Python 3.14.
+# Picking an interpreter it can actually install against is the difference
+# between this working and a Cython compile error.
+pick_python () {
+  for c in python3.12 python3.11 /opt/homebrew/bin/python3.12 /opt/homebrew/bin/python3.11; do
+    if command -v "$c" >/dev/null 2>&1; then echo "$c"; return; fi
+  done
+  echo ""
+}
+
+ensure () {
+  if [ -x "$PY" ] && "$PY" -c "import kokoro, soundfile" >/dev/null 2>&1; then return; fi
+  local base; base="$(pick_python)"
+  if [ -z "$base" ]; then
+    echo "heart-voice: needs python3.11 or 3.12 (kokoro cannot build on 3.14)." >&2
+    echo "  brew install python@3.12" >&2
+    exit 1
+  fi
+  echo "heart-voice: building environment with $base (one time, a few minutes)"
+  mkdir -p "$ROOT"
+  rm -rf "$VENV"
+  "$base" -m venv "$VENV"
+  "$PY" -m pip install -q --disable-pip-version-check kokoro soundfile "misaki[en]"
+  "$PY" -c "import kokoro" || { echo "heart-voice: install failed" >&2; exit 1; }
+}
+
+case "${1:-}" in
+  doctor)
+    ensure
+    echo "python : $("$PY" -V 2>&1)"
+    echo "voice  : $VOICE"
+    echo "home   : $ROOT"
+    VOICE="$VOICE" "$PY" - <<'EOF'
+import os
+from _kokoro import pipeline, synth, lang_name
+voice = os.environ["VOICE"]
+print(f"lang   : {lang_name(voice)}")
+audio, peak = synth(pipeline(voice), "Heart voice is ready.", voice)
+# Exit status cannot tell a silent file from a spoken one, so assert signal.
+print(f"probe  : {len(audio)/24000:.2f}s, peak {peak:.3f}")
+EOF
+    echo "status : ok"
+    ;;
+  say)
+    ensure
+    text="${2:?usage: heart-voice say \"text\" out.wav}"
+    out="${3:?usage: heart-voice say \"text\" out.wav}"
+    TEXT="$text" OUT="$out" VOICE="$VOICE" "$PY" - <<'EOF'
+import os, soundfile as sf
+from _kokoro import pipeline, synth
+voice = os.environ["VOICE"]
+audio, _ = synth(pipeline(voice), os.environ["TEXT"], voice)
+sf.write(os.environ["OUT"], audio, 24000)
+print(f"{os.environ['OUT']}  {len(audio)/24000:.2f}s")
+EOF
+    ;;
+  script)
+    ensure
+    src="${2:?usage: heart-voice script in.json outdir/}"
+    dst="${3:?usage: heart-voice script in.json outdir/}"
+    mkdir -p "$dst"
+    SRC="$src" DST="$dst" VOICE="$VOICE" "$PY" - <<'EOF'
+import json, os, soundfile as sf
+from _kokoro import pipeline, synth
+src, dst, voice = os.environ["SRC"], os.environ["DST"], os.environ["VOICE"]
+segs = json.load(open(src))["segments"]
+p = pipeline(voice)
+man, total = [], 0.0
+for s in segs:
+    a, peak = synth(p, s["text"], voice)
+    path = os.path.join(dst, f"{s['id']}-v001.wav")
+    sf.write(path, a, 24000)
+    secs = len(a) / 24000
+    total += secs
+    man.append({"id": s["id"], "wav": path, "seconds": round(secs, 3),
+                "peak": round(peak, 4), "words": len(s["text"].split()),
+                "wpm": round(len(s["text"].split()) / (secs / 60), 1)})
+    print(f"  {s['id']}  {secs:6.2f}s  peak {peak:.3f}  {man[-1]['wpm']:.0f} wpm")
+json.dump({"voice": voice, "sample_rate": 24000, "segments": man,
+           "speech_seconds": round(total, 2)},
+          open(os.path.join(dst, "manifest.json"), "w"), indent=1)
+print(f"\nspeech {total:.2f}s  ->  {os.path.join(dst,'manifest.json')}")
+EOF
+    ;;
+  voices)
+    ensure
+    "$PY" -c "from _kokoro import catalogue; print(catalogue())"
+    ;;
+  *)
+    sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'
+    exit 1
+    ;;
+esac

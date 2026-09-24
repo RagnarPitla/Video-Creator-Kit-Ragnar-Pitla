@@ -31,7 +31,8 @@ and hands back the shot list for review.
 | Node 18+ | Remotion render engine | `node -v` |
 | ffmpeg / ffprobe | Every verification gate shells out to it | `ffmpeg -version` |
 | Python 3 | `shared/lib/verify/*.py` offset measurement | `python3 -V` |
-| ElevenLabs key (optional) | Synthesised narration. Without it, record your own | see `skills/elevenlabs-voice/` |
+| Kokoro `af_heart` | Default narration voice. Local, free, no key | `bash skills/heart-voice/setup.sh` |
+| ElevenLabs key (optional) | Only for narration in your own saved voice | see `skills/elevenlabs-voice/` |
 
 ### macOS and Linux
 
@@ -80,7 +81,7 @@ software, and the skills are what stop each build starting from zero.
  [script]     video-scriptwriter / ryt-script
     |         narration in a known voice, word budgets per beat
     v
- [voice]      elevenlabs-voice
+ [voice]      heart-voice (default), elevenlabs-voice on request
     |         vo.wav, plus a word-level transcript
     v
  [board]      video-prompt / video-animator
@@ -150,6 +151,7 @@ which of the others you want.
 | `ryt-script` | Ragnar-Nate hybrid style: three numbered shifts, real examples |
 | `ragnar-youtube-engine` | Weekly channel planning, 4-5 ideas from current AI news |
 | `voice-dna` | Extract a writing voice from samples so drafts sound like the author |
+| `heart-voice` | **Default narrator.** Local Kokoro `af_heart`, no key, no cost |
 | `elevenlabs-voice` | Narration with a confirmed saved voice |
 | `remotion-best-practices` | Router into the Remotion skills |
 | `remotion-create` | Start a new Remotion video |
@@ -169,10 +171,10 @@ which of the others you want.
 | `video-editing` | General ffmpeg editing operations |
 | `videodb` | Indexing and searching video by content |
 | `mia-Html` | Microsoft-style HTML reports and architecture documents |
-| `gemini-voice` | Narration through Gemini voices |
+| `gemini-voice` | Narration through Gemini voices, on explicit request |
 
-`elevenlabs-voice` and the `remotion-*` skills are vendored copies of general skills
-that also exist outside this kit. The rest are maintained here.
+`heart-voice`, `elevenlabs-voice` and the `remotion-*` skills are vendored copies of
+general skills that also exist outside this kit. The rest are maintained here.
 
 ## Styles
 
