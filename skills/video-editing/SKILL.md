@@ -265,7 +265,7 @@ reframed = video.reframe(start=0, end=60, target="vertical", mode=ReframeMode.sm
 
 ```bash
 # Detect scene changes (threshold 0.3 = moderate sensitivity)
-ffmpeg -i input.mp4 -vf "select='gt(scene,0.3)',showinfo" -vsync vfr -f null - 2>&1 | grep showinfo
+ffmpeg -i input.mp4 -vf "select='gt(scene,0.3)',showinfo" -fps_mode vfr -f null - 2>&1 | grep showinfo
 ```
 
 ### Silence detection for auto-cut

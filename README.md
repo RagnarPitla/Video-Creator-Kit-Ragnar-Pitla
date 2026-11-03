@@ -7,8 +7,8 @@ already knows the house style and the ways this pipeline has broken before.
 Built for GitHub Copilot CLI. Clone it, run `./install.sh`, ask for a video.
 
 ```bash
-git clone https://github.com/RagnarPitla/Video-Creator-Kit.git
-cd Video-Creator-Kit
+git clone https://github.com/RagnarPitla/Video-Creator-Kit-Ragnar-Pitla.git
+cd Video-Creator-Kit-Ragnar-Pitla
 ./install.sh
 cd engine && npm install
 ```
@@ -29,7 +29,7 @@ and hands back the shot list for review.
 |---|---|---|
 | GitHub Copilot CLI | Runs the agents | `copilot --version` |
 | Node 18+ | Remotion render engine | `node -v` |
-| ffmpeg / ffprobe | Every verification gate shells out to it | `ffmpeg -version` |
+| ffmpeg / ffprobe (macOS: `ffmpeg-full`) | Encoding, subtitles, and verification gates | `ffmpeg -version` |
 | Python 3 | `shared/lib/verify/*.py` offset measurement | `python3 -V` |
 | Kokoro `af_heart` | Default narration voice. Local, free, no key | `bash skills/heart-voice/setup.sh` |
 | ElevenLabs key (optional) | Only for narration in your own saved voice | see `skills/elevenlabs-voice/` |
@@ -41,6 +41,45 @@ and hands back the shot list for review.
 ./install.sh --dry-run    # show the plan, change nothing
 ./install.sh --uninstall  # remove only the links it created
 ```
+
+The installer links agents and skills; it does not install their runtimes.
+On macOS, the full FFmpeg build is needed for subtitle burn-in and the
+`drawtext` labels on verification contact sheets. Python 3.12 is needed for
+Kokoro even when a newer system Python is already installed.
+
+```bash
+brew install ffmpeg-full python@3.12
+export PATH="$(brew --prefix ffmpeg-full)/bin:$PATH"
+npm --prefix engine ci --include=optional
+(cd engine && npx --no-install remotion browser ensure)
+bash skills/heart-voice/setup.sh
+```
+
+Persist the FFmpeg PATH entry in your shell configuration, or unlink the regular
+`ffmpeg` formula and run `brew link --force ffmpeg-full` to make the full build
+the Homebrew default. The verification tools use `-fps_mode`, which works with
+FFmpeg 8 and 9; the old `-vsync` option was removed in FFmpeg 9.
+
+For the infographic/GIF helpers and image/audio utilities:
+
+```bash
+brew install imagemagick sox
+brew install --cask google-chrome
+npm install --no-save --package-lock=false sharp playwright
+```
+
+Apple Silicon transcription uses an isolated Python environment. Install `uv`
+with `brew install uv` if it is not already available, then:
+
+```bash
+uv tool install --python python3.12 --with pillow mlx-whisper
+mlx_whisper recording.wav --model mlx-community/whisper-small.en-mlx --output-format srt
+```
+
+The model downloads on first use. Run the podcast Python helpers with
+`"$(uv tool dir)/mlx-whisper/bin/python"` so they use the same environment.
+On an organization-managed Mac, pass the approved Python feed to `uv` with
+`--default-index`; `uv` does not read `pip.conf`.
 
 ### Windows
 

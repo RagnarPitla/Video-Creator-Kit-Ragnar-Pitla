@@ -129,7 +129,7 @@ const res = spawnSync(
 		'-i', file,
 		'-an',
 		'-vf', `${sel}signalstats,metadata=mode=print:file=${statsFile}`,
-		'-vsync', '0',
+		'-fps_mode', 'passthrough',
 		'-f', 'null', '-',
 	],
 	{encoding: 'utf8', maxBuffer: 32 * 1024 * 1024},

@@ -30,6 +30,7 @@ projects/hack-2026-agentworks/
 
 # Local machine noise
 .DS_Store
+.fridge/
 *.log
 .env
 .env.*

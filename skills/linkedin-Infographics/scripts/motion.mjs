@@ -28,7 +28,7 @@ const SCALE = 0.5;
 export async function analyse(gif, tmp, { scale = SCALE } = {}) {
   fs.rmSync(tmp, { recursive: true, force: true });
   fs.mkdirSync(tmp, { recursive: true });
-  execFileSync('ffmpeg', ['-v', 'error', '-i', gif, '-vsync', '0', path.join(tmp, '%04d.png')]);
+  execFileSync('ffmpeg', ['-v', 'error', '-i', gif, '-fps_mode', 'passthrough', path.join(tmp, '%04d.png')]);
   const files = fs.readdirSync(tmp).filter(f => f.endsWith('.png')).sort();
   if (files.length < 2) return null;
 
